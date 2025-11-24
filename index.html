@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thabza Phenomenal</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <style>
+        /* RESET */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #0d0d0d;
+            color: #eaeaea;
+            overflow-x: hidden;
+        }
+
+        /* PREMIUM GOLD */
+        :root {
+            --gold: #d4a144;
+            --gold-light: #f0c674;
+            --dark: #0d0d0d;
+            --card-bg: #111;
+        }
+
+        /* HEADER */
+        header {
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 18px 40px;
+            background: rgba(20, 20, 20, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--gold);
+        }
+
+        /* NAV BASE */
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 34px;
+            align-items: center;
+        }
+
+        nav ul li a {
+            position: relative;
+            text-decoration: none;
+            color: #eaeaea;
+            font-weight: 600;
+            font-size: 1.05rem;
+            padding: 6px 0;
+            transition: 0.35s ease;
+        }
+
+        nav ul li a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -3px;
+            width: 0%;
+            height: 2px;
+            background: var(--gold);
+            transition: 0.35s;
+            border-radius: 50px;
+        }
+
+        nav ul li a:hover {
+            color: var(--gold);
+            text-shadow: 0 0 12px rgba(212, 161, 68, 0.55);
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        nav ul li a.active {
+            color: var(--gold);
+        }
+
+        nav ul li a.active::after {
+            width: 100%;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown .dropbtn {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .dropdown-content {
+            position: absolute;
+            top: 42px;
+            left: 0;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(10px);
+            min-width: 190px;
+            display: flex;
+            flex-direction: column;
+            padding: 12px 0;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: 0.35s ease;
+        }
+
+        .dropdown-content li a {
+            padding: 10px 18px;
+            color: #ddd;
+            font-weight: 500;
+        }
+
+        .dropdown-content li a:hover {
+            background: rgba(212, 161, 68, 0.12);
+            color: var(--gold);
+        }
+
+        .dropdown.show .dropdown-content {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0px);
+        }
+
+        /* MOBILE */
+        .menu-toggle {
+            display: none;
+        }
+
+        @media(max-width:900px) {
+
+            /* Hamburger button */
+            .menu-toggle {
+                display: block;
+                position: fixed;
+                top: 20px;
+                right: 25px;
+                color: var(--gold);
+                font-size: 2rem;
+                z-index: 10001;
+                cursor: pointer;
+            }
+
+            /* Mobile menu */
+            nav ul {
+                position: fixed;
+                top: 0;
+                right: -300px;
+                flex-direction: column;
+                gap: 20px;
+                background: #111;
+                color: var(--gold);
+                width: 280px;
+                height: 100%;
+                padding: 80px 25px 40px 25px;
+                transition: 0.35s ease;
+                box-shadow: -4px 0 25px rgba(0, 0, 0, 0.25);
+                z-index: 9999;
+                overflow-y: auto;
+            }
+
+            nav ul.show-menu {
+                right: 0;
+            }
+
+            nav ul li a {
+                font-size: 1.2rem;
+                color: var(--gold);
+            }
+
+            nav ul li a:hover {
+                color: var(--gold-light);
+                text-shadow: 0 0 8px rgba(212, 161, 68, 0.4);
+            }
+
+            /* Dropdown adjustments */
+            .dropdown-content {
+                display: none;
+                flex-direction: column;
+                padding-left: 15px;
+                margin-top: 5px;
+            }
+
+            .dropdown.show .dropdown-content {
+                display: flex;
+            }
+
+            .dropdown-content li a {
+                padding: 12px 0;
+                font-size: 1rem;
+                color: var(--gold);
+            }
+
+            .dropdown-content li a:hover {
+                color: var(--gold-light);
+                text-shadow: 0 0 8px rgba(212, 161, 68, 0.4);
+            }
+
+            /* HERO responsiveness */
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .btn {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+
+            /* Section spacing for mobile */
+            .section {
+                padding: 60px 15px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 35px;
+            }
+
+            /* Feature card spacing for mobile */
+            .feature-card {
+                padding: 25px;
+            }
+
+            .feature-card h4 {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* HERO */
+        .hero {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.6)),
+                url('https://images.unsplash.com/photo-1522199755839-a2bacb67c546?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--gold);
+            margin-bottom: 15px;
+            text-shadow: 0 4px 18px rgba(0, 0, 0, 0.7);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: auto;
+            margin-bottom: 30px;
+            color: #f5f5f5;
+        }
+
+        .btn {
+            padding: 14px 35px;
+            border-radius: 50px;
+            background: var(--gold);
+            color: #111;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(212, 161, 68, 0.4);
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: var(--gold-light);
+            box-shadow: 0 6px 25px rgba(212, 161, 68, 0.6);
+            transform: translateY(-3px);
+        }
+
+        /* SECTION */
+        .section {
+            padding: 90px 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--gold);
+            margin-bottom: 50px;
+        }
+
+        /* FEATURES */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 35px;
+        }
+
+        .feature-card {
+            padding: 40px;
+            background: var(--card-bg);
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+        }
+
+        .feature-card i {
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+
+        .feature-card h4 {
+            color: var(--gold);
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        /* PREMIUM FOOTER */
+        .footer {
+            background: #0d0d0d;
+            padding-top: 70px;
+            border-top: 3px solid #d4a144;
+            margin-top: 80px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            padding: 0 20px 40px;
+        }
+
+        .footer-section h3,
+        .footer-section h4 {
+            color: #d4a144;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .footer-section p {
+            color: #cccccc;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: #cccccc;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .footer-section a i {
+            margin-right: 8px;
+            color: #d4a144;
+            transition: 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #d4a144;
+            padding-left: 6px;
+        }
+
+        .footer-socials {
+            text-align: center;
+            padding: 20px 0 30px;
+        }
+
+        .footer-socials a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 48px;
+            height: 48px;
+            border: 2px solid #d4a144;
+            border-radius: 50%;
+            margin: 0 10px;
+            color: #d4a144;
+            font-size: 1.2rem;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .footer-socials a:hover {
+            background: #d4a144;
+            color: #111;
+            transform: translateY(-4px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 18px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #999;
+            font-size: 0.95rem;
+        }
+
+
+        .bottom-bar {
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+        }
+
+        /* WHATSAPP */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #25d366;
+            color: white;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            transition: 0.3s;
+            z-index: 999;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+
+        /* BACK TO TOP */
+        #topBtn {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            background: var(--gold);
+            color: #111;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1.4rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+            display: none;
+            z-index: 999;
+        }
+
+        /* MODAL */
+        .modal {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .modal-box {
+            background: #1a1a1a;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-box h3 {
+            color: var(--gold);
+        }
+
+        .modal-box input,
+        .modal-box textarea {
+            background: #111;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .modal-box button {
+            background: var(--gold);
+            color: #111;
+        }
+    </style>
+
+</head>
+
+<body class="network-bg">
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo-text">
+            <a href="index.html">
+                <img src="logo.png" alt="Thabza Phenomenal Logo" style="height:50px;">
+            </a>
+        </div>
+
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <nav>
+            <ul id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li class="dropdown">
+                    <a class="dropbtn" onclick="toggleDropdown(event)">Other Services ▼</a>
+                    <ul class="dropdown-content">
+                        <li><a href="driving.html">Driving School</a></li>
+                        <li><a href="printing.html">Printing</a></li>
+                        <li><a href="photography.html">Photography</a></li>
+                        <li><a href="webdesign.html">Web Design</a></li>
+                        <li><a href="consultation.html">Consultation</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+        <div>
+            <h1>Premium. Professional. Phenomenal.</h1>
+            <p>Your trusted partner for branding, printing, PPE, company solutions & creative services.</p>
+            <a onclick="openModal()" class="btn">Request a Quote</a>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="section" id="features">
+        <h2 class="section-title">Why Choose Us</h2>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <i class="fa-solid fa-ranking-star"></i>
+                <h4>Premium Quality</h4>
+                <p>We deliver top-tier services designed to elevate your business and brand identity.</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fa-solid fa-users"></i>
+                <h4>Professional Team</h4>
+                <p>Highly skilled, experienced and dedicated to delivering only the best.</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fa-solid fa-stopwatch"></i>
+                <h4>Fast Turnaround</h4>
+                <p>We ensure that your project is completed quickly without losing quality.</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fa-solid fa-handshake-angle"></i>
+                <h4>Reliable Partner</h4>
+                <p>We work closely with you to ensure a smooth and phenomenal experience.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+
+            <div class="footer-section">
+                <h3>Thabza Phenomenal</h3>
+                <p>Your trusted partner in branding, printing, PPE and business development.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Services</h4>
+                <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> Branding & Printing</a>
+                <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> Graphic Design</a>
+                <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> PPE Supply</a>
+                <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> Catering</a>
+            </div>
+
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="#home"><i class="fa-solid fa-link"></i> Home</a>
+                <a href="#features"><i class="fa-solid fa-link"></i> Why Us</a>
+                <a href="#contact"><i class="fa-solid fa-link"></i> Contact</a>
+            </div>
+
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p><i class="fa-solid fa-phone"></i> +27 72 614 2430</p>
+                <p><i class="fa-solid fa-envelope"></i> admin@thabzaphenomenal.co.za</p>
+                <p><i class="fa-solid fa-location-dot"></i> South Africa</p>
+            </div>
+
+        </div>
+
+        <div class="footer-socials">
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+
+        <div class="footer-bottom">
+            © 2025 Thabza Phenomenal. All Rights Reserved.
+        </div>
+    </footer>
+
+
+    <!-- FLOATING WHATSAPP -->
+    <a href="https://wa.me/27726142430" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- BACK TO TOP -->
+    <div id="topBtn" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById("nav-links").classList.toggle("show-menu");
+        }
+
+        function toggleDropdown(event) {
+            event.stopPropagation();
+            const dropdown = event.target.closest(".dropdown");
+            dropdown.classList.toggle("show");
+        }
+
+        document.addEventListener("click", () => {
+            document.querySelectorAll(".dropdown").forEach(d => d.classList.remove("show"));
+        });
+
+
+        function toggleDropdown(event) {
+            event.stopPropagation();
+            const dropdown = event.target.closest(".dropdown");
+            dropdown.classList.toggle("show");
+        }
+
+        document.addEventListener("click", () => {
+            document.querySelectorAll(".dropdown").forEach(d => d.classList.remove("show"));
+        });
+
+
+        /* MODAL */
+        function openModal() {
+            document.getElementById("modal").classList.add("show");
+        }
+        window.onclick = function (e) {
+            if (e.target == document.getElementById("modal")) {
+                document.getElementById("modal").classList.remove("show");
+            }
+        }
+
+        /* BACK TO TOP BUTTON */
+        window.onscroll = function () {
+            if (document.documentElement.scrollTop > 200) {
+                document.getElementById("topBtn").style.display = "flex";
+            } else {
+                document.getElementById("topBtn").style.display = "none";
+            }
+        }
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+    </script>
+
+</body>
+
+</html>
