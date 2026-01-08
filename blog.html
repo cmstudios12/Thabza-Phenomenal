@@ -1,546 +1,923 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Thabza Phenomenal | Blog</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thabza Phenomenal | Blog</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-    <style>
-        /* RESET */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+  <style>
+    /* RESET */
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+    html { scroll-behavior:smooth; }
+    body { background:#0d0d0d; color:#eaeaea; overflow-x:hidden; }
 
-        body {
-            background: #0d0d0d;
-            color: #eaeaea;
-            overflow-x: hidden;
-        }
+    :root{
+      --gold:#d4a144;
+      --gold-light:#f0c674;
+      --card:rgba(255,255,255,.03);
+      --text:#eaeaea;
+      --muted:#bfbfbf;
+      --border:rgba(255,255,255,.10);
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --header-h:76px;
+    }
 
-        :root {
-            --gold: #d4a144;
-            --gold-light: #f0c674;
-            --dark: #0d0d0d;
-            --card-bg: #111;
-        }
+    /* ACCESSIBILITY */
+    .sr-only{
+      position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden;
+      clip:rect(0,0,0,0); white-space:nowrap; border:0;
+    }
+    a:focus-visible, button:focus-visible{
+      outline:2px solid var(--gold);
+      outline-offset:3px;
+      border-radius:12px;
+    }
 
-        /* HEADER */
-        header {
-            width: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            padding: 18px 40px;
-            background: rgba(20, 20, 20, 0.85);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 999;
-        }
+    /* HEADER */
+    header{
+      width:100%;
+      position:fixed; top:0; left:0;
+      height:var(--header-h);
+      padding:14px 22px;
+      background:rgba(20,20,20,.80);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--border);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      z-index:999;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      text-decoration:none;
+    }
+    .brand img{ height:48px; width:auto; display:block; }
+    .brand .brand-text{
+      color:var(--gold);
+      font-weight:900;
+      letter-spacing:.2px;
+      display:none;
+    }
 
-        .logo-text {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--gold);
-        }
+    /* DESKTOP NAV */
+    nav ul{
+      list-style:none;
+      display:flex;
+      gap:26px;
+      align-items:center;
+    }
+    nav a{
+      position:relative;
+      text-decoration:none;
+      color:var(--text);
+      font-weight:650;
+      font-size:1.02rem;
+      padding:8px 0;
+      transition:.25s ease;
+      white-space:nowrap;
+    }
+    nav a::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:2px;
+      width:0%;
+      height:2px;
+      background:var(--gold);
+      transition:.25s ease;
+      border-radius:999px;
+    }
+    nav a:hover{ color:var(--gold); }
+    nav a:hover::after{ width:100%; }
+    nav a.active{ color:var(--gold); }
+    nav a.active::after{ width:100%; }
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 34px;
-            align-items: center;
-        }
+    /* DROPDOWN (DESKTOP) */
+    .dropdown{ position:relative; }
+    .dropbtn{
+      display:flex; align-items:center; gap:8px;
+      cursor:pointer; user-select:none;
+    }
+    .dropdown-menu{
+      position:absolute;
+      top:44px; left:0;
+      min-width:220px;
+      background:rgba(15,15,15,.96);
+      backdrop-filter:blur(10px);
+      border:1px solid var(--border);
+      border-radius:12px;
+      box-shadow:var(--shadow);
+      padding:10px;
+      display:none;
+    }
+    .dropdown-menu a{
+      display:block;
+      padding:10px 12px;
+      border-radius:10px;
+      color:#ddd;
+      font-weight:600;
+      font-size:.98rem;
+    }
+    .dropdown-menu a:hover{
+      background:rgba(212,161,68,.12);
+      color:var(--gold);
+    }
+    .dropdown.show .dropdown-menu{ display:block; }
 
-        nav ul li a {
-            position: relative;
-            text-decoration: none;
-            color: #eaeaea;
-            font-weight: 600;
-            font-size: 1.05rem;
-            padding: 6px 0;
-            transition: 0.35s ease;
-        }
+    /* PROFESSIONAL MOBILE MENU BUTTON */
+    .nav-toggle{
+      display:none;
+      width:44px;
+      height:44px;
+      border-radius:12px;
+      border:1px solid rgba(212,161,68,.35);
+      background:rgba(17,17,17,.7);
+      color:var(--gold);
+      box-shadow:0 10px 25px rgba(0,0,0,.25);
+      cursor:pointer;
+      align-items:center;
+      justify-content:center;
+    }
+    .hamburger{ width:22px; height:14px; position:relative; display:inline-block; }
+    .hamburger span{
+      position:absolute; left:0; width:100%; height:2px;
+      background:var(--gold); border-radius:999px; transition:.2s ease;
+    }
+    .hamburger span:nth-child(1){ top:0; }
+    .hamburger span:nth-child(2){ top:6px; opacity:1; }
+    .hamburger span:nth-child(3){ bottom:0; }
+    .nav-open .hamburger span:nth-child(1){ transform:translateY(6px) rotate(45deg); }
+    .nav-open .hamburger span:nth-child(2){ opacity:0; }
+    .nav-open .hamburger span:nth-child(3){ transform:translateY(-6px) rotate(-45deg); }
 
-        nav ul li a::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: -3px;
-            width: 0%;
-            height: 2px;
-            background: var(--gold);
-            transition: 0.35s;
-            border-radius: 50px;
-        }
+    .overlay{
+      position:fixed; inset:0;
+      background:rgba(0,0,0,.55);
+      opacity:0; visibility:hidden;
+      transition:.25s ease;
+      z-index:997;
+    }
+    .mobile-panel{
+      position:fixed; top:0; right:0;
+      height:100%;
+      width:min(88vw, 340px);
+      transform:translateX(102%);
+      transition:.25s ease;
+      z-index:998;
+      background:rgba(17,17,17,.96);
+      backdrop-filter:blur(10px);
+      border-left:1px solid var(--border);
+      box-shadow:-10px 0 30px rgba(0,0,0,.35);
+      padding:18px 16px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      overflow-y:auto;
+    }
+    .mobile-head{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px;
+      padding:6px 4px 10px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      margin-bottom:6px;
+    }
+    .mobile-title{ color:var(--gold); font-weight:900; letter-spacing:.2px; }
+    .close-btn{
+      width:42px; height:42px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.25);
+      color:var(--text);
+      cursor:pointer;
+    }
+    .mobile-links{
+      list-style:none;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      padding:4px;
+    }
+    .mobile-links a{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:12px 12px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(0,0,0,.15);
+      color:var(--text);
+      text-decoration:none;
+      font-weight:800;
+      transition:.2s ease;
+    }
+    .mobile-links a:hover{ border-color:rgba(212,161,68,.35); color:var(--gold); }
 
-        nav ul li a:hover {
-            color: var(--gold);
-            text-shadow: 0 0 12px rgba(212, 161, 68, 0.55);
-        }
+    .mobile-dropdown{
+      border-radius:12px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(0,0,0,.12);
+    }
+    .mobile-dropdown button{
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:12px 12px;
+      border:0;
+      background:transparent;
+      color:var(--text);
+      font-weight:900;
+      cursor:pointer;
+    }
+    .mobile-dropdown .panel{
+      display:none;
+      padding:6px 10px 10px;
+      border-top:1px solid rgba(255,255,255,.08);
+    }
+    .mobile-dropdown .panel a{
+      display:block;
+      padding:10px 10px;
+      border-radius:10px;
+      text-decoration:none;
+      color:#d6d6d6;
+      font-weight:700;
+      border:1px solid rgba(255,255,255,.06);
+      background:rgba(0,0,0,.12);
+      margin-top:6px;
+    }
+    .mobile-dropdown .panel a:hover{ color:var(--gold); border-color:rgba(212,161,68,.25); }
 
-        nav ul li a:hover::after,
-        nav ul li a.active::after {
-            width: 100%;
-        }
+    .nav-open .overlay{ opacity:1; visibility:visible; }
+    .nav-open .mobile-panel{ transform:translateX(0); }
 
-        nav ul li a.active {
-            color: var(--gold);
-        }
+    /* PAGE HERO */
+    .page-hero{
+      padding:calc(var(--header-h) + 46px) 20px 34px;
+      background:
+        radial-gradient(1200px 500px at 18% 0%, rgba(212,161,68,.12), transparent 60%),
+        radial-gradient(1000px 500px at 85% 10%, rgba(240,198,116,.10), transparent 55%),
+        linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.70)),
+        url("https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1600&q=80");
+      background-size:cover;
+      background-position:center;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .page-hero-inner{
+      max-width:1200px;
+      margin:0 auto;
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+    .page-hero h1{
+      font-size:clamp(2rem, 3.5vw, 3rem);
+      font-weight:900;
+      color:var(--gold);
+      letter-spacing:.2px;
+    }
+    .page-hero p{
+      max-width:760px;
+      color:#f0f0f0;
+      opacity:.95;
+      line-height:1.6;
+      margin-top:10px;
+    }
 
-        .dropdown {
-            position: relative;
-        }
+    /* BLOG CONTROLS */
+    .section{
+      padding: 28px 20px 90px;
+      max-width:1200px;
+      margin:auto;
+    }
+    .controls{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:18px;
+    }
+    .search{
+      flex: 1;
+      min-width: 240px;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      padding:12px 14px;
+      border-radius:14px;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow:0 10px 25px rgba(0,0,0,.20);
+    }
+    .search i{ color:var(--gold); opacity:.9; }
+    .search input{
+      width:100%;
+      background:transparent;
+      border:0;
+      outline:0;
+      color:var(--text);
+      font-weight:650;
+      font-size:1rem;
+    }
+    .pillbar{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:flex-end;
+    }
+    .pill{
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.15);
+      color:#ddd;
+      font-weight:900;
+      cursor:pointer;
+      transition:.2s ease;
+      user-select:none;
+    }
+    .pill:hover{ border-color:rgba(212,161,68,.25); color:var(--gold); }
+    .pill.active{
+      border-color:rgba(212,161,68,.45);
+      background:rgba(212,161,68,.10);
+      color:var(--gold);
+    }
 
-        .dropdown .dropbtn {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-        }
+    /* BLOG GRID */
+    .blog-grid{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap:16px;
+    }
+    article.blog-card{
+      background: var(--card);
+      border-radius: 18px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow: 0 12px 30px rgba(0,0,0,.30);
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+      display:flex;
+      flex-direction:column;
+      min-height:100%;
+    }
+    article.blog-card:hover{
+      transform: translateY(-8px);
+      box-shadow: 0 18px 46px rgba(0,0,0,.55);
+      border-color: rgba(212,161,68,.22);
+    }
+    .thumb{
+      position:relative;
+      height:210px;
+      overflow:hidden;
+      background:#0b0b0b;
+    }
+    .thumb img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transform:scale(1.01);
+      transition: transform .35s ease, opacity .35s ease;
+      opacity:.92;
+      display:block;
+    }
+    article.blog-card:hover .thumb img{
+      transform:scale(1.06);
+      opacity:1;
+    }
+    .tag{
+      position:absolute;
+      top:14px; left:14px;
+      padding:7px 11px;
+      border-radius:999px;
+      background:rgba(0,0,0,.55);
+      border:1px solid rgba(255,255,255,.12);
+      color:#fff;
+      font-weight:900;
+      font-size:.78rem;
+      backdrop-filter: blur(8px);
+    }
 
-        .dropdown-content {
-            position: absolute;
-            top: 42px;
-            left: 0;
-            background: rgba(15, 15, 15, 0.95);
-            backdrop-filter: blur(10px);
-            min-width: 190px;
-            display: flex;
-            flex-direction: column;
-            padding: 12px 0;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-            visibility: hidden;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: 0.35s ease;
-        }
+    .blog-body{
+      padding:18px 18px 16px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      flex:1;
+    }
+    .meta{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      flex-wrap:wrap;
+      color:var(--muted);
+      font-weight:650;
+      font-size:.9rem;
+    }
+    .meta i{ color:var(--gold); opacity:.9; }
+    .blog-title{
+      font-size:1.15rem;
+      font-weight:950;
+      color:var(--gold);
+      line-height:1.25;
+      letter-spacing:.2px;
+      margin-top:2px;
+    }
+    .excerpt{
+      color:#ddd;
+      line-height:1.6;
+      font-weight:550;
+      flex:1;
+    }
+    .actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:6px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:11px 14px;
+      border-radius:12px;
+      background:var(--gold);
+      color:#111;
+      text-decoration:none;
+      font-weight:950;
+      font-size:.98rem;
+      transition:.2s ease;
+      border:0;
+      cursor:pointer;
+      flex:1;
+      min-width: 140px;
+    }
+    .btn:hover{ background:var(--gold-light); transform:translateY(-2px); }
+    .btn.secondary{
+      background:transparent;
+      color:var(--gold);
+      border:1px solid rgba(212,161,68,.55);
+    }
+    .btn.secondary:hover{ background:rgba(212,161,68,.10); }
 
-        .dropdown-content li a {
-            padding: 10px 18px;
-            color: #ddd;
-            font-weight: 500;
-        }
+    /* FOOTER */
+    .footer{
+      background:#0d0d0d;
+      padding-top:70px;
+      border-top:3px solid var(--gold);
+      margin-top:80px;
+    }
+    .footer-container{
+      max-width:1200px;
+      margin:auto;
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap:36px;
+      padding:0 20px 40px;
+    }
+    .footer-section h3, .footer-section h4{
+      color:var(--gold);
+      font-weight:900;
+      margin-bottom:18px;
+      letter-spacing:.4px;
+    }
+    .footer-section p{
+      color:#cccccc;
+      line-height:1.7;
+      margin-bottom:10px;
+    }
+    .footer-section a{
+      color:#cccccc;
+      text-decoration:none;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:12px;
+      font-weight:700;
+      transition:.2s ease;
+    }
+    .footer-section a i{ color:var(--gold); }
+    .footer-section a:hover{ color:var(--gold); transform:translateX(4px); }
+    .footer-socials{ text-align:center; padding:18px 0 26px; }
+    .footer-socials a{
+      display:inline-flex;
+      justify-content:center;
+      align-items:center;
+      width:46px;
+      height:46px;
+      border:2px solid var(--gold);
+      border-radius:50%;
+      margin:0 8px;
+      color:var(--gold);
+      font-size:1.15rem;
+      transition:.2s ease;
+      text-decoration:none;
+    }
+    .footer-socials a:hover{ background:var(--gold); color:#111; transform:translateY(-3px); }
+    .footer-bottom{
+      text-align:center;
+      padding:18px 0;
+      border-top:1px solid rgba(255,255,255,.10);
+      color:#999;
+      font-size:.95rem;
+    }
 
-        .dropdown-content li a:hover {
-            background: rgba(212, 161, 68, 0.12);
-            color: var(--gold);
-        }
+    /* FLOATING WHATSAPP */
+    .whatsapp-float{
+      position:fixed;
+      bottom:22px;
+      right:22px;
+      background:#25d366;
+      color:#fff;
+      width:56px;
+      height:56px;
+      border-radius:50%;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-size:2rem;
+      box-shadow:0 10px 25px rgba(0,0,0,.45);
+      cursor:pointer;
+      transition:.2s ease;
+      z-index:998;
+      text-decoration:none;
+    }
+    .whatsapp-float:hover{ transform:scale(1.06); }
 
-        .dropdown.show .dropdown-content {
-            visibility: visible;
-            opacity: 1;
-            transform: translateY(0px);
-        }
-
-        /* MOBILE */
-        .menu-toggle {
-            display: none;
-        }
-
-        @media (max-width: 900px) {
-            .menu-toggle {
-                display: block;
-                position: fixed;
-                top: 20px;
-                right: 25px;
-                color: var(--gold);
-                font-size: 2rem;
-                z-index: 10001;
-                cursor: pointer;
-            }
-
-            nav ul {
-                position: fixed;
-                top: 0;
-                right: -300px;
-                flex-direction: column;
-                gap: 20px;
-                background: #111;
-                color: var(--gold);
-                width: 280px;
-                height: 100%;
-                padding: 80px 25px 40px 25px;
-                transition: 0.35s ease;
-                box-shadow: -4px 0 25px rgba(0, 0, 0, 0.25);
-                z-index: 9999;
-                overflow-y: auto;
-            }
-
-            nav ul.show-menu {
-                right: 0;
-            }
-
-            nav ul li a {
-                font-size: 1.2rem;
-                color: var(--gold);
-            }
-
-            nav ul li a:hover {
-                color: var(--gold-light);
-                text-shadow: 0 0 8px rgba(212, 161, 68, 0.4);
-            }
-
-            .dropdown-content {
-                display: none;
-                flex-direction: column;
-                padding-left: 15px;
-                margin-top: 5px;
-            }
-
-            .dropdown.show .dropdown-content {
-                display: flex;
-            }
-
-            .dropdown-content li a {
-                padding: 12px 0;
-                font-size: 1rem;
-                color: var(--gold);
-            }
-
-            .dropdown-content li a:hover {
-                color: var(--gold-light);
-                text-shadow: 0 0 8px rgba(212, 161, 68, 0.4);
-            }
-        }
-
-        /* BLOG SECTION */
-        .section {
-            padding: 120px 20px 60px 20px;
-            max-width: 1200px;
-            margin: auto;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 3rem;
-            font-weight: 900;
-            color: var(--gold);
-            margin-bottom: 50px;
-        }
-
-        .blog-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .blog-card {
-            background: var(--card-bg);
-            border-radius: 18px;
-            overflow: hidden;
-            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .blog-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .blog-card:hover img {
-            transform: scale(1.05);
-        }
-
-        .blog-content {
-            padding: 25px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .blog-content h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--gold);
-            margin-bottom: 10px;
-        }
-
-        .blog-content .date {
-            font-size: 0.85rem;
-            color: #aaa;
-            margin-bottom: 15px;
-        }
-
-        .blog-content p {
-            font-size: 1rem;
-            color: #ddd;
-            flex: 1;
-        }
-
-        .blog-content a {
-            margin-top: 15px;
-            text-align: center;
-            background: var(--gold);
-            color: #111;
-            font-weight: 700;
-            padding: 10px 20px;
-            border-radius: 10px;
-            text-decoration: none;
-            transition: 0.3s;
-        }
-
-        .blog-content a:hover {
-            background: var(--gold-light);
-            box-shadow: 0 6px 18px rgba(212, 161, 68, 0.5);
-        }
-
-        /* FOOTER */
-        .footer {
-            background: #0d0d0d;
-            padding-top: 70px;
-            border-top: 3px solid #d4a144;
-            margin-top: 80px;
-        }
-
-        .footer-container {
-            max-width: 1200px;
-            margin: auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 50px;
-            padding: 0 20px 40px;
-        }
-
-        .footer-section h3,
-        .footer-section h4 {
-            color: #d4a144;
-            font-weight: 800;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
-        }
-
-        .footer-section p {
-            color: #cccccc;
-            line-height: 1.6;
-            margin-bottom: 10px;
-        }
-
-        .footer-section a {
-            color: #cccccc;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 12px;
-            font-weight: 500;
-            transition: 0.3s;
-        }
-
-        .footer-section a i {
-            margin-right: 8px;
-            color: #d4a144;
-            transition: 0.3s;
-        }
-
-        .footer-section a:hover {
-            color: #d4a144;
-            padding-left: 6px;
-        }
-
-        .footer-socials {
-            text-align: center;
-            padding: 20px 0 30px;
-        }
-
-        .footer-socials a {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            width: 48px;
-            height: 48px;
-            border: 2px solid #d4a144;
-            border-radius: 50%;
-            margin: 0 10px;
-            color: #d4a144;
-            font-size: 1.2rem;
-            transition: 0.3s;
-            text-decoration: none;
-        }
-
-        .footer-socials a:hover {
-            background: #d4a144;
-            color: #111;
-            transform: translateY(-4px);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding: 18px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #999;
-            font-size: 0.95rem;
-        }
-
-        @media (max-width: 900px) {
-            .section {
-                padding: 80px 15px;
-            }
-
-            .section-title {
-                font-size: 2rem;
-                margin-bottom: 35px;
-            }
-        }
-    </style>
+    /* RESPONSIVE */
+    @media (max-width: 1100px){
+      .blog-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 980px){
+      nav{ display:none; }
+      .nav-toggle{ display:inline-flex; }
+      .brand .brand-text{ display:block; }
+      header{ padding:12px 16px; }
+      .footer-container{ grid-template-columns: 1fr 1fr; }
+      .controls{ justify-content:flex-start; }
+      .pillbar{ justify-content:flex-start; }
+    }
+    @media (max-width: 640px){
+      .blog-grid{ grid-template-columns: 1fr; }
+      .footer-container{ grid-template-columns: 1fr; }
+      .thumb{ height:200px; }
+    }
+  </style>
 </head>
 
 <body>
-    <!-- HEADER -->
-    <header>
-        <div class="logo-text">
-            <a href="index.html">
-                <img src="logo.png" alt="Thabza Phenomenal Logo" style="height:50px;">
-            </a>
-        </div>
-        <div class="menu-toggle" onclick="toggleMenu()">
-            <i class="fas fa-bars"></i>
-        </div>
-
-        <nav>
-            <ul id="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="portfolio.html">Portfolio</a></li>
-                <li><a href="pricing.html">Pricing</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li class="dropdown">
-                    <a class="dropbtn" onclick="toggleDropdown(event)">Other Services ▼</a>
-                    <ul class="dropdown-content">
-                        <li><a href="driving.html">Driving School</a></li>
-                        <li><a href="printing.html">Printing</a></li>
-                        <li><a href="photography.html">Photography</a></li>
-                        <li><a href="webdesign.html">Web Design</a></li>
-                        <li><a href="consultation.html">Consultation</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-    </header>
-
-    <!-- BLOG SECTION -->
-    <section class="section" id="blog">
-        <h2 class="section-title">Our Blog</h2>
-        <div class="blog-grid">
-            <!-- Example blog cards -->
-            <div class="blog-card">
-                <img src="https://via.placeholder.com/600x400" alt="Blog 1">
-                <div class="blog-content">
-                    <h3>Tips for Branding Success</h3>
-                    <div class="date">Nov 24, 2025</div>
-                    <p>Loading...</p>
-                    <a href="#">Read More</a>
-                </div>
-            </div>
-
-            <div class="blog-card">
-                <img src="https://via.placeholder.com/600x400" alt="Blog 2">
-                <div class="blog-content">
-                    <h3>Graphic Design Trends 2025</h3>
-                    <div class="date">Nov 20, 2025</div>
-                    <p>Loading...</p>
-                    <a href="#">Read More</a>
-                </div>
-            </div>
-
-            <div class="blog-card">
-                <img src="https://via.placeholder.com/600x400" alt="Blog 3">
-                <div class="blog-content">
-                    <h3>Printing Hacks for Small Businesses</h3>
-                    <div class="date">Nov 18, 2025</div>
-                    <p>Loading...</p>
-                    <a href="#">Read More</a>
-                </div>
-            </div>
-
-            <div class="blog-card">
-                <img src="https://via.placeholder.com/600x400" alt="Blog 4">
-                <div class="blog-content">
-                    <h3>PPE Supply Tips for Offices</h3>
-                    <div class="date">Nov 15, 2025</div>
-                    <p>Loading...</p>
-                    <a href="#">Read More</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-section">
-                <h3>Thabza Phenomenal</h3>
-                <p>Your trusted partner in branding, printing, PPE and business development.</p>
-            </div>
-
-            <div class="footer-section">
-                <h4>Services</h4>
-                <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> Branding & Printing</a>
-                <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> Graphic Design</a>
-                <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> PPE Supply</a>
-                <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> Catering</a>
-            </div>
-
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <a href="index.html"><i class="fa-solid fa-link"></i> Home</a>
-                <a href="services.html"><i class="fa-solid fa-link"></i> Services</a>
-                <a href="about.html"><i class="fa-solid fa-link"></i> About</a>
-                <a href="contact.html"><i class="fa-solid fa-link"></i> Contact</a>
-            </div>
-
-            <div class="footer-section">
-                <h4>Contact</h4>
-                <p><i class="fa-solid fa-phone"></i> +27 72 614 2430</p>
-                <p><i class="fa-solid fa-envelope"></i> admin@thabzaphenomenal.co.za</p>
-                <p><i class="fa-solid fa-location-dot"></i> South Africa</p>
-            </div>
-        </div>
-
-        <div class="footer-socials">
-            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
-        </div>
-
-        <div class="footer-bottom">
-            © 2025 Thabza Phenomenal. All Rights Reserved.
-        </div>
-    </footer>
-
-    <!-- FLOATING WHATSAPP -->
-    <a href="https://wa.me/27726142430" class="whatsapp-float">
-        <i class="fab fa-whatsapp"></i>
+  <!-- HEADER -->
+  <header>
+    <a class="brand" href="index.html" aria-label="Go to Home">
+      <img src="logo.png" alt="Thabza Phenomenal Logo" />
+      <span class="brand-text">Thabza Phenomenal</span>
     </a>
 
-    <script>
-        function toggleMenu() {
-            document.getElementById("nav-links").classList.toggle("show-menu");
-        }
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-controls="mobileMenu" aria-expanded="false">
+      <span class="sr-only">Menu</span>
+      <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
 
-        function toggleDropdown(event) {
-            event.stopPropagation();
-            const dropdown = event.target.closest(".dropdown");
-            dropdown.classList.toggle("show");
-        }
+    <!-- Desktop nav -->
+    <nav aria-label="Primary navigation">
+      <ul id="desktopNav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a class="active" href="blog.html">Blog</a></li>
 
-        document.addEventListener("click", () => {
-            document.querySelectorAll(".dropdown").forEach(d => d.classList.remove("show"));
-        });
-    </script>
+        <li class="dropdown">
+          <a class="dropbtn" href="#" id="desktopDrop" aria-haspopup="true" aria-expanded="false">
+            Other Services <i class="fa-solid fa-chevron-down" style="font-size:.85rem; opacity:.85;"></i>
+          </a>
+          <div class="dropdown-menu" role="menu" aria-label="Other services">
+            <a role="menuitem" href="driving.html">Driving School</a>
+            <a role="menuitem" href="printing.html">Printing</a>
+            <a role="menuitem" href="photography.html">Photography</a>
+            <a role="menuitem" href="webdesign.html">Web Design</a>
+            <a role="menuitem" href="consultation.html">Consultation</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Mobile overlay + panel -->
+  <div class="overlay" id="overlay" tabindex="-1" aria-hidden="true"></div>
+  <aside class="mobile-panel" id="mobileMenu" aria-label="Mobile menu">
+    <div class="mobile-head">
+      <div class="mobile-title">Menu</div>
+      <button class="close-btn" id="closeMenu" aria-label="Close menu">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <ul class="mobile-links">
+      <li><a href="index.html">Home <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="services.html">Services <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="about.html">About <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="contact.html">Contact <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="portfolio.html">Portfolio <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="pricing.html">Pricing <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="blog.html">Blog <i class="fa-solid fa-arrow-right"></i></a></li>
+
+      <li class="mobile-dropdown">
+        <button type="button" id="mobileDropBtn" aria-expanded="false" aria-controls="mobileDropPanel">
+          Other Services <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="panel" id="mobileDropPanel">
+          <a href="driving.html">Driving School</a>
+          <a href="printing.html">Printing</a>
+          <a href="photography.html">Photography</a>
+          <a href="webdesign.html">Web Design</a>
+          <a href="consultation.html">Consultation</a>
+        </div>
+      </li>
+    </ul>
+  </aside>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <div>
+        <h1>Our Blog</h1>
+        <p>
+          News, tips and insights on branding, design, printing and business support.
+          Use the search and categories to find what you need.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG SECTION -->
+  <main class="section" id="blog">
+    <div class="controls">
+      <div class="search" role="search">
+        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+        <input id="searchInput" type="search" placeholder="Search posts..." aria-label="Search blog posts">
+      </div>
+
+      <div class="pillbar" aria-label="Categories">
+        <button class="pill active" data-filter="all" type="button">All</button>
+        <button class="pill" data-filter="branding" type="button">Branding</button>
+        <button class="pill" data-filter="design" type="button">Design</button>
+        <button class="pill" data-filter="printing" type="button">Printing</button>
+        <button class="pill" data-filter="ppe" type="button">PPE</button>
+      </div>
+    </div>
+
+    <section class="blog-grid" id="blogGrid">
+      <!-- Post 1 -->
+      <article class="blog-card" data-category="branding" data-title="Tips for Branding Success">
+        <div class="thumb">
+          <span class="tag">Branding</span>
+          <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=80" alt="Team discussing branding">
+        </div>
+        <div class="blog-body">
+          <div class="meta">
+            <span><i class="fa-regular fa-calendar"></i> Nov 24, 2025</span>
+            <span><i class="fa-regular fa-clock"></i> 3 min read</span>
+          </div>
+          <h2 class="blog-title">Tips for Branding Success</h2>
+          <p class="excerpt">
+            Learn the key branding fundamentals that make customers remember and trust your business—name, message,
+            consistency and visuals that match your value.
+          </p>
+          <div class="actions">
+            <a class="btn" href="#" aria-label="Read more: Tips for Branding Success">
+              Read More <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            <a class="btn secondary" href="contact.html">Request Help</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Post 2 -->
+      <article class="blog-card" data-category="design" data-title="Graphic Design Trends 2025">
+        <div class="thumb">
+          <span class="tag">Design</span>
+          <img src="https://images.unsplash.com/photo-1526498460520-4c246339dccb?auto=format&fit=crop&w=1200&q=80" alt="Designer working on a laptop">
+        </div>
+        <div class="blog-body">
+          <div class="meta">
+            <span><i class="fa-regular fa-calendar"></i> Nov 20, 2025</span>
+            <span><i class="fa-regular fa-clock"></i> 4 min read</span>
+          </div>
+          <h2 class="blog-title">Graphic Design Trends 2025</h2>
+          <p class="excerpt">
+            From bold typography to clean layouts and strong contrast, see what styles are leading in 2025 and how to
+            apply them to your brand.
+          </p>
+          <div class="actions">
+            <a class="btn" href="#" aria-label="Read more: Graphic Design Trends 2025">
+              Read More <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            <a class="btn secondary" href="contact.html">Request Help</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Post 3 -->
+      <article class="blog-card" data-category="printing" data-title="Printing Hacks for Small Businesses">
+        <div class="thumb">
+          <span class="tag">Printing</span>
+          <img src="https://images.unsplash.com/photo-1581092160607-ee22731c2f54?auto=format&fit=crop&w=1200&q=80" alt="Printing equipment close-up">
+        </div>
+        <div class="blog-body">
+          <div class="meta">
+            <span><i class="fa-regular fa-calendar"></i> Nov 18, 2025</span>
+            <span><i class="fa-regular fa-clock"></i> 3 min read</span>
+          </div>
+          <h2 class="blog-title">Printing Hacks for Small Businesses</h2>
+          <p class="excerpt">
+            Save costs and improve quality with the right paper choices, file preparation, and print finishes—especially
+            for flyers, signage and packaging.
+          </p>
+          <div class="actions">
+            <a class="btn" href="#" aria-label="Read more: Printing Hacks for Small Businesses">
+              Read More <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            <a class="btn secondary" href="contact.html">Request Help</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Post 4 -->
+      <article class="blog-card" data-category="ppe" data-title="PPE Supply Tips for Offices">
+        <div class="thumb">
+          <span class="tag">PPE</span>
+          <img src="https://images.unsplash.com/photo-1583947215259-38e31be8751f?auto=format&fit=crop&w=1200&q=80" alt="Safety equipment and gloves">
+        </div>
+        <div class="blog-body">
+          <div class="meta">
+            <span><i class="fa-regular fa-calendar"></i> Nov 15, 2025</span>
+            <span><i class="fa-regular fa-clock"></i> 2 min read</span>
+          </div>
+          <h2 class="blog-title">PPE Supply Tips for Offices</h2>
+          <p class="excerpt">
+            A simple guide to choosing the right PPE for your workplace—what to stock, how to size correctly, and how to
+            keep a consistent supply.
+          </p>
+          <div class="actions">
+            <a class="btn" href="#" aria-label="Read more: PPE Supply Tips for Offices">
+              Read More <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            <a class="btn secondary" href="contact.html">Request Help</a>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3>Thabza Phenomenal</h3>
+        <p>Your trusted partner in branding, printing, PPE and business development.</p>
+      </div>
+
+      <div class="footer-section">
+        <h4>Services</h4>
+        <a href="brand.html"><i class="fa-solid fa-circle-chevron-right"></i> Branding & Printing</a>
+        <a href="graphic.html"><i class="fa-solid fa-circle-chevron-right"></i> Graphic Design</a>
+        <a href="PPE.html"><i class="fa-solid fa-circle-chevron-right"></i> PPE Supply</a>
+        <a href="catering.html"><i class="fa-solid fa-circle-chevron-right"></i> Catering</a>
+      </div>
+
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <a href="index.html"><i class="fa-solid fa-link"></i> Home</a>
+        <a href="services.html"><i class="fa-solid fa-link"></i> Services</a>
+        <a href="about.html"><i class="fa-solid fa-link"></i> About</a>
+        <a href="contact.html"><i class="fa-solid fa-link"></i> Contact</a>
+      </div>
+
+      <div class="footer-section">
+        <h4>Contact</h4>
+        <p><i class="fa-solid fa-phone"></i> +27 72 614 2430</p>
+        <p><i class="fa-solid fa-envelope"></i> admin@thabzaphenomenal.co.za</p>
+        <p><i class="fa-solid fa-location-dot"></i> South Africa</p>
+      </div>
+    </div>
+
+    <div class="footer-socials">
+      <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="https://wa.me/27726142430" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+    </div>
+
+    <div class="footer-bottom">© 2025 Thabza Phenomenal. All Rights Reserved.</div>
+  </footer>
+
+  <!-- FLOATING WHATSAPP -->
+  <a href="https://wa.me/27726142430" class="whatsapp-float" aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <script>
+    // ===== MOBILE MENU (offcanvas) =====
+    const body = document.body;
+    const navToggle = document.getElementById("navToggle");
+    const overlay = document.getElementById("overlay");
+    const closeMenu = document.getElementById("closeMenu");
+
+    function openMenu(){
+      body.classList.add("nav-open");
+      navToggle.setAttribute("aria-expanded", "true");
+      overlay.setAttribute("aria-hidden", "false");
+      closeMenu.focus();
+    }
+    function closeMenuFn(){
+      body.classList.remove("nav-open");
+      navToggle.setAttribute("aria-expanded", "false");
+      overlay.setAttribute("aria-hidden", "true");
+      navToggle.focus();
+    }
+
+    navToggle.addEventListener("click", () => {
+      body.classList.contains("nav-open") ? closeMenuFn() : openMenu();
+    });
+    overlay.addEventListener("click", closeMenuFn);
+    closeMenu.addEventListener("click", closeMenuFn);
+
+    document.addEventListener("keydown", (e) => {
+      if(e.key === "Escape" && body.classList.contains("nav-open")) closeMenuFn();
+    });
+
+    document.getElementById("mobileMenu").addEventListener("click", (e) => {
+      if(e.target.closest("a")) closeMenuFn();
+    });
+
+    // ===== DESKTOP DROPDOWN =====
+    const desktopDrop = document.getElementById("desktopDrop");
+    const dropdownLi = desktopDrop?.closest(".dropdown");
+    desktopDrop?.addEventListener("click", (e) => {
+      e.preventDefault();
+      dropdownLi.classList.toggle("show");
+      desktopDrop.setAttribute("aria-expanded", dropdownLi.classList.contains("show") ? "true" : "false");
+    });
+    document.addEventListener("click", (e) => {
+      if(!dropdownLi) return;
+      if(!e.target.closest(".dropdown")) {
+        dropdownLi.classList.remove("show");
+        desktopDrop.setAttribute("aria-expanded","false");
+      }
+    });
+
+    // ===== MOBILE DROPDOWN =====
+    const mobileDropBtn = document.getElementById("mobileDropBtn");
+    const mobileDropPanel = document.getElementById("mobileDropPanel");
+    mobileDropBtn.addEventListener("click", () => {
+      const open = mobileDropPanel.style.display === "block";
+      mobileDropPanel.style.display = open ? "none" : "block";
+      mobileDropBtn.setAttribute("aria-expanded", open ? "false" : "true");
+    });
+
+    // ===== BLOG FILTER + SEARCH =====
+    const pills = Array.from(document.querySelectorAll(".pill"));
+    const posts = Array.from(document.querySelectorAll("article.blog-card"));
+    const searchInput = document.getElementById("searchInput");
+
+    let activeFilter = "all";
+
+    function applyFilters(){
+      const q = (searchInput.value || "").trim().toLowerCase();
+
+      posts.forEach(post => {
+        const category = post.getAttribute("data-category") || "";
+        const title = (post.getAttribute("data-title") || "").toLowerCase();
+        const text = (post.innerText || "").toLowerCase();
+
+        const matchesCategory = activeFilter === "all" || category === activeFilter;
+        const matchesSearch = !q || title.includes(q) || text.includes(q);
+
+        post.style.display = (matchesCategory && matchesSearch) ? "" : "none";
+      });
+    }
+
+    pills.forEach(pill => {
+      pill.addEventListener("click", () => {
+        pills.forEach(p => p.classList.remove("active"));
+        pill.classList.add("active");
+        activeFilter = pill.getAttribute("data-filter") || "all";
+        applyFilters();
+      });
+    });
+
+    searchInput.addEventListener("input", applyFilters);
+  </script>
 </body>
-
 </html>
