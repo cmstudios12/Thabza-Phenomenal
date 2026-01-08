@@ -1,647 +1,873 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Thabza Phenomenal | Contact</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thabza Phenomenal | Contact</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-    <style>
-        /* RESET */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+  <style>
+    /* RESET */
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { background: #0d0d0d; color: #eaeaea; overflow-x: hidden; }
 
-        body {
-            background: #0d0d0d;
-            color: #eaeaea;
-            overflow-x: hidden;
-        }
+    :root{
+      --gold:#d4a144;
+      --gold-light:#f0c674;
+      --dark:#0d0d0d;
+      --card:#111;
+      --text:#eaeaea;
+      --muted:#bfbfbf;
+      --border:rgba(255,255,255,.10);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --header-h: 76px;
+    }
 
-        :root {
-            --gold: #d4a144;
-            --gold-light: #f0c674;
-            --dark: #0d0d0d;
-            --card-bg: #111;
-        }
+    /* ACCESSIBILITY */
+    .sr-only{
+      position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden;
+      clip:rect(0,0,0,0); white-space:nowrap; border:0;
+    }
+    a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+      border-radius: 12px;
+    }
 
-        /* HEADER */
-        header {
-            width: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            padding: 18px 40px;
-            background: rgba(20, 20, 20, 0.85);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 999;
-        }
+    /* HEADER */
+    header{
+      width:100%;
+      position:fixed; top:0; left:0;
+      height: var(--header-h);
+      padding: 14px 22px;
+      background: rgba(20,20,20,.80);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      z-index: 999;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      text-decoration:none;
+    }
+    .brand img{ height:48px; width:auto; display:block; }
+    .brand .brand-text{
+      color: var(--gold);
+      font-weight: 900;
+      letter-spacing: .2px;
+      display:none;
+    }
 
-        .logo-text {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--gold);
-        }
+    /* DESKTOP NAV */
+    nav ul{
+      list-style:none;
+      display:flex;
+      gap: 26px;
+      align-items:center;
+    }
+    nav a{
+      position:relative;
+      text-decoration:none;
+      color: var(--text);
+      font-weight: 650;
+      font-size: 1.02rem;
+      padding: 8px 0;
+      transition: .25s ease;
+      white-space:nowrap;
+    }
+    nav a::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:2px;
+      width:0%;
+      height:2px;
+      background: var(--gold);
+      transition: .25s ease;
+      border-radius: 999px;
+    }
+    nav a:hover{ color: var(--gold); }
+    nav a:hover::after{ width:100%; }
+    nav a.active{ color: var(--gold); }
+    nav a.active::after{ width:100%; }
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 34px;
-            align-items: center;
-        }
+    /* DROPDOWN (DESKTOP) */
+    .dropdown{ position:relative; }
+    .dropbtn{
+      display:flex; align-items:center; gap:8px;
+      cursor:pointer; user-select:none;
+    }
+    .dropdown-menu{
+      position:absolute;
+      top: 44px; left: 0;
+      min-width: 220px;
+      background: rgba(15,15,15,.96);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      padding: 10px;
+      display:none;
+    }
+    .dropdown-menu a{
+      display:block;
+      padding: 10px 12px;
+      border-radius: 10px;
+      color:#ddd;
+      font-weight: 600;
+      font-size: .98rem;
+    }
+    .dropdown-menu a:hover{
+      background: rgba(212,161,68,.12);
+      color: var(--gold);
+    }
+    .dropdown.show .dropdown-menu{ display:block; }
 
-        nav ul li a {
-            position: relative;
-            text-decoration: none;
-            color: #eaeaea;
-            font-weight: 600;
-            font-size: 1.05rem;
-            padding: 6px 0;
-            transition: 0.35s ease;
-        }
+    /* PROFESSIONAL MOBILE MENU BUTTON */
+    .nav-toggle{
+      display:none;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      border: 1px solid rgba(212,161,68,.35);
+      background: rgba(17,17,17,.7);
+      color: var(--gold);
+      box-shadow: 0 10px 25px rgba(0,0,0,.25);
+      cursor:pointer;
+      align-items:center;
+      justify-content:center;
+    }
+    .hamburger{
+      width: 22px;
+      height: 14px;
+      position: relative;
+      display:inline-block;
+    }
+    .hamburger span{
+      position:absolute;
+      left:0;
+      width:100%;
+      height:2px;
+      background: var(--gold);
+      border-radius: 999px;
+      transition: .2s ease;
+    }
+    .hamburger span:nth-child(1){ top:0; }
+    .hamburger span:nth-child(2){ top:6px; opacity:1; }
+    .hamburger span:nth-child(3){ bottom:0; }
+    .nav-open .hamburger span:nth-child(1){ transform: translateY(6px) rotate(45deg); }
+    .nav-open .hamburger span:nth-child(2){ opacity:0; }
+    .nav-open .hamburger span:nth-child(3){ transform: translateY(-6px) rotate(-45deg); }
 
-        nav ul li a::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: -3px;
-            width: 0%;
-            height: 2px;
-            background: var(--gold);
-            transition: 0.35s;
-            border-radius: 50px;
-        }
+    .overlay{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.55);
+      opacity:0;
+      visibility:hidden;
+      transition: .25s ease;
+      z-index: 997;
+    }
+    .mobile-panel{
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: min(88vw, 340px);
+      transform: translateX(102%);
+      transition: .25s ease;
+      z-index: 998;
+      background: rgba(17,17,17,.96);
+      backdrop-filter: blur(10px);
+      border-left: 1px solid var(--border);
+      box-shadow: -10px 0 30px rgba(0,0,0,.35);
+      padding: 18px 16px;
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+      overflow-y:auto;
+    }
+    .mobile-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      padding: 6px 4px 10px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      margin-bottom: 6px;
+    }
+    .mobile-title{ color: var(--gold); font-weight: 900; letter-spacing:.2px; }
+    .close-btn{
+      width: 42px; height: 42px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.25);
+      color: var(--text);
+      cursor:pointer;
+    }
+    .mobile-links{
+      list-style:none;
+      display:flex;
+      flex-direction:column;
+      gap: 6px;
+      padding: 4px;
+    }
+    .mobile-links a{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.15);
+      color: var(--text);
+      text-decoration:none;
+      font-weight: 800;
+      transition: .2s ease;
+    }
+    .mobile-links a:hover{ border-color: rgba(212,161,68,.35); color: var(--gold); }
 
-        nav ul li a:hover {
-            color: var(--gold);
-            text-shadow: 0 0 12px rgba(212, 161, 68, 0.55);
-        }
+    .mobile-dropdown{
+      border-radius: 12px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.12);
+    }
+    .mobile-dropdown button{
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      padding: 12px 12px;
+      border: 0;
+      background: transparent;
+      color: var(--text);
+      font-weight: 900;
+      cursor:pointer;
+    }
+    .mobile-dropdown .panel{
+      display:none;
+      padding: 6px 10px 10px;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .mobile-dropdown .panel a{
+      display:block;
+      padding: 10px 10px;
+      border-radius: 10px;
+      text-decoration:none;
+      color: #d6d6d6;
+      font-weight: 700;
+      border: 1px solid rgba(255,255,255,.06);
+      background: rgba(0,0,0,.12);
+      margin-top: 6px;
+    }
+    .mobile-dropdown .panel a:hover{ color: var(--gold); border-color: rgba(212,161,68,.25); }
 
-        nav ul li a:hover::after {
-            width: 100%;
-        }
+    .nav-open .overlay{ opacity:1; visibility:visible; }
+    .nav-open .mobile-panel{ transform: translateX(0); }
 
-        nav ul li a.active {
-            color: var(--gold);
-        }
+    /* PAGE HERO (CONTACT) */
+    .page-hero{
+      padding: calc(var(--header-h) + 46px) 20px 34px;
+      background:
+        radial-gradient(1200px 500px at 18% 0%, rgba(212,161,68,.12), transparent 60%),
+        radial-gradient(1000px 500px at 85% 10%, rgba(240,198,116,.10), transparent 55%),
+        linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.65)),
+        url("https://images.unsplash.com/photo-1521791055366-0d553872125f?auto=format&fit=crop&w=1600&q=80");
+      background-size: cover;
+      background-position: center;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .page-hero-inner{
+      max-width: 1200px;
+      margin: 0 auto;
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .page-hero h1{
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 900;
+      color: var(--gold);
+      letter-spacing: .2px;
+    }
+    .page-hero p{
+      max-width: 720px;
+      color: #f0f0f0;
+      opacity: .95;
+      line-height: 1.6;
+      margin-top: 10px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: var(--gold);
+      color: #111;
+      text-decoration:none;
+      font-weight: 900;
+      font-size: 1rem;
+      box-shadow: 0 6px 22px rgba(212,161,68,.25);
+      transition: .2s ease;
+      border:0;
+      cursor:pointer;
+      white-space: nowrap;
+    }
+    .btn:hover{ background: var(--gold-light); transform: translateY(-2px); }
+    .btn.secondary{
+      background: transparent;
+      color: var(--gold);
+      border: 1px solid rgba(212,161,68,.55);
+      box-shadow: none;
+    }
+    .btn.secondary:hover{ background: rgba(212,161,68,.10); }
 
-        nav ul li a.active::after {
-            width: 100%;
-        }
+    /* CONTACT SECTION */
+    .section{
+      padding: 42px 20px 90px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .contact-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: start;
+    }
 
-        .dropdown {
-            position: relative;
-        }
+    .panel{
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: 0 10px 25px rgba(0,0,0,.20);
+    }
+    .panel h2{
+      color: var(--gold);
+      font-size: 1.35rem;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+    .panel p{
+      color: #d7d7d7;
+      line-height: 1.7;
+      margin-top: 8px;
+      font-weight: 550;
+    }
 
-        .dropdown .dropbtn {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-        }
+    /* Contact info cards */
+    .info-list{
+      display:grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .info-item{
+      display:flex;
+      gap: 12px;
+      align-items:flex-start;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.15);
+    }
+    .badge{
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: rgba(212,161,68,.12);
+      border: 1px solid rgba(212,161,68,.20);
+      flex: 0 0 auto;
+    }
+    .badge i{ color: var(--gold); font-size: 1.25rem; }
+    .info-item .label{
+      color: #dcdcdc;
+      font-weight: 900;
+      font-size: .95rem;
+    }
+    .info-item a, .info-item span{
+      display:block;
+      margin-top: 4px;
+      color: var(--muted);
+      text-decoration:none;
+      font-weight: 650;
+      line-height: 1.4;
+    }
+    .info-item a:hover{ color: var(--gold); }
 
-        .dropdown-content {
-            position: absolute;
-            top: 42px;
-            left: 0;
-            background: rgba(15, 15, 15, 0.95);
-            backdrop-filter: blur(10px);
-            min-width: 190px;
-            display: flex;
-            flex-direction: column;
-            padding: 12px 0;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-            visibility: hidden;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: 0.35s ease;
-        }
+    /* FORM */
+    form{
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .row{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    label{
+      font-weight: 800;
+      color: #dcdcdc;
+      font-size: .95rem;
+      margin-bottom: 6px;
+      display:block;
+    }
+    input, textarea{
+      width:100%;
+      background: rgba(0,0,0,.25);
+      border: 1px solid rgba(255,255,255,.10);
+      padding: 12px 12px;
+      border-radius: 12px;
+      color: var(--text);
+      font-size: 1rem;
+      transition: .2s ease;
+    }
+    textarea{ resize: vertical; min-height: 140px; }
+    input:focus, textarea:focus{
+      outline: none;
+      border-color: rgba(212,161,68,.6);
+      box-shadow: 0 0 0 3px rgba(212,161,68,.15);
+    }
+    .hint{
+      font-size: .9rem;
+      color: #cfcfcf;
+      opacity: .85;
+      line-height: 1.5;
+      margin-top: 6px;
+    }
+    .actions{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
 
-        .dropdown-content li a {
-            padding: 10px 18px;
-            color: #ddd;
-            font-weight: 500;
-        }
+    /* MAP */
+    .map{
+      margin-top: 18px;
+      width: 100%;
+      height: 320px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 12px 28px rgba(0,0,0,.30);
+    }
+    .map iframe{ width:100%; height:100%; border:0; }
 
-        .dropdown-content li a:hover {
-            background: rgba(212, 161, 68, 0.12);
-            color: var(--gold);
-        }
+    /* FOOTER */
+    .footer{
+      background: #0d0d0d;
+      padding-top: 70px;
+      border-top: 3px solid var(--gold);
+      margin-top: 80px;
+    }
+    .footer-container{
+      max-width:1200px;
+      margin:auto;
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 36px;
+      padding: 0 20px 40px;
+    }
+    .footer-section h3, .footer-section h4{
+      color: var(--gold);
+      font-weight: 900;
+      margin-bottom: 18px;
+      letter-spacing: .4px;
+    }
+    .footer-section p{
+      color: #cccccc;
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+    .footer-section a{
+      color:#cccccc;
+      text-decoration:none;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom: 12px;
+      font-weight: 700;
+      transition: .2s ease;
+    }
+    .footer-section a i{ color: var(--gold); }
+    .footer-section a:hover{ color: var(--gold); transform: translateX(4px); }
 
-        .dropdown.show .dropdown-content {
-            visibility: visible;
-            opacity: 1;
-            transform: translateY(0px);
-        }
+    .footer-socials{
+      text-align:center;
+      padding: 18px 0 26px;
+    }
+    .footer-socials a{
+      display:inline-flex;
+      justify-content:center;
+      align-items:center;
+      width: 46px;
+      height: 46px;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      margin: 0 8px;
+      color: var(--gold);
+      font-size: 1.15rem;
+      transition: .2s ease;
+      text-decoration:none;
+    }
+    .footer-socials a:hover{
+      background: var(--gold);
+      color:#111;
+      transform: translateY(-3px);
+    }
+    .footer-bottom{
+      text-align:center;
+      padding: 18px 0;
+      border-top: 1px solid rgba(255,255,255,.10);
+      color:#999;
+      font-size: .95rem;
+    }
 
-        /* MOBILE */
-        .menu-toggle {
-            display: none;
-        }
+    /* FLOATING WHATSAPP */
+    .whatsapp-float{
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      background: #25d366;
+      color: white;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-size: 2rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,.45);
+      cursor:pointer;
+      transition: .2s ease;
+      z-index: 998;
+      text-decoration:none;
+    }
+    .whatsapp-float:hover{ transform: scale(1.06); }
 
-        @media(max-width:900px) {
-
-            /* Hamburger button */
-            .menu-toggle {
-                display: block;
-                position: fixed;
-                top: 20px;
-                right: 25px;
-                color: var(--gold);
-                font-size: 2rem;
-                z-index: 10001;
-                cursor: pointer;
-            }
-
-            /* Mobile menu */
-            nav ul {
-                position: fixed;
-                top: 0;
-                right: -300px;
-                flex-direction: column;
-                gap: 20px;
-                background: #111;
-                color: var(--gold);
-                width: 280px;
-                height: 100%;
-                padding: 80px 25px 40px 25px;
-                transition: 0.35s ease;
-                box-shadow: -4px 0 25px rgba(0, 0, 0, 0.25);
-                z-index: 9999;
-                overflow-y: auto;
-            }
-
-            nav ul.show-menu {
-                right: 0;
-            }
-
-            nav ul li a {
-                font-size: 1.2rem;
-                color: var(--gold);
-            }
-
-            nav ul li a:hover {
-                color: var(--gold-light);
-                text-shadow: 0 0 8px rgba(212, 161, 68, 0.4);
-            }
-
-            /* Dropdown adjustments */
-            .dropdown-content {
-                display: none;
-                flex-direction: column;
-                padding-left: 15px;
-                margin-top: 5px;
-            }
-
-            .dropdown.show .dropdown-content {
-                display: flex;
-            }
-
-            .dropdown-content li a {
-                padding: 12px 0;
-                font-size: 1rem;
-                color: var(--gold);
-            }
-
-            .dropdown-content li a:hover {
-                color: var(--gold-light);
-                text-shadow: 0 0 8px rgba(212, 161, 68, 0.4);
-            }
-        }
-
-        /* MOBILE */
-        .menu-toggle {
-            display: none;
-        }
-
-        /* SECTION */
-        .section {
-            padding: 120px 20px 60px 20px;
-            max-width: 1200px;
-            margin: auto;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 3rem;
-            font-weight: 900;
-            color: var(--gold);
-            margin-bottom: 50px;
-        }
-
-        /* CONTACT GRID */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-
-        .contact-info,
-        .contact-form {
-            background: var(--card-bg);
-            padding: 35px 25px;
-            border-radius: 18px;
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
-        }
-
-        .contact-info h3,
-        .contact-form h3 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--gold);
-            margin-bottom: 25px;
-            text-align: center;
-        }
-
-        .contact-info p {
-            font-size: 1rem;
-            color: #ddd;
-            line-height: 1.6;
-            margin-bottom: 12px;
-            text-align: center;
-        }
-
-        .contact-info i {
-            color: var(--gold);
-            margin-right: 10px;
-        }
-
-        /* FORM */
-        .contact-form form {
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-        }
-
-        .contact-form input,
-        .contact-form textarea {
-            background: #111;
-            border: 1px solid rgba(212, 161, 68, 0.5);
-            padding: 12px 15px;
-            border-radius: 10px;
-            color: #eaeaea;
-            font-size: 1rem;
-            resize: none;
-            transition: 0.3s;
-        }
-
-        .contact-form input:focus,
-        .contact-form textarea:focus {
-            border-color: var(--gold);
-            outline: none;
-            box-shadow: 0 0 8px var(--gold-light);
-        }
-
-        .contact-form button {
-            background: var(--gold);
-            color: #111;
-            font-weight: 700;
-            padding: 12px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: 0.3s;
-            font-size: 1.05rem;
-        }
-
-        .contact-form button:hover {
-            background: var(--gold-light);
-            box-shadow: 0 6px 18px rgba(212, 161, 68, 0.5);
-        }
-
-        /* MAP */
-        .contact-map {
-            margin-top: 40px;
-            width: 100%;
-            height: 300px;
-            border-radius: 18px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.07);
-        }
-
-        /* FOOTER */
-        .footer {
-            background: #0d0d0d;
-            padding-top: 70px;
-            border-top: 3px solid #d4a144;
-            margin-top: 80px;
-        }
-
-        .footer-container {
-            max-width: 1200px;
-            margin: auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 50px;
-            padding: 0 20px 40px;
-        }
-
-        .footer-section h3,
-        .footer-section h4 {
-            color: #d4a144;
-            font-weight: 800;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
-        }
-
-        .footer-section p {
-            color: #cccccc;
-            line-height: 1.6;
-            margin-bottom: 10px;
-        }
-
-        .footer-section a {
-            color: #cccccc;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 12px;
-            font-weight: 500;
-            transition: 0.3s;
-        }
-
-        .footer-section a i {
-            margin-right: 8px;
-            color: #d4a144;
-            transition: 0.3s;
-        }
-
-        .footer-section a:hover {
-            color: #d4a144;
-            padding-left: 6px;
-        }
-
-        .footer-socials {
-            text-align: center;
-            padding: 20px 0 30px;
-        }
-
-        .footer-socials a {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            width: 48px;
-            height: 48px;
-            border: 2px solid #d4a144;
-            border-radius: 50%;
-            margin: 0 10px;
-            color: #d4a144;
-            font-size: 1.2rem;
-            transition: 0.3s;
-            text-decoration: none;
-        }
-
-        .footer-socials a:hover {
-            background: #d4a144;
-            color: #111;
-            transform: translateY(-4px);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding: 18px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #999;
-            font-size: 0.95rem;
-        }
-
-        /* FLOATING WHATSAPP */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            background: #25d366;
-            color: white;
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2rem;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
-            cursor: pointer;
-            transition: 0.3s;
-            z-index: 999;
-            text-decoration: none;
-        }
-
-        .whatsapp-float:hover {
-            transform: scale(1.1);
-        }
-
-        /* MOBILE */
-        @media(max-width:900px) {
-            nav ul {
-                position: fixed;
-                top: 0;
-                right: -300px;
-                flex-direction: column;
-                gap: 20px;
-                background: #111;
-                width: 280px;
-                height: 100%;
-                padding: 80px 25px 40px 25px;
-                transition: 0.35s ease;
-                z-index: 9999;
-                overflow-y: auto;
-            }
-
-            nav ul.show-menu {
-                right: 0;
-            }
-
-            .section {
-                padding: 80px 15px;
-            }
-
-            .section-title {
-                font-size: 2rem;
-                margin-bottom: 35px;
-            }
-        }
-    </style>
+    /* RESPONSIVE */
+    @media (max-width: 980px){
+      nav{ display:none; }
+      .nav-toggle{ display:inline-flex; }
+      .brand .brand-text{ display:block; }
+      header{ padding: 12px 16px; }
+      .contact-grid{ grid-template-columns: 1fr; }
+      .row{ grid-template-columns: 1fr; }
+      .footer-container{ grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px){
+      .footer-container{ grid-template-columns: 1fr; }
+      .brand img{ height:44px; }
+      .map{ height: 280px; }
+    }
+  </style>
 </head>
 
 <body>
-
-    <!-- HEADER -->
-    <header>
-        <div class="logo-text">
-            <a href="index.html">
-                <img src="logo.png" alt="Thabza Phenomenal Logo" style="height:50px;">
-            </a>
-        </div>
-        <div class="menu-toggle" onclick="toggleMenu()">
-            <i class="fas fa-bars"></i>
-        </div>
-
-        <nav>
-            <ul id="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="portfolio.html">Portfolio</a></li>
-                <li><a href="pricing.html">Pricing</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li class="dropdown">
-                    <a class="dropbtn" onclick="toggleDropdown(event)">Other Services ▼</a>
-                    <ul class="dropdown-content">
-                        <li><a href="driving.html">Driving School</a></li>
-                        <li><a href="printing.html">Printing</a></li>
-                        <li><a href="photography.html">Photography</a></li>
-                        <li><a href="webdesign.html">Web Design</a></li>
-                        <li><a href="consultation.html">Consultation</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-    </header>
-
-    <!-- CONTACT SECTION -->
-    <section class="section" id="contact">
-        <h2 class="section-title">Get in Touch</h2>
-        <div class="contact-grid">
-            <!-- Contact Info -->
-            <div class="contact-info">
-                <h3>Contact Info</h3>
-                <p><i class="fa-solid fa-phone"></i> +27 72 614 2430</p>
-                <p><i class="fa-solid fa-envelope"></i> admin@thabzaphenomenal.co.za</p>
-                <p><i class="fa-solid fa-location-dot"></i> South Africa</p>
-            </div>
-
-            <!-- Contact Form -->
-            <div class="contact-form">
-                <h3>Send a Message</h3>
-                <form action="#" method="POST">
-                    <input type="text" name="name" placeholder="Your Name" required>
-                    <input type="email" name="email" placeholder="Your Email" required>
-                    <input type="text" name="phone" placeholder="Phone Number" required>
-                    <input type="text" name="subject" placeholder="Subject" required>
-                    <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
-                    <button type="submit">Send Message</button>
-                </form>
-            </div>
-        </div>
-
-        <!-- Map -->
-        <div class="contact-map">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3301.398948118557!2d18.6278!3d-33.9249!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1dcc5190f0f0f0f0%3A0x0!2sCape%20Town%2C%20South%20Africa!5e0!3m2!1sen!2sza!4v1600000000000!5m2!1sen!2sza"
-                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-section">
-                <h3>Thabza Phenomenal</h3>
-                <p>Your trusted partner in branding, printing, PPE and business development.</p>
-            </div>
-
-            <div class="footer-section">
-                <h4>Services</h4>
-                <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> Branding & Printing</a>
-                <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> Graphic Design</a>
-                <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> PPE Supply</a>
-                <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> Catering</a>
-            </div>
-
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <a href="index.html"><i class="fa-solid fa-link"></i> Home</a>
-                <a href="services.html"><i class="fa-solid fa-link"></i> Services</a>
-                <a href="about.html"><i class="fa-solid fa-link"></i> About</a>
-                <a href="contact.html"><i class="fa-solid fa-link"></i> Contact</a>
-            </div>
-
-            <div class="footer-section">
-                <h4>Contact</h4>
-                <p><i class="fa-solid fa-phone"></i> +27 72 614 2430</p>
-                <p><i class="fa-solid fa-envelope"></i> admin@thabzaphenomenal.co.za</p>
-                <p><i class="fa-solid fa-location-dot"></i> South Africa</p>
-            </div>
-        </div>
-
-        <div class="footer-socials">
-            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
-        </div>
-
-        <div class="footer-bottom">
-            © 2025 Thabza Phenomenal. All Rights Reserved.
-        </div>
-    </footer>
-
-    <!-- FLOATING WHATSAPP -->
-    <a href="https://wa.me/27726142430" class="whatsapp-float">
-        <i class="fab fa-whatsapp"></i>
+  <!-- HEADER -->
+  <header>
+    <a class="brand" href="index.html" aria-label="Go to Home">
+      <img src="logo.png" alt="Thabza Phenomenal Logo" />
+      <span class="brand-text">Thabza Phenomenal</span>
     </a>
 
-    <script>
-        function toggleMenu() {
-            document.getElementById("nav-links").classList.toggle("show-menu");
-        }
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-controls="mobileMenu" aria-expanded="false">
+      <span class="sr-only">Menu</span>
+      <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
 
-        function toggleDropdown(event) {
-            event.stopPropagation();
-            const dropdown = event.target.closest(".dropdown");
-            dropdown.classList.toggle("show");
-        }
+    <!-- Desktop nav -->
+    <nav aria-label="Primary navigation">
+      <ul id="desktopNav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a class="active" href="contact.html">Contact</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="blog.html">Blog</a></li>
 
-        document.addEventListener("click", () => {
-            document.querySelectorAll(".dropdown").forEach(d => d.classList.remove("show"));
-        });
+        <li class="dropdown">
+          <a class="dropbtn" href="#" id="desktopDrop" aria-haspopup="true" aria-expanded="false">
+            Other Services <i class="fa-solid fa-chevron-down" style="font-size:.85rem; opacity:.85;"></i>
+          </a>
+          <div class="dropdown-menu" role="menu" aria-label="Other services">
+            <a role="menuitem" href="driving.html">Driving School</a>
+            <a role="menuitem" href="printing.html">Printing</a>
+            <a role="menuitem" href="photography.html">Photography</a>
+            <a role="menuitem" href="webdesign.html">Web Design</a>
+            <a role="menuitem" href="consultation.html">Consultation</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </header>
 
+  <!-- Mobile overlay + panel -->
+  <div class="overlay" id="overlay" tabindex="-1" aria-hidden="true"></div>
+  <aside class="mobile-panel" id="mobileMenu" aria-label="Mobile menu">
+    <div class="mobile-head">
+      <div class="mobile-title">Menu</div>
+      <button class="close-btn" id="closeMenu" aria-label="Close menu">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
 
-        function toggleDropdown(event) {
-            event.stopPropagation();
-            const dropdown = event.target.closest(".dropdown");
-            dropdown.classList.toggle("show");
-        }
+    <ul class="mobile-links">
+      <li><a href="index.html">Home <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="services.html">Services <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="about.html">About <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="contact.html">Contact <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="portfolio.html">Portfolio <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="pricing.html">Pricing <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="blog.html">Blog <i class="fa-solid fa-arrow-right"></i></a></li>
 
-        document.addEventListener("click", () => {
-            document.querySelectorAll(".dropdown").forEach(d => d.classList.remove("show"));
-        });
+      <li class="mobile-dropdown">
+        <button type="button" id="mobileDropBtn" aria-expanded="false" aria-controls="mobileDropPanel">
+          Other Services <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="panel" id="mobileDropPanel">
+          <a href="driving.html">Driving School</a>
+          <a href="printing.html">Printing</a>
+          <a href="photography.html">Photography</a>
+          <a href="webdesign.html">Web Design</a>
+          <a href="consultation.html">Consultation</a>
+        </div>
+      </li>
+    </ul>
+  </aside>
 
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <div>
+        <h1>Get in Touch</h1>
+        <p>
+          Request a quote, ask a question, or share your project details. We’ll respond as soon as possible.
+        </p>
+      </div>
 
-        /* MODAL */
-        function openModal() {
-            document.getElementById("modal").classList.add("show");
-        }
-        window.onclick = function (e) {
-            if (e.target == document.getElementById("modal")) {
-                document.getElementById("modal").classList.remove("show");
-            }
-        }
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <a class="btn" href="mailto:admin@thabzaphenomenal.co.za?subject=Quote%20Request"><i class="fa-solid fa-paper-plane"></i> Email Us</a>
+        <a class="btn secondary" href="https://wa.me/27726142430"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+      </div>
+    </div>
+  </section>
 
-        /* BACK TO TOP BUTTON */
-        window.onscroll = function () {
-            if (document.documentElement.scrollTop > 200) {
-                document.getElementById("topBtn").style.display = "flex";
-            } else {
-                document.getElementById("topBtn").style.display = "none";
-            }
-        }
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: "smooth" });
-        }
-    </script>
+  <!-- CONTACT -->
+  <main class="section" id="contact">
+    <div class="contact-grid">
+      <!-- Info -->
+      <section class="panel" aria-label="Contact information">
+        <h2>Contact Information</h2>
+        <p>Use any of the methods below. For urgent requests, WhatsApp is the fastest.</p>
 
+        <div class="info-list">
+          <div class="info-item">
+            <div class="badge"><i class="fa-solid fa-phone"></i></div>
+            <div>
+              <div class="label">Phone</div>
+              <a href="tel:+27726142430">+27 72 614 2430</a>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="badge"><i class="fa-solid fa-envelope"></i></div>
+            <div>
+              <div class="label">Email</div>
+              <a href="mailto:admin@thabzaphenomenal.co.za">admin@thabzaphenomenal.co.za</a>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="badge"><i class="fa-solid fa-location-dot"></i></div>
+            <div>
+              <div class="label">Location</div>
+              <span>South Africa</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="map" aria-label="Map">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3301.398948118557!2d18.6278!3d-33.9249!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1dcc5190f0f0f0f0%3A0x0!2sCape%20Town%2C%20South%20Africa!5e0!3m2!1sen!2sza!4v1600000000000!5m2!1sen!2sza"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </section>
+
+      <!-- Form -->
+      <section class="panel" aria-label="Contact form">
+        <h2>Send a Message</h2>
+        <p>Tell us what you need and we’ll get back to you.</p>
+
+        <!-- NOTE: replace action with your backend / Formspree endpoint if needed -->
+        <form action="#" method="POST">
+          <div class="row">
+            <div>
+              <label for="name">Full Name</label>
+              <input id="name" name="name" type="text" placeholder="Your Name" required />
+            </div>
+            <div>
+              <label for="phone">Phone Number</label>
+              <input id="phone" name="phone" type="tel" placeholder="+27..." required />
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="you@example.com" required />
+            </div>
+            <div>
+              <label for="subject">Subject</label>
+              <input id="subject" name="subject" type="text" placeholder="Quote request / Question" required />
+            </div>
+          </div>
+
+          <div>
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="6" placeholder="Describe what you need..." required></textarea>
+            <div class="hint">
+              Tip: Include quantities, sizes, deadlines, and delivery location (if applicable).
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn" type="submit"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
+            <a class="btn secondary" href="mailto:admin@thabzaphenomenal.co.za?subject=Website%20Enquiry">
+              <i class="fa-solid fa-envelope"></i> Email Instead
+            </a>
+          </div>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3>Thabza Phenomenal</h3>
+        <p>Your trusted partner in branding, printing, PPE and business development.</p>
+      </div>
+
+      <div class="footer-section">
+        <h4>Services</h4>
+        <a href="brand.html"><i class="fa-solid fa-circle-chevron-right"></i> Branding & Printing</a>
+        <a href="graphic.html"><i class="fa-solid fa-circle-chevron-right"></i> Graphic Design</a>
+        <a href="PPE.html"><i class="fa-solid fa-circle-chevron-right"></i> PPE Supply</a>
+        <a href="catering.html"><i class="fa-solid fa-circle-chevron-right"></i> Catering</a>
+      </div>
+
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <a href="index.html"><i class="fa-solid fa-link"></i> Home</a>
+        <a href="services.html"><i class="fa-solid fa-link"></i> Services</a>
+        <a href="about.html"><i class="fa-solid fa-link"></i> About</a>
+        <a href="contact.html"><i class="fa-solid fa-link"></i> Contact</a>
+      </div>
+
+      <div class="footer-section">
+        <h4>Contact</h4>
+        <p><i class="fa-solid fa-phone"></i> +27 72 614 2430</p>
+        <p><i class="fa-solid fa-envelope"></i> admin@thabzaphenomenal.co.za</p>
+        <p><i class="fa-solid fa-location-dot"></i> South Africa</p>
+      </div>
+    </div>
+
+    <div class="footer-socials">
+      <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="https://wa.me/27726142430" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+    </div>
+
+    <div class="footer-bottom">© 2025 Thabza Phenomenal. All Rights Reserved.</div>
+  </footer>
+
+  <!-- FLOATING WHATSAPP -->
+  <a href="https://wa.me/27726142430" class="whatsapp-float" aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <script>
+    // ===== MOBILE MENU (offcanvas) =====
+    const body = document.body;
+    const navToggle = document.getElementById("navToggle");
+    const overlay = document.getElementById("overlay");
+    const closeMenu = document.getElementById("closeMenu");
+
+    function openMenu(){
+      body.classList.add("nav-open");
+      navToggle.setAttribute("aria-expanded", "true");
+      overlay.setAttribute("aria-hidden", "false");
+      closeMenu.focus();
+    }
+    function closeMenuFn(){
+      body.classList.remove("nav-open");
+      navToggle.setAttribute("aria-expanded", "false");
+      overlay.setAttribute("aria-hidden", "true");
+      navToggle.focus();
+    }
+
+    navToggle.addEventListener("click", () => {
+      body.classList.contains("nav-open") ? closeMenuFn() : openMenu();
+    });
+    overlay.addEventListener("click", closeMenuFn);
+    closeMenu.addEventListener("click", closeMenuFn);
+
+    document.addEventListener("keydown", (e) => {
+      if(e.key === "Escape" && body.classList.contains("nav-open")) closeMenuFn();
+    });
+
+    document.getElementById("mobileMenu").addEventListener("click", (e) => {
+      if(e.target.closest("a")) closeMenuFn();
+    });
+
+    // ===== DESKTOP DROPDOWN =====
+    const desktopDrop = document.getElementById("desktopDrop");
+    const dropdownLi = desktopDrop?.closest(".dropdown");
+    desktopDrop?.addEventListener("click", (e) => {
+      e.preventDefault();
+      dropdownLi.classList.toggle("show");
+      desktopDrop.setAttribute("aria-expanded", dropdownLi.classList.contains("show") ? "true" : "false");
+    });
+    document.addEventListener("click", (e) => {
+      if(!dropdownLi) return;
+      if(!e.target.closest(".dropdown")) {
+        dropdownLi.classList.remove("show");
+        desktopDrop.setAttribute("aria-expanded","false");
+      }
+    });
+
+    // ===== MOBILE DROPDOWN =====
+    const mobileDropBtn = document.getElementById("mobileDropBtn");
+    const mobileDropPanel = document.getElementById("mobileDropPanel");
+    mobileDropBtn.addEventListener("click", () => {
+      const open = mobileDropPanel.style.display === "block";
+      mobileDropPanel.style.display = open ? "none" : "block";
+      mobileDropBtn.setAttribute("aria-expanded", open ? "false" : "true");
+    });
+  </script>
 </body>
-
 </html>
