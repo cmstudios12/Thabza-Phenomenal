@@ -1,486 +1,1000 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Thabza Phenomenal | Portfolio</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thabza Phenomenal | Portfolio</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-    <style>
-        /* RESET */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+  <style>
+    /* RESET */
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+    html { scroll-behavior:smooth; }
+    body { background:#0d0d0d; color:#eaeaea; overflow-x:hidden; }
 
-        body {
-            background: #0d0d0d;
-            color: #eaeaea;
-            overflow-x: hidden;
-        }
+    :root{
+      --gold:#d4a144;
+      --gold-light:#f0c674;
+      --card:#111;
+      --text:#eaeaea;
+      --muted:#bfbfbf;
+      --border:rgba(255,255,255,.10);
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --header-h:76px;
+    }
 
-        :root {
-            --gold: #d4a144;
-            --gold-light: #f0c674;
-            --dark: #0d0d0d;
-            --card-bg: #111;
-        }
+    /* ACCESSIBILITY */
+    .sr-only{
+      position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden;
+      clip:rect(0,0,0,0); white-space:nowrap; border:0;
+    }
+    a:focus-visible, button:focus-visible{
+      outline:2px solid var(--gold);
+      outline-offset:3px;
+      border-radius:12px;
+    }
 
-        /* HEADER */
-        header {
-            width: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            padding: 18px 40px;
-            background: rgba(20, 20, 20, 0.85);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 999;
-        }
+    /* HEADER */
+    header{
+      width:100%;
+      position:fixed; top:0; left:0;
+      height:var(--header-h);
+      padding:14px 22px;
+      background:rgba(20,20,20,.80);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--border);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      z-index:999;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      text-decoration:none;
+    }
+    .brand img{ height:48px; width:auto; display:block; }
+    .brand .brand-text{
+      color:var(--gold);
+      font-weight:900;
+      letter-spacing:.2px;
+      display:none;
+    }
 
-        .logo-text {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--gold);
-        }
+    /* DESKTOP NAV */
+    nav ul{
+      list-style:none;
+      display:flex;
+      gap:26px;
+      align-items:center;
+    }
+    nav a{
+      position:relative;
+      text-decoration:none;
+      color:var(--text);
+      font-weight:650;
+      font-size:1.02rem;
+      padding:8px 0;
+      transition:.25s ease;
+      white-space:nowrap;
+    }
+    nav a::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:2px;
+      width:0%;
+      height:2px;
+      background:var(--gold);
+      transition:.25s ease;
+      border-radius:999px;
+    }
+    nav a:hover{ color:var(--gold); }
+    nav a:hover::after{ width:100%; }
+    nav a.active{ color:var(--gold); }
+    nav a.active::after{ width:100%; }
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 34px;
-            align-items: center;
-        }
+    /* DROPDOWN (DESKTOP) */
+    .dropdown{ position:relative; }
+    .dropbtn{
+      display:flex; align-items:center; gap:8px;
+      cursor:pointer; user-select:none;
+    }
+    .dropdown-menu{
+      position:absolute;
+      top:44px; left:0;
+      min-width:220px;
+      background:rgba(15,15,15,.96);
+      backdrop-filter:blur(10px);
+      border:1px solid var(--border);
+      border-radius:12px;
+      box-shadow:var(--shadow);
+      padding:10px;
+      display:none;
+    }
+    .dropdown-menu a{
+      display:block;
+      padding:10px 12px;
+      border-radius:10px;
+      color:#ddd;
+      font-weight:600;
+      font-size:.98rem;
+    }
+    .dropdown-menu a:hover{
+      background:rgba(212,161,68,.12);
+      color:var(--gold);
+    }
+    .dropdown.show .dropdown-menu{ display:block; }
 
-        nav ul li a {
-            position: relative;
-            text-decoration: none;
-            color: #eaeaea;
-            font-weight: 600;
-            font-size: 1.05rem;
-            padding: 6px 0;
-            transition: 0.35s ease;
-        }
+    /* PROFESSIONAL MOBILE MENU BUTTON */
+    .nav-toggle{
+      display:none;
+      width:44px;
+      height:44px;
+      border-radius:12px;
+      border:1px solid rgba(212,161,68,.35);
+      background:rgba(17,17,17,.7);
+      color:var(--gold);
+      box-shadow:0 10px 25px rgba(0,0,0,.25);
+      cursor:pointer;
+      align-items:center;
+      justify-content:center;
+    }
+    .hamburger{ width:22px; height:14px; position:relative; display:inline-block; }
+    .hamburger span{
+      position:absolute; left:0; width:100%; height:2px;
+      background:var(--gold); border-radius:999px; transition:.2s ease;
+    }
+    .hamburger span:nth-child(1){ top:0; }
+    .hamburger span:nth-child(2){ top:6px; opacity:1; }
+    .hamburger span:nth-child(3){ bottom:0; }
+    .nav-open .hamburger span:nth-child(1){ transform:translateY(6px) rotate(45deg); }
+    .nav-open .hamburger span:nth-child(2){ opacity:0; }
+    .nav-open .hamburger span:nth-child(3){ transform:translateY(-6px) rotate(-45deg); }
 
-        nav ul li a::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: -3px;
-            width: 0%;
-            height: 2px;
-            background: var(--gold);
-            transition: 0.35s;
-            border-radius: 50px;
-        }
+    .overlay{
+      position:fixed; inset:0;
+      background:rgba(0,0,0,.55);
+      opacity:0; visibility:hidden;
+      transition:.25s ease;
+      z-index:997;
+    }
+    .mobile-panel{
+      position:fixed; top:0; right:0;
+      height:100%;
+      width:min(88vw, 340px);
+      transform:translateX(102%);
+      transition:.25s ease;
+      z-index:998;
+      background:rgba(17,17,17,.96);
+      backdrop-filter:blur(10px);
+      border-left:1px solid var(--border);
+      box-shadow:-10px 0 30px rgba(0,0,0,.35);
+      padding:18px 16px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      overflow-y:auto;
+    }
+    .mobile-head{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px;
+      padding:6px 4px 10px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      margin-bottom:6px;
+    }
+    .mobile-title{ color:var(--gold); font-weight:900; letter-spacing:.2px; }
+    .close-btn{
+      width:42px; height:42px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.25);
+      color:var(--text);
+      cursor:pointer;
+    }
+    .mobile-links{
+      list-style:none;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      padding:4px;
+    }
+    .mobile-links a{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:12px 12px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(0,0,0,.15);
+      color:var(--text);
+      text-decoration:none;
+      font-weight:800;
+      transition:.2s ease;
+    }
+    .mobile-links a:hover{ border-color:rgba(212,161,68,.35); color:var(--gold); }
 
-        nav ul li a:hover {
-            color: var(--gold);
-            text-shadow: 0 0 12px rgba(212, 161, 68, 0.55);
-        }
+    .mobile-dropdown{
+      border-radius:12px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(0,0,0,.12);
+    }
+    .mobile-dropdown button{
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:12px 12px;
+      border:0;
+      background:transparent;
+      color:var(--text);
+      font-weight:900;
+      cursor:pointer;
+    }
+    .mobile-dropdown .panel{
+      display:none;
+      padding:6px 10px 10px;
+      border-top:1px solid rgba(255,255,255,.08);
+    }
+    .mobile-dropdown .panel a{
+      display:block;
+      padding:10px 10px;
+      border-radius:10px;
+      text-decoration:none;
+      color:#d6d6d6;
+      font-weight:700;
+      border:1px solid rgba(255,255,255,.06);
+      background:rgba(0,0,0,.12);
+      margin-top:6px;
+    }
+    .mobile-dropdown .panel a:hover{ color:var(--gold); border-color:rgba(212,161,68,.25); }
 
-        nav ul li a:hover::after {
-            width: 100%;
-        }
+    .nav-open .overlay{ opacity:1; visibility:visible; }
+    .nav-open .mobile-panel{ transform:translateX(0); }
 
-        nav ul li a.active {
-            color: var(--gold);
-        }
+    /* PAGE HERO (PORTFOLIO) */
+    .page-hero{
+      padding:calc(var(--header-h) + 46px) 20px 34px;
+      background:
+        radial-gradient(1200px 500px at 18% 0%, rgba(212,161,68,.12), transparent 60%),
+        radial-gradient(1000px 500px at 85% 10%, rgba(240,198,116,.10), transparent 55%),
+        linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.65)),
+        url("https://images.unsplash.com/photo-1526481280695-3c687fd643ed?auto=format&fit=crop&w=1600&q=80");
+      background-size:cover;
+      background-position:center;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .page-hero-inner{
+      max-width:1200px;
+      margin:0 auto;
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+    .page-hero h1{
+      font-size:clamp(2rem, 3.5vw, 3rem);
+      font-weight:900;
+      color:var(--gold);
+      letter-spacing:.2px;
+    }
+    .page-hero p{
+      max-width:760px;
+      color:#f0f0f0;
+      opacity:.95;
+      line-height:1.6;
+      margin-top:10px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:12px 18px;
+      border-radius:999px;
+      background:var(--gold);
+      color:#111;
+      text-decoration:none;
+      font-weight:900;
+      font-size:1rem;
+      box-shadow:0 6px 22px rgba(212,161,68,.25);
+      transition:.2s ease;
+      border:0;
+      cursor:pointer;
+      white-space:nowrap;
+    }
+    .btn:hover{ background:var(--gold-light); transform:translateY(-2px); }
+    .btn.secondary{
+      background:transparent;
+      color:var(--gold);
+      border:1px solid rgba(212,161,68,.55);
+      box-shadow:none;
+    }
+    .btn.secondary:hover{ background:rgba(212,161,68,.10); }
 
-        nav ul li a.active::after {
-            width: 100%;
-        }
+    /* PORTFOLIO */
+    .section{
+      padding: 34px 20px 90px;
+      max-width:1200px;
+      margin:auto;
+    }
 
-        .dropdown {
-            position: relative;
-        }
+    .toolbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:16px;
+    }
+    .toolbar .title{
+      color:var(--gold);
+      font-weight:950;
+      font-size:1.2rem;
+      letter-spacing:.2px;
+    }
+    .toolbar .hint{
+      color:#cfcfcf;
+      opacity:.9;
+      font-weight:600;
+      font-size:.95rem;
+    }
 
-        .dropdown .dropbtn {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-        }
+    .portfolio-grid{
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
 
-        .dropdown-content {
-            position: absolute;
-            top: 42px;
-            left: 0;
-            background: rgba(15, 15, 15, 0.95);
-            backdrop-filter: blur(10px);
-            min-width: 190px;
-            display: flex;
-            flex-direction: column;
-            padding: 12px 0;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-            visibility: hidden;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: 0.35s ease;
-        }
+    .portfolio-card{
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius);
+      overflow:hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,.28);
+      cursor:pointer;
+      transition: .25s ease;
+      display:flex;
+      flex-direction:column;
+      min-height: 100%;
+    }
+    .portfolio-card:hover{
+      transform: translateY(-6px);
+      box-shadow: 0 16px 38px rgba(0,0,0,.55);
+      border-color: rgba(212,161,68,.20);
+    }
 
-        .dropdown-content li a {
-            padding: 10px 18px;
-            color: #ddd;
-            font-weight: 500;
-        }
+    .thumb{
+      width:100%;
+      aspect-ratio: 4 / 3;
+      background:#0b0b0b;
+      overflow:hidden;
+      position:relative;
+    }
+    .thumb img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transform:scale(1.01);
+      transition: transform .25s ease, opacity .25s ease;
+    }
+    .portfolio-card:hover .thumb img{
+      transform:scale(1.06);
+      opacity:.95;
+    }
 
-        .dropdown-content li a:hover {
-            background: rgba(212, 161, 68, 0.12);
-            color: var(--gold);
-        }
+    .caption{
+      padding: 12px 12px 14px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 10px;
+    }
+    .caption h3{
+      color: var(--text);
+      font-weight: 900;
+      font-size: 1rem;
+      line-height: 1.25;
+    }
+    .caption span{
+      color: var(--muted);
+      font-weight: 700;
+      font-size: .9rem;
+      line-height: 1.25;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(212,161,68,.35);
+      background: rgba(212,161,68,.10);
+      color: var(--gold);
+      font-weight: 900;
+      font-size: .8rem;
+      white-space: nowrap;
+      height: fit-content;
+    }
 
-        .dropdown.show .dropdown-content {
-            visibility: visible;
-            opacity: 1;
-            transform: translateY(0px);
-        }
+    /* LIGHTBOX */
+    .lightbox{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.75);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      z-index: 10050;
+    }
+    .lightbox.show{ display:flex; }
+    .lightbox-inner{
+      width: min(1100px, 100%);
+      background: rgba(17,17,17,.96);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .lightbox-bar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      padding: 12px 12px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .lightbox-title{
+      color: var(--gold);
+      font-weight: 950;
+      font-size: 1rem;
+      padding-left: 6px;
+    }
+    .lb-actions{
+      display:flex;
+      align-items:center;
+      gap: 8px;
+    }
+    .icon-btn{
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.20);
+      color: var(--text);
+      cursor:pointer;
+      transition:.2s ease;
+    }
+    .icon-btn:hover{ border-color: rgba(212,161,68,.35); color: var(--gold); }
+    .lightbox-media{
+      width:100%;
+      background:#0b0b0b;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .lightbox-media img{
+      width:100%;
+      height:auto;
+      max-height: 74vh;
+      object-fit: contain;
+      display:block;
+    }
+    .lightbox-footer{
+      padding: 12px 14px 14px;
+      color: #d0d0d0;
+      font-weight: 650;
+      display:flex;
+      justify-content:space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
 
-        /* MOBILE */
-        .menu-toggle {
-            display: none;
-        }
+    /* FOOTER */
+    .footer{
+      background:#0d0d0d;
+      padding-top:70px;
+      border-top:3px solid var(--gold);
+      margin-top:80px;
+    }
+    .footer-container{
+      max-width:1200px;
+      margin:auto;
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap:36px;
+      padding:0 20px 40px;
+    }
+    .footer-section h3, .footer-section h4{
+      color:var(--gold);
+      font-weight:900;
+      margin-bottom:18px;
+      letter-spacing:.4px;
+    }
+    .footer-section p{
+      color:#cccccc;
+      line-height:1.7;
+      margin-bottom:10px;
+    }
+    .footer-section a{
+      color:#cccccc;
+      text-decoration:none;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:12px;
+      font-weight:700;
+      transition:.2s ease;
+    }
+    .footer-section a i{ color:var(--gold); }
+    .footer-section a:hover{ color:var(--gold); transform:translateX(4px); }
+    .footer-socials{ text-align:center; padding:18px 0 26px; }
+    .footer-socials a{
+      display:inline-flex;
+      justify-content:center;
+      align-items:center;
+      width:46px;
+      height:46px;
+      border:2px solid var(--gold);
+      border-radius:50%;
+      margin:0 8px;
+      color:var(--gold);
+      font-size:1.15rem;
+      transition:.2s ease;
+      text-decoration:none;
+    }
+    .footer-socials a:hover{ background:var(--gold); color:#111; transform:translateY(-3px); }
+    .footer-bottom{
+      text-align:center;
+      padding:18px 0;
+      border-top:1px solid rgba(255,255,255,.10);
+      color:#999;
+      font-size:.95rem;
+    }
 
-        @media (max-width: 900px) {
-            .menu-toggle {
-                display: block;
-                position: fixed;
-                top: 20px;
-                right: 25px;
-                color: var(--gold);
-                font-size: 2rem;
-                z-index: 10001;
-                cursor: pointer;
-            }
+    /* FLOATING WHATSAPP */
+    .whatsapp-float{
+      position:fixed;
+      bottom:22px;
+      right:22px;
+      background:#25d366;
+      color:#fff;
+      width:56px;
+      height:56px;
+      border-radius:50%;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-size:2rem;
+      box-shadow:0 10px 25px rgba(0,0,0,.45);
+      cursor:pointer;
+      transition:.2s ease;
+      z-index:998;
+      text-decoration:none;
+    }
+    .whatsapp-float:hover{ transform:scale(1.06); }
 
-            nav ul {
-                position: fixed;
-                top: 0;
-                right: -300px;
-                flex-direction: column;
-                gap: 20px;
-                background: #111;
-                color: var(--gold);
-                width: 280px;
-                height: 100%;
-                padding: 80px 25px 40px 25px;
-                transition: 0.35s ease;
-                box-shadow: -4px 0 25px rgba(0, 0, 0, 0.25);
-                z-index: 9999;
-                overflow-y: auto;
-            }
-
-            nav ul.show-menu {
-                right: 0;
-            }
-
-            nav ul li a {
-                font-size: 1.2rem;
-                color: var(--gold);
-            }
-
-            nav ul li a:hover {
-                color: var(--gold-light);
-                text-shadow: 0 0 8px rgba(212, 161, 68, 0.4);
-            }
-
-            .dropdown-content {
-                display: none;
-                flex-direction: column;
-                padding-left: 15px;
-                margin-top: 5px;
-            }
-
-            .dropdown.show .dropdown-content {
-                display: flex;
-            }
-
-            .dropdown-content li a {
-                padding: 12px 0;
-                font-size: 1rem;
-                color: var(--gold);
-            }
-
-            .dropdown-content li a:hover {
-                color: var(--gold-light);
-                text-shadow: 0 0 8px rgba(212, 161, 68, 0.4);
-            }
-        }
-
-        /* PORTFOLIO SECTION */
-        .section {
-            padding: 120px 20px 60px 20px;
-            max-width: 1200px;
-            margin: auto;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 3rem;
-            font-weight: 900;
-            color: var(--gold);
-            margin-bottom: 50px;
-        }
-
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .portfolio-card {
-            background: var(--card-bg);
-            border-radius: 18px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
-            transition: 0.3s;
-            cursor: pointer;
-        }
-
-        .portfolio-card img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-        }
-
-        .portfolio-card:hover img {
-            transform: scale(1.05);
-            opacity: 0.9;
-        }
-
-        .portfolio-card h4 {
-            color: var(--gold);
-            font-weight: 700;
-            text-align: center;
-            padding: 15px;
-            font-size: 1.1rem;
-        }
-
-        /* FOOTER */
-        .footer {
-            background: #0d0d0d;
-            padding-top: 70px;
-            border-top: 3px solid #d4a144;
-            margin-top: 80px;
-        }
-
-        .footer-container {
-            max-width: 1200px;
-            margin: auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 50px;
-            padding: 0 20px 40px;
-        }
-
-        .footer-section h3,
-        .footer-section h4 {
-            color: #d4a144;
-            font-weight: 800;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
-        }
-
-        .footer-section p {
-            color: #cccccc;
-            line-height: 1.6;
-            margin-bottom: 10px;
-        }
-
-        .footer-section a {
-            color: #cccccc;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 12px;
-            font-weight: 500;
-            transition: 0.3s;
-        }
-
-        .footer-section a i {
-            margin-right: 8px;
-            color: #d4a144;
-            transition: 0.3s;
-        }
-
-        .footer-section a:hover {
-            color: #d4a144;
-            padding-left: 6px;
-        }
-
-        .footer-socials {
-            text-align: center;
-            padding: 20px 0 30px;
-        }
-
-        .footer-socials a {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            width: 48px;
-            height: 48px;
-            border: 2px solid #d4a144;
-            border-radius: 50%;
-            margin: 0 10px;
-            color: #d4a144;
-            font-size: 1.2rem;
-            transition: 0.3s;
-            text-decoration: none;
-        }
-
-        .footer-socials a:hover {
-            background: #d4a144;
-            color: #111;
-            transform: translateY(-4px);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding: 18px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #999;
-            font-size: 0.95rem;
-        }
-    </style>
+    /* RESPONSIVE GRID */
+    @media (max-width: 1100px){
+      .portfolio-grid{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @media (max-width: 980px){
+      nav{ display:none; }
+      .nav-toggle{ display:inline-flex; }
+      .brand .brand-text{ display:block; }
+      header{ padding:12px 16px; }
+      .portfolio-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .footer-container{ grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px){
+      .portfolio-grid{ grid-template-columns: 1fr; }
+      .footer-container{ grid-template-columns: 1fr; }
+      .brand img{ height:44px; }
+    }
+  </style>
 </head>
 
 <body>
-
-    <!-- HEADER -->
-    <header>
-        <div class="logo-text">
-            <a href="index.html">
-                <img src="logo.png" alt="Thabza Phenomenal Logo" style="height:50px;">
-            </a>
-        </div>
-        <div class="menu-toggle" onclick="toggleMenu()">
-            <i class="fas fa-bars"></i>
-        </div>
-
-        <nav>
-            <ul id="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="portfolio.html">Portfolio</a></li>
-                <li><a href="pricing.html">Pricing</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li class="dropdown">
-                    <a class="dropbtn" onclick="toggleDropdown(event)">Other Services ▼</a>
-                    <ul class="dropdown-content">
-                        <li><a href="driving.html">Driving School</a></li>
-                        <li><a href="printing.html">Printing</a></li>
-                        <li><a href="photography.html">Photography</a></li>
-                        <li><a href="webdesign.html">Web Design</a></li>
-                        <li><a href="consultation.html">Consultation</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-    </header>
-
-    <!-- PORTFOLIO SECTION -->
-    <section class="section" id="portfolio">
-        <h2 class="section-title">Our Portfolio</h2>
-        <div class="portfolio-grid">
-            <!-- Repeat for 20 images -->
-            <div class="portfolio-card"><img src="IMG-20251111-WA0017.jpg" alt="Project 1"><h4>Project 1</h4></div>
-            <div class="portfolio-card"><img src="IMG-20251111-WA0018.jpg" alt="Project 2"><h4>Project 2</h4></div>
-            <div class="portfolio-card"><img src="IMG-20251111-WA0019.jpg" alt="Project 3"><h4>Project 3</h4></div>
-            <div class="portfolio-card"><img src="IMG-20251111-WA0023.jpg" alt="Project 4"><h4>Project 4</h4></div>
-            <div class="portfolio-card"><img src="IMG-20251111-WA0021.jpg" alt="Project 5"><h4>Project 5</h4></div>
-            <div class="portfolio-card"><img src="IMG-20251111-WA0022.jpg" alt="Project 6"><h4>Project 6</h4></div>
-            <div class="portfolio-card"><img src="IMG-20251111-WA0024.jpg" alt="Project 7"><h4>Project 7</h4></div>
-            <div class="portfolio-card"><img src="IMG-20251111-WA0025.jpg" alt="Project 8"><h4>Project 8</h4></div>
-            <div class="portfolio-card"><img src="IMG-20251111-WA0026.jpg" alt="Project 9"><h4>Project 9</h4></div>
-            <div class="portfolio-card"><img src="IMG-20251111-WA0027.jpg" alt="Project 10"><h4>Project 10</h4></div>
-            <div class="portfolio-card"><img src="IMG-20251111-WA0028.jpg" alt="Project 11"><h4>Project 11</h4></div>
-            <div class="portfolio-card"><img src="IMG-20251111-WA0029.jpg" alt="Project 12"><h4>Project 12</h4></div>
-            <div class="portfolio-card"><img src="IMG-20251111-WA0030.jpg" alt="Project 13"><h4>Project 13</h4></div>
-            <div class="portfolio-card"><img src="IMG-20251111-WA0031.jpg" alt="Project 14"><h4>Project 14</h4></div>
-            <div class="portfolio-card"><img src="IMG-20251111-WA0039.jpg" alt="Project 15"><h4>Project 15</h4></div>
-            <div class="portfolio-card"><img src="IMG-20251111-WA0036.jpg" alt="Project 16"><h4>Project 16</h4></div>
-            <div class="portfolio-card"><img src="IMG-20251111-WA0034.jpg" alt="Project 17"><h4>Project 17</h4></div>
-            <div class="portfolio-card"><img src="IMG-20251111-WA0035.jpg" alt="Project 18"><h4>Project 18</h4></div>
-            <div class="portfolio-card"><img src="IMG-20251111-WA0037.jpg" alt="Project 19"><h4>Project 19</h4></div>
-            <div class="portfolio-card"><img src="IMG-20251111-WA0038.jpg" alt="Project 20"><h4>Project 20</h4></div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-section">
-                <h3>Thabza Phenomenal</h3>
-                <p>Your trusted partner in branding, printing, PPE and business development.</p>
-            </div>
-
-            <div class="footer-section">
-                <h4>Services</h4>
-                <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> Branding & Printing</a>
-                <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> Graphic Design</a>
-                <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> PPE Supply</a>
-                <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> Catering</a>
-            </div>
-
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <a href="index.html"><i class="fa-solid fa-link"></i> Home</a>
-                <a href="services.html"><i class="fa-solid fa-link"></i> Services</a>
-                <a href="about.html"><i class="fa-solid fa-link"></i> About</a>
-                <a href="contact.html"><i class="fa-solid fa-link"></i> Contact</a>
-            </div>
-
-            <div class="footer-section">
-                <h4>Contact</h4>
-                <p><i class="fa-solid fa-phone"></i> +27 72 614 2430</p>
-                <p><i class="fa-solid fa-envelope"></i> admin@thabzaphenomenal.co.za</p>
-                <p><i class="fa-solid fa-location-dot"></i> South Africa</p>
-            </div>
-        </div>
-
-        <div class="footer-socials">
-            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
-        </div>
-
-        <div class="footer-bottom">
-            © 2025 Thabza Phenomenal. All Rights Reserved.
-        </div>
-    </footer>
-
-    <!-- FLOATING WHATSAPP -->
-    <a href="https://wa.me/27726142430" class="whatsapp-float">
-        <i class="fab fa-whatsapp"></i>
+  <!-- HEADER -->
+  <header>
+    <a class="brand" href="index.html" aria-label="Go to Home">
+      <img src="logo.png" alt="Thabza Phenomenal Logo" />
+      <span class="brand-text">Thabza Phenomenal</span>
     </a>
 
-    <script>
-        function toggleMenu() {
-            document.getElementById("nav-links").classList.toggle("show-menu");
-        }
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-controls="mobileMenu" aria-expanded="false">
+      <span class="sr-only">Menu</span>
+      <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
 
-        function toggleDropdown(event) {
-            event.stopPropagation();
-            const dropdown = event.target.closest(".dropdown");
-            dropdown.classList.toggle("show");
-        }
+    <!-- Desktop nav -->
+    <nav aria-label="Primary navigation">
+      <ul id="desktopNav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a class="active" href="portfolio.html">Portfolio</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="blog.html">Blog</a></li>
 
-        document.addEventListener("click", () => {
-            document.querySelectorAll(".dropdown").forEach(d => d.classList.remove("show"));
-        });
-    </script>
+        <li class="dropdown">
+          <a class="dropbtn" href="#" id="desktopDrop" aria-haspopup="true" aria-expanded="false">
+            Other Services <i class="fa-solid fa-chevron-down" style="font-size:.85rem; opacity:.85;"></i>
+          </a>
+          <div class="dropdown-menu" role="menu" aria-label="Other services">
+            <a role="menuitem" href="driving.html">Driving School</a>
+            <a role="menuitem" href="printing.html">Printing</a>
+            <a role="menuitem" href="photography.html">Photography</a>
+            <a role="menuitem" href="webdesign.html">Web Design</a>
+            <a role="menuitem" href="consultation.html">Consultation</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Mobile overlay + panel -->
+  <div class="overlay" id="overlay" tabindex="-1" aria-hidden="true"></div>
+  <aside class="mobile-panel" id="mobileMenu" aria-label="Mobile menu">
+    <div class="mobile-head">
+      <div class="mobile-title">Menu</div>
+      <button class="close-btn" id="closeMenu" aria-label="Close menu">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <ul class="mobile-links">
+      <li><a href="index.html">Home <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="services.html">Services <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="about.html">About <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="contact.html">Contact <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="portfolio.html">Portfolio <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="pricing.html">Pricing <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="blog.html">Blog <i class="fa-solid fa-arrow-right"></i></a></li>
+
+      <li class="mobile-dropdown">
+        <button type="button" id="mobileDropBtn" aria-expanded="false" aria-controls="mobileDropPanel">
+          Other Services <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="panel" id="mobileDropPanel">
+          <a href="driving.html">Driving School</a>
+          <a href="printing.html">Printing</a>
+          <a href="photography.html">Photography</a>
+          <a href="webdesign.html">Web Design</a>
+          <a href="consultation.html">Consultation</a>
+        </div>
+      </li>
+    </ul>
+  </aside>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <div>
+        <h1>Our Portfolio</h1>
+        <p>
+          A selection of recent work across branding, printing, signage and creative services.
+          Tap any project to view it in full.
+        </p>
+      </div>
+
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <a class="btn" href="mailto:admin@thabzaphenomenal.co.za?subject=Portfolio%20Enquiry"><i class="fa-solid fa-paper-plane"></i> Request a Quote</a>
+        <a class="btn secondary" href="services.html"><i class="fa-solid fa-layer-group"></i> View Services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <main class="section" id="portfolio">
+    <div class="toolbar">
+      <div class="title">Gallery</div>
+      <div class="hint">Click / tap a card to open the image.</div>
+    </div>
+
+    <div class="portfolio-grid">
+      <!-- NOTE: Replace titles with real project names when possible -->
+      <article class="portfolio-card" data-title="Project 1" data-src="IMG-20251111-WA0017.jpg">
+        <div class="thumb"><img src="IMG-20251111-WA0017.jpg" alt="Project 1" loading="lazy"></div>
+        <div class="caption"><div><h3>Project 1</h3><span>Branding / Print</span></div><span class="pill">View</span></div>
+      </article>
+
+      <article class="portfolio-card" data-title="Project 2" data-src="IMG-20251111-WA0018.jpg">
+        <div class="thumb"><img src="IMG-20251111-WA0018.jpg" alt="Project 2" loading="lazy"></div>
+        <div class="caption"><div><h3>Project 2</h3><span>Branding / Print</span></div><span class="pill">View</span></div>
+      </article>
+
+      <article class="portfolio-card" data-title="Project 3" data-src="IMG-20251111-WA0019.jpg">
+        <div class="thumb"><img src="IMG-20251111-WA0019.jpg" alt="Project 3" loading="lazy"></div>
+        <div class="caption"><div><h3>Project 3</h3><span>Branding / Print</span></div><span class="pill">View</span></div>
+      </article>
+
+      <article class="portfolio-card" data-title="Project 4" data-src="IMG-20251111-WA0023.jpg">
+        <div class="thumb"><img src="IMG-20251111-WA0023.jpg" alt="Project 4" loading="lazy"></div>
+        <div class="caption"><div><h3>Project 4</h3><span>Branding / Print</span></div><span class="pill">View</span></div>
+      </article>
+
+      <article class="portfolio-card" data-title="Project 5" data-src="IMG-20251111-WA0021.jpg">
+        <div class="thumb"><img src="IMG-20251111-WA0021.jpg" alt="Project 5" loading="lazy"></div>
+        <div class="caption"><div><h3>Project 5</h3><span>Branding / Print</span></div><span class="pill">View</span></div>
+      </article>
+
+      <article class="portfolio-card" data-title="Project 6" data-src="IMG-20251111-WA0022.jpg">
+        <div class="thumb"><img src="IMG-20251111-WA0022.jpg" alt="Project 6" loading="lazy"></div>
+        <div class="caption"><div><h3>Project 6</h3><span>Branding / Print</span></div><span class="pill">View</span></div>
+      </article>
+
+      <article class="portfolio-card" data-title="Project 7" data-src="IMG-20251111-WA0024.jpg">
+        <div class="thumb"><img src="IMG-20251111-WA0024.jpg" alt="Project 7" loading="lazy"></div>
+        <div class="caption"><div><h3>Project 7</h3><span>Branding / Print</span></div><span class="pill">View</span></div>
+      </article>
+
+      <article class="portfolio-card" data-title="Project 8" data-src="IMG-20251111-WA0025.jpg">
+        <div class="thumb"><img src="IMG-20251111-WA0025.jpg" alt="Project 8" loading="lazy"></div>
+        <div class="caption"><div><h3>Project 8</h3><span>Branding / Print</span></div><span class="pill">View</span></div>
+      </article>
+
+      <article class="portfolio-card" data-title="Project 9" data-src="IMG-20251111-WA0026.jpg">
+        <div class="thumb"><img src="IMG-20251111-WA0026.jpg" alt="Project 9" loading="lazy"></div>
+        <div class="caption"><div><h3>Project 9</h3><span>Branding / Print</span></div><span class="pill">View</span></div>
+      </article>
+
+      <article class="portfolio-card" data-title="Project 10" data-src="IMG-20251111-WA0027.jpg">
+        <div class="thumb"><img src="IMG-20251111-WA0027.jpg" alt="Project 10" loading="lazy"></div>
+        <div class="caption"><div><h3>Project 10</h3><span>Branding / Print</span></div><span class="pill">View</span></div>
+      </article>
+
+      <article class="portfolio-card" data-title="Project 11" data-src="IMG-20251111-WA0028.jpg">
+        <div class="thumb"><img src="IMG-20251111-WA0028.jpg" alt="Project 11" loading="lazy"></div>
+        <div class="caption"><div><h3>Project 11</h3><span>Branding / Print</span></div><span class="pill">View</span></div>
+      </article>
+
+      <article class="portfolio-card" data-title="Project 12" data-src="IMG-20251111-WA0029.jpg">
+        <div class="thumb"><img src="IMG-20251111-WA0029.jpg" alt="Project 12" loading="lazy"></div>
+        <div class="caption"><div><h3>Project 12</h3><span>Branding / Print</span></div><span class="pill">View</span></div>
+      </article>
+
+      <article class="portfolio-card" data-title="Project 13" data-src="IMG-20251111-WA0030.jpg">
+        <div class="thumb"><img src="IMG-20251111-WA0030.jpg" alt="Project 13" loading="lazy"></div>
+        <div class="caption"><div><h3>Project 13</h3><span>Branding / Print</span></div><span class="pill">View</span></div>
+      </article>
+
+      <article class="portfolio-card" data-title="Project 14" data-src="IMG-20251111-WA0031.jpg">
+        <div class="thumb"><img src="IMG-20251111-WA0031.jpg" alt="Project 14" loading="lazy"></div>
+        <div class="caption"><div><h3>Project 14</h3><span>Branding / Print</span></div><span class="pill">View</span></div>
+      </article>
+
+      <article class="portfolio-card" data-title="Project 15" data-src="IMG-20251111-WA0039.jpg">
+        <div class="thumb"><img src="IMG-20251111-WA0039.jpg" alt="Project 15" loading="lazy"></div>
+        <div class="caption"><div><h3>Project 15</h3><span>Branding / Print</span></div><span class="pill">View</span></div>
+      </article>
+
+      <article class="portfolio-card" data-title="Project 16" data-src="IMG-20251111-WA0036.jpg">
+        <div class="thumb"><img src="IMG-20251111-WA0036.jpg" alt="Project 16" loading="lazy"></div>
+        <div class="caption"><div><h3>Project 16</h3><span>Branding / Print</span></div><span class="pill">View</span></div>
+      </article>
+
+      <article class="portfolio-card" data-title="Project 17" data-src="IMG-20251111-WA0034.jpg">
+        <div class="thumb"><img src="IMG-20251111-WA0034.jpg" alt="Project 17" loading="lazy"></div>
+        <div class="caption"><div><h3>Project 17</h3><span>Branding / Print</span></div><span class="pill">View</span></div>
+      </article>
+
+      <article class="portfolio-card" data-title="Project 18" data-src="IMG-20251111-WA0035.jpg">
+        <div class="thumb"><img src="IMG-20251111-WA0035.jpg" alt="Project 18" loading="lazy"></div>
+        <div class="caption"><div><h3>Project 18</h3><span>Branding / Print</span></div><span class="pill">View</span></div>
+      </article>
+
+      <article class="portfolio-card" data-title="Project 19" data-src="IMG-20251111-WA0037.jpg">
+        <div class="thumb"><img src="IMG-20251111-WA0037.jpg" alt="Project 19" loading="lazy"></div>
+        <div class="caption"><div><h3>Project 19</h3><span>Branding / Print</span></div><span class="pill">View</span></div>
+      </article>
+
+      <article class="portfolio-card" data-title="Project 20" data-src="IMG-20251111-WA0038.jpg">
+        <div class="thumb"><img src="IMG-20251111-WA0038.jpg" alt="Project 20" loading="lazy"></div>
+        <div class="caption"><div><h3>Project 20</h3><span>Branding / Print</span></div><span class="pill">View</span></div>
+      </article>
+    </div>
+  </main>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Image preview">
+    <div class="lightbox-inner">
+      <div class="lightbox-bar">
+        <div class="lightbox-title" id="lbTitle">Preview</div>
+        <div class="lb-actions">
+          <button class="icon-btn" id="lbPrev" type="button" aria-label="Previous image"><i class="fa-solid fa-chevron-left"></i></button>
+          <button class="icon-btn" id="lbNext" type="button" aria-label="Next image"><i class="fa-solid fa-chevron-right"></i></button>
+          <button class="icon-btn" id="lbClose" type="button" aria-label="Close preview"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+      <div class="lightbox-media">
+        <img id="lbImg" src="" alt="Portfolio preview" />
+      </div>
+      <div class="lightbox-footer">
+        <span id="lbMeta"> </span>
+        <a class="btn secondary" href="mailto:admin@thabzaphenomenal.co.za?subject=Portfolio%20Quote%20Request">
+          <i class="fa-solid fa-paper-plane"></i> Request a Quote
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3>Thabza Phenomenal</h3>
+        <p>Your trusted partner in branding, printing, PPE and business development.</p>
+      </div>
+
+      <div class="footer-section">
+        <h4>Services</h4>
+        <a href="brand.html"><i class="fa-solid fa-circle-chevron-right"></i> Branding & Printing</a>
+        <a href="graphic.html"><i class="fa-solid fa-circle-chevron-right"></i> Graphic Design</a>
+        <a href="PPE.html"><i class="fa-solid fa-circle-chevron-right"></i> PPE Supply</a>
+        <a href="catering.html"><i class="fa-solid fa-circle-chevron-right"></i> Catering</a>
+      </div>
+
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <a href="index.html"><i class="fa-solid fa-link"></i> Home</a>
+        <a href="services.html"><i class="fa-solid fa-link"></i> Services</a>
+        <a href="about.html"><i class="fa-solid fa-link"></i> About</a>
+        <a href="contact.html"><i class="fa-solid fa-link"></i> Contact</a>
+      </div>
+
+      <div class="footer-section">
+        <h4>Contact</h4>
+        <p><i class="fa-solid fa-phone"></i> +27 72 614 2430</p>
+        <p><i class="fa-solid fa-envelope"></i> admin@thabzaphenomenal.co.za</p>
+        <p><i class="fa-solid fa-location-dot"></i> South Africa</p>
+      </div>
+    </div>
+
+    <div class="footer-socials">
+      <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="https://wa.me/27726142430" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+    </div>
+
+    <div class="footer-bottom">© 2025 Thabza Phenomenal. All Rights Reserved.</div>
+  </footer>
+
+  <!-- FLOATING WHATSAPP -->
+  <a href="https://wa.me/27726142430" class="whatsapp-float" aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <script>
+    // ===== MOBILE MENU (offcanvas) =====
+    const body = document.body;
+    const navToggle = document.getElementById("navToggle");
+    const overlay = document.getElementById("overlay");
+    const closeMenu = document.getElementById("closeMenu");
+
+    function openMenu(){
+      body.classList.add("nav-open");
+      navToggle.setAttribute("aria-expanded", "true");
+      overlay.setAttribute("aria-hidden", "false");
+      closeMenu.focus();
+    }
+    function closeMenuFn(){
+      body.classList.remove("nav-open");
+      navToggle.setAttribute("aria-expanded", "false");
+      overlay.setAttribute("aria-hidden", "true");
+      navToggle.focus();
+    }
+
+    navToggle.addEventListener("click", () => {
+      body.classList.contains("nav-open") ? closeMenuFn() : openMenu();
+    });
+    overlay.addEventListener("click", closeMenuFn);
+    closeMenu.addEventListener("click", closeMenuFn);
+
+    document.addEventListener("keydown", (e) => {
+      if(e.key === "Escape" && body.classList.contains("nav-open")) closeMenuFn();
+    });
+
+    document.getElementById("mobileMenu").addEventListener("click", (e) => {
+      if(e.target.closest("a")) closeMenuFn();
+    });
+
+    // ===== DESKTOP DROPDOWN =====
+    const desktopDrop = document.getElementById("desktopDrop");
+    const dropdownLi = desktopDrop?.closest(".dropdown");
+    desktopDrop?.addEventListener("click", (e) => {
+      e.preventDefault();
+      dropdownLi.classList.toggle("show");
+      desktopDrop.setAttribute("aria-expanded", dropdownLi.classList.contains("show") ? "true" : "false");
+    });
+    document.addEventListener("click", (e) => {
+      if(!dropdownLi) return;
+      if(!e.target.closest(".dropdown")) {
+        dropdownLi.classList.remove("show");
+        desktopDrop.setAttribute("aria-expanded","false");
+      }
+    });
+
+    // ===== MOBILE DROPDOWN =====
+    const mobileDropBtn = document.getElementById("mobileDropBtn");
+    const mobileDropPanel = document.getElementById("mobileDropPanel");
+    mobileDropBtn.addEventListener("click", () => {
+      const open = mobileDropPanel.style.display === "block";
+      mobileDropPanel.style.display = open ? "none" : "block";
+      mobileDropBtn.setAttribute("aria-expanded", open ? "false" : "true");
+    });
+
+    // ===== LIGHTBOX (Portfolio Preview) =====
+    const cards = Array.from(document.querySelectorAll(".portfolio-card"));
+    const lightbox = document.getElementById("lightbox");
+    const lbImg = document.getElementById("lbImg");
+    const lbTitle = document.getElementById("lbTitle");
+    const lbMeta = document.getElementById("lbMeta");
+    const lbClose = document.getElementById("lbClose");
+    const lbPrev = document.getElementById("lbPrev");
+    const lbNext = document.getElementById("lbNext");
+
+    let currentIndex = 0;
+
+    function showLightbox(index){
+      currentIndex = index;
+      const card = cards[currentIndex];
+      const src = card.getAttribute("data-src");
+      const title = card.getAttribute("data-title") || "Preview";
+
+      lbImg.src = src;
+      lbTitle.textContent = title;
+      lbMeta.textContent = `${currentIndex + 1} of ${cards.length}`;
+      lightbox.classList.add("show");
+      lightbox.setAttribute("aria-hidden","false");
+      lbClose.focus();
+    }
+
+    function hideLightbox(){
+      lightbox.classList.remove("show");
+      lightbox.setAttribute("aria-hidden","true");
+    }
+
+    function prevImg(){
+      showLightbox((currentIndex - 1 + cards.length) % cards.length);
+    }
+    function nextImg(){
+      showLightbox((currentIndex + 1) % cards.length);
+    }
+
+    cards.forEach((card, i) => {
+      card.addEventListener("click", () => showLightbox(i));
+      card.addEventListener("keydown", (e) => {
+        if(e.key === "Enter" || e.key === " ") showLightbox(i);
+      });
+      card.setAttribute("tabindex","0");
+      card.setAttribute("role","button");
+      card.setAttribute("aria-label", `Open ${card.getAttribute("data-title") || "image"}`);
+    });
+
+    lbClose.addEventListener("click", hideLightbox);
+    lbPrev.addEventListener("click", prevImg);
+    lbNext.addEventListener("click", nextImg);
+
+    lightbox.addEventListener("click", (e) => {
+      if(e.target === lightbox) hideLightbox();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if(!lightbox.classList.contains("show")) return;
+      if(e.key === "Escape") hideLightbox();
+      if(e.key === "ArrowLeft") prevImg();
+      if(e.key === "ArrowRight") nextImg();
+    });
+  </script>
 </body>
-
 </html>
