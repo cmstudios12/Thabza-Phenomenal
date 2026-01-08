@@ -1,571 +1,973 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Thabza Phenomenal | Services</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thabza Phenomenal | Services</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-    <style>
-        /* RESET */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+  <style>
+    /* RESET */
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { background: #0d0d0d; color: #eaeaea; overflow-x: hidden; }
 
-        body {
-            background: #0d0d0d;
-            color: #eaeaea;
-            overflow-x: hidden;
-        }
+    :root{
+      --gold:#d4a144;
+      --gold-light:#f0c674;
+      --dark:#0d0d0d;
+      --card:#111;
+      --text:#eaeaea;
+      --muted:#bfbfbf;
+      --border:rgba(255,255,255,.10);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --header-h: 76px;
+    }
 
-        :root {
-            --gold: #d4a144;
-            --gold-light: #f0c674;
-            --dark: #0d0d0d;
-            --card-bg: #111;
-        }
+    /* ACCESSIBILITY */
+    .sr-only{
+      position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden;
+      clip:rect(0,0,0,0); white-space:nowrap; border:0;
+    }
+    a:focus-visible, button:focus-visible, input:focus-visible{
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+      border-radius: 12px;
+    }
 
-        /* HEADER */
-        header {
-            width: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            padding: 18px 40px;
-            background: rgba(20, 20, 20, 0.85);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 999;
-        }
+    /* HEADER */
+    header{
+      width:100%;
+      position:fixed; top:0; left:0;
+      height: var(--header-h);
+      padding: 14px 22px;
+      background: rgba(20,20,20,.80);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      z-index: 999;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      text-decoration:none;
+    }
+    .brand img{ height:48px; width:auto; display:block; }
+    .brand .brand-text{
+      color: var(--gold);
+      font-weight: 900;
+      letter-spacing: .2px;
+      display:none;
+    }
 
-        .logo-text {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--gold);
-        }
+    /* DESKTOP NAV */
+    nav ul{
+      list-style:none;
+      display:flex;
+      gap: 26px;
+      align-items:center;
+    }
+    nav a{
+      position:relative;
+      text-decoration:none;
+      color: var(--text);
+      font-weight: 650;
+      font-size: 1.02rem;
+      padding: 8px 0;
+      transition: .25s ease;
+      white-space:nowrap;
+    }
+    nav a::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:2px;
+      width:0%;
+      height:2px;
+      background: var(--gold);
+      transition: .25s ease;
+      border-radius: 999px;
+    }
+    nav a:hover{ color: var(--gold); }
+    nav a:hover::after{ width:100%; }
+    nav a.active{ color: var(--gold); }
+    nav a.active::after{ width:100%; }
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 34px;
-            align-items: center;
-        }
+    /* DROPDOWN (DESKTOP) */
+    .dropdown{ position:relative; }
+    .dropbtn{
+      display:flex; align-items:center; gap:8px;
+      cursor:pointer; user-select:none;
+    }
+    .dropdown-menu{
+      position:absolute;
+      top: 44px; left: 0;
+      min-width: 220px;
+      background: rgba(15,15,15,.96);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      padding: 10px;
+      display:none;
+    }
+    .dropdown-menu a{
+      display:block;
+      padding: 10px 12px;
+      border-radius: 10px;
+      color:#ddd;
+      font-weight: 600;
+      font-size: .98rem;
+    }
+    .dropdown-menu a:hover{
+      background: rgba(212,161,68,.12);
+      color: var(--gold);
+    }
+    .dropdown.show .dropdown-menu{ display:block; }
 
-        nav ul li a {
-            position: relative;
-            text-decoration: none;
-            color: #eaeaea;
-            font-weight: 600;
-            font-size: 1.05rem;
-            padding: 6px 0;
-            transition: 0.35s ease;
-        }
+    /* PROFESSIONAL MOBILE MENU BUTTON */
+    .nav-toggle{
+      display:none;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      border: 1px solid rgba(212,161,68,.35);
+      background: rgba(17,17,17,.7);
+      color: var(--gold);
+      box-shadow: 0 10px 25px rgba(0,0,0,.25);
+      cursor:pointer;
+      align-items:center;
+      justify-content:center;
+    }
+    .hamburger{
+      width: 22px;
+      height: 14px;
+      position: relative;
+      display:inline-block;
+    }
+    .hamburger span{
+      position:absolute;
+      left:0;
+      width:100%;
+      height:2px;
+      background: var(--gold);
+      border-radius: 999px;
+      transition: .2s ease;
+    }
+    .hamburger span:nth-child(1){ top:0; }
+    .hamburger span:nth-child(2){ top:6px; opacity:1; }
+    .hamburger span:nth-child(3){ bottom:0; }
+    .nav-open .hamburger span:nth-child(1){ transform: translateY(6px) rotate(45deg); }
+    .nav-open .hamburger span:nth-child(2){ opacity:0; }
+    .nav-open .hamburger span:nth-child(3){ transform: translateY(-6px) rotate(-45deg); }
 
-        nav ul li a::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: -3px;
-            width: 0%;
-            height: 2px;
-            background: var(--gold);
-            transition: 0.35s;
-            border-radius: 50px;
-        }
+    .overlay{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.55);
+      opacity:0;
+      visibility:hidden;
+      transition: .25s ease;
+      z-index: 997;
+    }
+    .mobile-panel{
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: min(88vw, 340px);
+      transform: translateX(102%);
+      transition: .25s ease;
+      z-index: 998;
+      background: rgba(17,17,17,.96);
+      backdrop-filter: blur(10px);
+      border-left: 1px solid var(--border);
+      box-shadow: -10px 0 30px rgba(0,0,0,.35);
+      padding: 18px 16px;
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+      overflow-y:auto;
+    }
+    .mobile-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      padding: 6px 4px 10px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      margin-bottom: 6px;
+    }
+    .mobile-title{ color: var(--gold); font-weight: 900; letter-spacing:.2px; }
+    .close-btn{
+      width: 42px; height: 42px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.25);
+      color: var(--text);
+      cursor:pointer;
+    }
+    .mobile-links{
+      list-style:none;
+      display:flex;
+      flex-direction:column;
+      gap: 6px;
+      padding: 4px;
+    }
+    .mobile-links a{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.15);
+      color: var(--text);
+      text-decoration:none;
+      font-weight: 800;
+      transition: .2s ease;
+    }
+    .mobile-links a:hover{ border-color: rgba(212,161,68,.35); color: var(--gold); }
 
-        nav ul li a:hover {
-            color: var(--gold);
-            text-shadow: 0 0 12px rgba(212, 161, 68, 0.55);
-        }
+    .mobile-dropdown{
+      border-radius: 12px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.12);
+    }
+    .mobile-dropdown button{
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      padding: 12px 12px;
+      border: 0;
+      background: transparent;
+      color: var(--text);
+      font-weight: 900;
+      cursor:pointer;
+    }
+    .mobile-dropdown .panel{
+      display:none;
+      padding: 6px 10px 10px;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .mobile-dropdown .panel a{
+      display:block;
+      padding: 10px 10px;
+      border-radius: 10px;
+      text-decoration:none;
+      color: #d6d6d6;
+      font-weight: 700;
+      border: 1px solid rgba(255,255,255,.06);
+      background: rgba(0,0,0,.12);
+      margin-top: 6px;
+    }
+    .mobile-dropdown .panel a:hover{ color: var(--gold); border-color: rgba(212,161,68,.25); }
 
-        nav ul li a:hover::after {
-            width: 100%;
-        }
+    .nav-open .overlay{ opacity:1; visibility:visible; }
+    .nav-open .mobile-panel{ transform: translateX(0); }
 
-        nav ul li a.active {
-            color: var(--gold);
-        }
+    /* PAGE HERO (SERVICES) */
+    .page-hero{
+      padding: calc(var(--header-h) + 46px) 20px 34px;
+      background:
+        radial-gradient(1200px 500px at 20% 0%, rgba(212,161,68,.12), transparent 60%),
+        radial-gradient(1000px 500px at 85% 10%, rgba(240,198,116,.10), transparent 55%),
+        linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.65)),
+        url("https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=1600&q=80");
+      background-size: cover;
+      background-position: center;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .page-hero-inner{
+      max-width: 1200px;
+      margin: 0 auto;
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .page-hero h1{
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 900;
+      color: var(--gold);
+      letter-spacing: .2px;
+    }
+    .page-hero p{
+      max-width: 680px;
+      color: #f0f0f0;
+      opacity: .95;
+      line-height: 1.6;
+      margin-top: 10px;
+    }
+    .hero-actions{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: var(--gold);
+      color: #111;
+      text-decoration:none;
+      font-weight: 900;
+      font-size: 1rem;
+      box-shadow: 0 6px 22px rgba(212,161,68,.25);
+      transition: .2s ease;
+      border:0;
+      cursor:pointer;
+      white-space: nowrap;
+    }
+    .btn:hover{ background: var(--gold-light); transform: translateY(-2px); }
+    .btn.secondary{
+      background: transparent;
+      color: var(--gold);
+      border: 1px solid rgba(212,161,68,.55);
+      box-shadow: none;
+    }
+    .btn.secondary:hover{ background: rgba(212,161,68,.10); }
 
-        nav ul li a.active::after {
-            width: 100%;
-        }
+    /* SECTION */
+    .section{
+      padding: 50px 20px 90px;
+      max-width: 1200px;
+      margin: auto;
+    }
 
-        .dropdown {
-            position: relative;
-        }
+    /* TOOLBAR */
+    .toolbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 18px 0 22px;
+    }
+    .search{
+      flex: 1 1 320px;
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 14px;
+      padding: 12px 12px;
+    }
+    .search i{ color: rgba(212,161,68,.9); }
+    .search input{
+      width:100%;
+      border:0;
+      outline:none;
+      background: transparent;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.98rem;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      color: #dcdcdc;
+      font-weight: 800;
+      cursor:pointer;
+      user-select:none;
+      transition: .2s ease;
+    }
+    .pill:hover{ border-color: rgba(212,161,68,.35); color: var(--gold); }
+    .pill.active{
+      background: rgba(212,161,68,.12);
+      border-color: rgba(212,161,68,.45);
+      color: var(--gold);
+    }
 
-        .dropdown .dropbtn {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-        }
+    /* SERVICES GRID */
+    .services-grid{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 10px;
+    }
+    .service-card{
+      background: var(--card);
+      padding: 22px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.07);
+      box-shadow: 0 10px 25px rgba(0,0,0,.28);
+      transition: .25s ease;
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+      min-height: 240px;
+    }
+    .service-card:hover{
+      transform: translateY(-6px);
+      box-shadow: 0 16px 38px rgba(0,0,0,.52);
+    }
+    .service-top{
+      display:flex;
+      align-items:flex-start;
+      gap: 12px;
+    }
+    .icon-badge{
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: rgba(212,161,68,.12);
+      border: 1px solid rgba(212,161,68,.20);
+      flex: 0 0 auto;
+    }
+    .icon-badge i{ color: var(--gold); font-size: 1.35rem; }
+    .service-card h3{
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1.25;
+      margin-top: 2px;
+    }
+    .service-card p{
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: .98rem;
+    }
+    .service-meta{
+      margin-top:auto;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255,255,255,.07);
+    }
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      color: #d7d7d7;
+      font-weight: 800;
+      font-size: .85rem;
+      white-space: nowrap;
+    }
+    .service-meta .btn{
+      padding: 10px 14px;
+      font-size: .95rem;
+      box-shadow: none;
+    }
 
-        .dropdown-content {
-            position: absolute;
-            top: 42px;
-            left: 0;
-            background: rgba(15, 15, 15, 0.95);
-            backdrop-filter: blur(10px);
-            min-width: 190px;
-            display: flex;
-            flex-direction: column;
-            padding: 12px 0;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-            visibility: hidden;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: 0.35s ease;
-        }
+    /* FOOTER */
+    .footer{
+      background: #0d0d0d;
+      padding-top: 70px;
+      border-top: 3px solid var(--gold);
+      margin-top: 80px;
+    }
+    .footer-container{
+      max-width:1200px;
+      margin:auto;
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 36px;
+      padding: 0 20px 40px;
+    }
+    .footer-section h3, .footer-section h4{
+      color: var(--gold);
+      font-weight: 900;
+      margin-bottom: 18px;
+      letter-spacing: .4px;
+    }
+    .footer-section p{
+      color: #cccccc;
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+    .footer-section a{
+      color:#cccccc;
+      text-decoration:none;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom: 12px;
+      font-weight: 700;
+      transition: .2s ease;
+    }
+    .footer-section a i{ color: var(--gold); }
+    .footer-section a:hover{ color: var(--gold); transform: translateX(4px); }
 
-        .dropdown-content li a {
-            padding: 10px 18px;
-            color: #ddd;
-            font-weight: 500;
-        }
+    .footer-socials{
+      text-align:center;
+      padding: 18px 0 26px;
+    }
+    .footer-socials a{
+      display:inline-flex;
+      justify-content:center;
+      align-items:center;
+      width: 46px;
+      height: 46px;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      margin: 0 8px;
+      color: var(--gold);
+      font-size: 1.15rem;
+      transition: .2s ease;
+      text-decoration:none;
+    }
+    .footer-socials a:hover{
+      background: var(--gold);
+      color:#111;
+      transform: translateY(-3px);
+    }
+    .footer-bottom{
+      text-align:center;
+      padding: 18px 0;
+      border-top: 1px solid rgba(255,255,255,.10);
+      color:#999;
+      font-size: .95rem;
+    }
 
-        .dropdown-content li a:hover {
-            background: rgba(212, 161, 68, 0.12);
-            color: var(--gold);
-        }
+    /* FLOATING WHATSAPP */
+    .whatsapp-float{
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      background: #25d366;
+      color: white;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-size: 2rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,.45);
+      cursor:pointer;
+      transition: .2s ease;
+      z-index: 998;
+      text-decoration:none;
+    }
+    .whatsapp-float:hover{ transform: scale(1.06); }
 
-        .dropdown.show .dropdown-content {
-            visibility: visible;
-            opacity: 1;
-            transform: translateY(0px);
-        }
-
-        /* MOBILE */
-        .menu-toggle {
-            display: none;
-        }
-
-        /* SECTION */
-        .section {
-            padding: 100px 20px;
-            max-width: 1200px;
-            margin: auto;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 3rem;
-            font-weight: 900;
-            color: var(--gold);
-            margin-bottom: 50px;
-        }
-
-        /* SERVICES GRID */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-
-        .service-card {
-            background: var(--card-bg);
-            padding: 35px 25px;
-            border-radius: 18px;
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
-            text-align: center;
-            transition: 0.3s;
-        }
-
-        .service-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
-        }
-
-        .service-card i {
-            font-size: 2.5rem;
-            color: var(--gold);
-            margin-bottom: 15px;
-        }
-
-        .service-card h4 {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--gold);
-            margin-bottom: 12px;
-        }
-
-        .service-card p {
-            font-size: 1rem;
-            color: #ddd;
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-
-        .service-card .btn {
-            padding: 10px 25px;
-            border-radius: 50px;
-            background: var(--gold);
-            color: #111;
-            text-decoration: none;
-            font-weight: 700;
-            transition: 0.3s;
-        }
-
-        .service-card .btn:hover {
-            background: var(--gold-light);
-            transform: translateY(-3px);
-        }
-
-        /* PREMIUM FOOTER */
-        .footer {
-            background: #0d0d0d;
-            padding-top: 70px;
-            border-top: 3px solid #d4a144;
-            margin-top: 80px;
-        }
-
-        .footer-container {
-            max-width: 1200px;
-            margin: auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 50px;
-            padding: 0 20px 40px;
-        }
-
-        .footer-section h3,
-        .footer-section h4 {
-            color: #d4a144;
-            font-weight: 800;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
-        }
-
-        .footer-section p {
-            color: #cccccc;
-            line-height: 1.6;
-            margin-bottom: 10px;
-        }
-
-        .footer-section a {
-            color: #cccccc;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 12px;
-            font-weight: 500;
-            transition: 0.3s;
-        }
-
-        .footer-section a i {
-            margin-right: 8px;
-            color: #d4a144;
-            transition: 0.3s;
-        }
-
-        .footer-section a:hover {
-            color: #d4a144;
-            padding-left: 6px;
-        }
-
-        .footer-socials {
-            text-align: center;
-            padding: 20px 0 30px;
-        }
-
-        .footer-socials a {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            width: 48px;
-            height: 48px;
-            border: 2px solid #d4a144;
-            border-radius: 50%;
-            margin: 0 10px;
-            color: #d4a144;
-            font-size: 1.2rem;
-            transition: 0.3s;
-            text-decoration: none;
-        }
-
-        .footer-socials a:hover {
-            background: #d4a144;
-            color: #111;
-            transform: translateY(-4px);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding: 18px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #999;
-            font-size: 0.95rem;
-        }
-
-        /* FLOATING WHATSAPP */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            background: #25d366;
-            color: white;
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2rem;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
-            cursor: pointer;
-            transition: 0.3s;
-            z-index: 999;
-            text-decoration: none;
-        }
-
-        .whatsapp-float:hover {
-            transform: scale(1.1);
-        }
-
-        /* MOBILE */
-        @media(max-width:900px) {
-            nav ul {
-                position: fixed;
-                top: 0;
-                right: -300px;
-                flex-direction: column;
-                gap: 20px;
-                background: #111;
-                width: 280px;
-                height: 100%;
-                padding: 80px 25px 40px 25px;
-                transition: 0.35s ease;
-                z-index: 9999;
-                overflow-y: auto;
-            }
-
-            nav ul.show-menu {
-                right: 0;
-            }
-
-            nav ul li a {
-                font-size: 1.2rem;
-                color: var(--gold);
-            }
-
-            .section {
-                padding: 60px 15px;
-            }
-
-            .section-title {
-                font-size: 2rem;
-                margin-bottom: 35px;
-            }
-
-            .service-card {
-                padding: 25px 15px;
-            }
-
-            .service-card h4 {
-                font-size: 1.2rem;
-            }
-
-            .service-card p {
-                font-size: 0.95rem;
-            }
-        }
-    </style>
+    /* RESPONSIVE */
+    @media (max-width: 980px){
+      nav{ display:none; }
+      .nav-toggle{ display:inline-flex; }
+      .brand .brand-text{ display:block; }
+      header{ padding: 12px 16px; }
+      .services-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .footer-container{ grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px){
+      .services-grid{ grid-template-columns: 1fr; }
+      .footer-container{ grid-template-columns: 1fr; }
+      .brand img{ height:44px; }
+    }
+  </style>
 </head>
 
 <body>
-
-    <!-- HEADER -->
-    <header>
-        <div class="logo-text">
-            <a href="index.html">
-                <img src="logo.png" alt="Thabza Phenomenal Logo" style="height:50px;">
-            </a>
-        </div>
-        <div class="menu-toggle" onclick="toggleMenu()">
-            <i class="fas fa-bars"></i>
-        </div>
-
-        <nav>
-            <ul id="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="portfolio.html">Portfolio</a></li>
-                <li><a href="pricing.html">Pricing</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li class="dropdown">
-                    <a class="dropbtn" onclick="toggleDropdown(event)">Other Services ▼</a>
-                    <ul class="dropdown-content">
-                        <li><a href="driving.html">Driving School</a></li>
-                        <li><a href="printing.html">Printing</a></li>
-                        <li><a href="photography.html">Photography</a></li>
-                        <li><a href="webdesign.html">Web Design</a></li>
-                        <li><a href="consultation.html">Consultation</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-    </header>
-
-    <!-- SERVICES SECTION -->
-    <section class="section" id="services">
-        <h2 class="section-title">Our Services</h2>
-        <div class="services-grid">
-            <div class="service-card">
-                <i class="fas fa-print"></i>
-                <h4>Printing & Branding</h4>
-                <p>Business cards, flyers, banners, t‑shirts, signage, vehicle branding, posters, labels, uniforms,
-                    packaging & more.</p>
-                <a href="mailto:admin@thabzaphenomenal.co.za" class="btn">Request Quote</a>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-pen-nib"></i>
-                <h4>Graphic Design</h4>
-                <p>Logos, corporate identity, posters, adverts, social media content, brochures, product labels & more.
-                </p>
-                <a href="mailto:admin@thabzaphenomenal.co.za" class="btn">Request Quote</a>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-user-shield"></i>
-                <h4>PPE Supply</h4>
-                <p>Safety clothing, boots, gloves, masks, overalls, industrial PPE & more.</p>
-                <a href="mailto:admin@thabzaphenomenal.co.za" class="btn">Request Quote</a>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-building"></i>
-                <h4>Company Registrations</h4>
-                <p>CIPC registration, COIDA, UIF, Tax clearance, BEE, business compliance & more.</p>
-                <a href="mailto:admin@thabzaphenomenal.co.za" class="btn">Request Quote</a>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-utensils"></i>
-                <h4>Catering Services</h4>
-                <p>Events, corporate functions, weddings, private dining & more.</p>
-                <a href="mailto:admin@thabzaphenomenal.co.za" class="btn">Request Quote</a>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-project-diagram"></i>
-                <h4>Project Management</h4>
-                <p>Planning, execution, supervision & delivery of small to large projects.</p>
-                <a href="mailto:admin@thabzaphenomenal.co.za" class="btn">Request Quote</a>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-car"></i>
-                <h4>Driving School</h4>
-                <p>Professional driving lessons and road safety training for individuals and companies.</p>
-                <a href="mailto:admin@thabzaphenomenal.co.za" class="btn">Request Quote</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-section">
-                <h3>Thabza Phenomenal</h3>
-                <p>Your trusted partner in branding, printing, PPE and business development.</p>
-            </div>
-
-            <div class="footer-section">
-                <h4>Services</h4>
-                <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> Branding & Printing</a>
-                <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> Graphic Design</a>
-                <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> PPE Supply</a>
-                <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> Catering</a>
-            </div>
-
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <a href="index.html"><i class="fa-solid fa-link"></i> Home</a>
-                <a href="#services"><i class="fa-solid fa-link"></i> Services</a>
-                <a href="#contact"><i class="fa-solid fa-link"></i> Contact</a>
-            </div>
-
-            <div class="footer-section">
-                <h4>Contact</h4>
-                <p><i class="fa-solid fa-phone"></i> +27 72 614 2430</p>
-                <p><i class="fa-solid fa-envelope"></i> admin@thabzaphenomenal.co.za</p>
-                <p><i class="fa-solid fa-location-dot"></i> South Africa</p>
-            </div>
-        </div>
-
-        <div class="footer-socials">
-            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
-        </div>
-
-        <div class="footer-bottom">
-            © 2025 Thabza Phenomenal. All Rights Reserved.
-        </div>
-    </footer>
-
-    <!-- FLOATING WHATSAPP -->
-    <a href="https://wa.me/27726142430" class="whatsapp-float">
-        <i class="fab fa-whatsapp"></i>
+  <!-- HEADER -->
+  <header>
+    <a class="brand" href="index.html" aria-label="Go to Home">
+      <img src="logo.png" alt="Thabza Phenomenal Logo" />
+      <span class="brand-text">Thabza Phenomenal</span>
     </a>
 
-    <script>
-        function toggleMenu() {
-            document.getElementById("nav-links").classList.toggle("show-menu");
-        }
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-controls="mobileMenu" aria-expanded="false">
+      <span class="sr-only">Menu</span>
+      <span class="hamburger" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </span>
+    </button>
 
-        function toggleDropdown(event) {
-            event.stopPropagation();
-            const dropdown = event.target.closest(".dropdown");
-            dropdown.classList.toggle("show");
-        }
+    <!-- Desktop nav -->
+    <nav aria-label="Primary navigation">
+      <ul id="desktopNav">
+        <li><a href="index.html">Home</a></li>
+        <li><a class="active" href="services.html">Services</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="blog.html">Blog</a></li>
 
-        document.addEventListener("click", () => {
-            document.querySelectorAll(".dropdown").forEach(d => d.classList.remove("show"));
-        });
+        <li class="dropdown">
+          <a class="dropbtn" href="#" id="desktopDrop" aria-haspopup="true" aria-expanded="false">
+            Other Services <i class="fa-solid fa-chevron-down" style="font-size:.85rem; opacity:.85;"></i>
+          </a>
+          <div class="dropdown-menu" role="menu" aria-label="Other services">
+            <a role="menuitem" href="driving.html">Driving School</a>
+            <a role="menuitem" href="printing.html">Printing</a>
+            <a role="menuitem" href="photography.html">Photography</a>
+            <a role="menuitem" href="webdesign.html">Web Design</a>
+            <a role="menuitem" href="consultation.html">Consultation</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </header>
 
+  <!-- Mobile overlay + panel -->
+  <div class="overlay" id="overlay" tabindex="-1" aria-hidden="true"></div>
+  <aside class="mobile-panel" id="mobileMenu" aria-label="Mobile menu">
+    <div class="mobile-head">
+      <div class="mobile-title">Menu</div>
+      <button class="close-btn" id="closeMenu" aria-label="Close menu">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
 
-        function toggleDropdown(event) {
-            event.stopPropagation();
-            const dropdown = event.target.closest(".dropdown");
-            dropdown.classList.toggle("show");
-        }
+    <ul class="mobile-links">
+      <li><a href="index.html">Home <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="services.html">Services <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="about.html">About <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="contact.html">Contact <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="portfolio.html">Portfolio <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="pricing.html">Pricing <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="blog.html">Blog <i class="fa-solid fa-arrow-right"></i></a></li>
 
-        document.addEventListener("click", () => {
-            document.querySelectorAll(".dropdown").forEach(d => d.classList.remove("show"));
-        });
+      <li class="mobile-dropdown">
+        <button type="button" id="mobileDropBtn" aria-expanded="false" aria-controls="mobileDropPanel">
+          Other Services <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="panel" id="mobileDropPanel">
+          <a href="driving.html">Driving School</a>
+          <a href="printing.html">Printing</a>
+          <a href="photography.html">Photography</a>
+          <a href="webdesign.html">Web Design</a>
+          <a href="consultation.html">Consultation</a>
+        </div>
+      </li>
+    </ul>
+  </aside>
 
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <div>
+        <h1>Our Services</h1>
+        <p>
+          Practical, premium solutions for businesses and individuals — from branding and printing to compliance and PPE.
+        </p>
+      </div>
 
-        /* MODAL */
-        function openModal() {
-            document.getElementById("modal").classList.add("show");
-        }
-        window.onclick = function (e) {
-            if (e.target == document.getElementById("modal")) {
-                document.getElementById("modal").classList.remove("show");
-            }
-        }
+      <div class="hero-actions">
+        <a class="btn" href="mailto:admin@thabzaphenomenal.co.za?subject=Request%20a%20Quote">
+          <i class="fa-solid fa-paper-plane"></i> Request a Quote
+        </a>
+        <a class="btn secondary" href="contact.html">
+          <i class="fa-solid fa-phone"></i> Contact Us
+        </a>
+      </div>
+    </div>
+  </section>
 
-        /* BACK TO TOP BUTTON */
-        window.onscroll = function () {
-            if (document.documentElement.scrollTop > 200) {
-                document.getElementById("topBtn").style.display = "flex";
-            } else {
-                document.getElementById("topBtn").style.display = "none";
-            }
-        }
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: "smooth" });
-        }
-    </script>
+  <!-- SERVICES -->
+  <main class="section" id="services">
+    <!-- Toolbar (search + quick filters) -->
+    <div class="toolbar" aria-label="Service search and filters">
+      <div class="search" role="search">
+        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+        <input id="serviceSearch" type="search" placeholder="Search services (e.g. printing, PPE, CIPC)..." autocomplete="off" />
+      </div>
 
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <span class="pill active" data-filter="all"><i class="fa-solid fa-layer-group"></i> All</span>
+        <span class="pill" data-filter="creative"><i class="fa-solid fa-wand-magic-sparkles"></i> Creative</span>
+        <span class="pill" data-filter="business"><i class="fa-solid fa-briefcase"></i> Business</span>
+        <span class="pill" data-filter="training"><i class="fa-solid fa-road"></i> Training</span>
+      </div>
+    </div>
+
+    <div class="services-grid" id="servicesGrid">
+      <!-- Card 1 -->
+      <article class="service-card" data-category="creative" data-name="Printing & Branding business cards flyers banners t-shirts signage vehicle branding posters labels uniforms packaging">
+        <div class="service-top">
+          <div class="icon-badge"><i class="fa-solid fa-print"></i></div>
+          <div>
+            <h3>Printing & Branding</h3>
+            <p>Business cards, flyers, banners, t-shirts, signage, vehicle branding, posters, labels, uniforms, packaging and more.</p>
+          </div>
+        </div>
+        <div class="service-meta">
+          <span class="tag"><i class="fa-solid fa-clock"></i> Fast turnaround</span>
+          <a class="btn" href="mailto:admin@thabzaphenomenal.co.za?subject=Quote%20Request%3A%20Printing%20%26%20Branding">
+            Request Quote
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="service-card" data-category="creative" data-name="Graphic Design logos corporate identity posters adverts social media content brochures product labels">
+        <div class="service-top">
+          <div class="icon-badge"><i class="fa-solid fa-pen-nib"></i></div>
+          <div>
+            <h3>Graphic Design</h3>
+            <p>Logos, corporate identity, posters, adverts, social media content, brochures, product labels and more.</p>
+          </div>
+        </div>
+        <div class="service-meta">
+          <span class="tag"><i class="fa-solid fa-palette"></i> Brand-focused</span>
+          <a class="btn" href="mailto:admin@thabzaphenomenal.co.za?subject=Quote%20Request%3A%20Graphic%20Design">
+            Request Quote
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="service-card" data-category="business" data-name="PPE Supply safety clothing boots gloves masks overalls industrial PPE">
+        <div class="service-top">
+          <div class="icon-badge"><i class="fa-solid fa-user-shield"></i></div>
+          <div>
+            <h3>PPE Supply</h3>
+            <p>Safety clothing, boots, gloves, masks, overalls and industrial PPE — suitable for various industries.</p>
+          </div>
+        </div>
+        <div class="service-meta">
+          <span class="tag"><i class="fa-solid fa-shield-halved"></i> Safety first</span>
+          <a class="btn" href="mailto:admin@thabzaphenomenal.co.za?subject=Quote%20Request%3A%20PPE%20Supply">
+            Request Quote
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="service-card" data-category="business" data-name="Company Registrations CIPC COIDA UIF Tax clearance BEE compliance">
+        <div class="service-top">
+          <div class="icon-badge"><i class="fa-solid fa-building"></i></div>
+          <div>
+            <h3>Company Registrations</h3>
+            <p>CIPC registration, COIDA, UIF, tax clearance, BEE and key business compliance services.</p>
+          </div>
+        </div>
+        <div class="service-meta">
+          <span class="tag"><i class="fa-solid fa-file-signature"></i> Compliance</span>
+          <a class="btn" href="mailto:admin@thabzaphenomenal.co.za?subject=Quote%20Request%3A%20Company%20Registrations">
+            Request Quote
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 5 -->
+      <article class="service-card" data-category="business" data-name="Catering Services events corporate functions weddings private dining">
+        <div class="service-top">
+          <div class="icon-badge"><i class="fa-solid fa-utensils"></i></div>
+          <div>
+            <h3>Catering Services</h3>
+            <p>Events, corporate functions, weddings and private dining — with flexible menu options.</p>
+          </div>
+        </div>
+        <div class="service-meta">
+          <span class="tag"><i class="fa-solid fa-bowl-food"></i> Events</span>
+          <a class="btn" href="mailto:admin@thabzaphenomenal.co.za?subject=Quote%20Request%3A%20Catering%20Services">
+            Request Quote
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 6 -->
+      <article class="service-card" data-category="business" data-name="Project Management planning execution supervision delivery small to large projects">
+        <div class="service-top">
+          <div class="icon-badge"><i class="fa-solid fa-diagram-project"></i></div>
+          <div>
+            <h3>Project Management</h3>
+            <p>Planning, execution, supervision and delivery support for small to large projects.</p>
+          </div>
+        </div>
+        <div class="service-meta">
+          <span class="tag"><i class="fa-solid fa-chart-line"></i> Delivery</span>
+          <a class="btn" href="mailto:admin@thabzaphenomenal.co.za?subject=Quote%20Request%3A%20Project%20Management">
+            Request Quote
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 7 -->
+      <article class="service-card" data-category="training" data-name="Driving School professional driving lessons road safety training individuals companies">
+        <div class="service-top">
+          <div class="icon-badge"><i class="fa-solid fa-car"></i></div>
+          <div>
+            <h3>Driving School</h3>
+            <p>Professional driving lessons and road safety training for individuals and companies.</p>
+          </div>
+        </div>
+        <div class="service-meta">
+          <span class="tag"><i class="fa-solid fa-road"></i> Training</span>
+          <a class="btn" href="mailto:admin@thabzaphenomenal.co.za?subject=Quote%20Request%3A%20Driving%20School">
+            Request Quote
+          </a>
+        </div>
+      </article>
+    </div>
+
+    <p id="noResults" style="display:none; margin-top:18px; color:#cfcfcf; opacity:.9;">
+      No services match your search. Try a different keyword.
+    </p>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="contact">
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3>Thabza Phenomenal</h3>
+        <p>Your trusted partner in branding, printing, PPE and business development.</p>
+      </div>
+
+      <div class="footer-section">
+        <h4>Services</h4>
+        <a href="brand.html"><i class="fa-solid fa-circle-chevron-right"></i> Branding & Printing</a>
+        <a href="graphic.html"><i class="fa-solid fa-circle-chevron-right"></i> Graphic Design</a>
+        <a href="PPE.html"><i class="fa-solid fa-circle-chevron-right"></i> PPE Supply</a>
+        <a href="catering.html"><i class="fa-solid fa-circle-chevron-right"></i> Catering</a>
+      </div>
+
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <a href="index.html"><i class="fa-solid fa-link"></i> Home</a>
+        <a href="#services"><i class="fa-solid fa-link"></i> Services</a>
+        <a href="contact.html"><i class="fa-solid fa-link"></i> Contact</a>
+      </div>
+
+      <div class="footer-section">
+        <h4>Contact</h4>
+        <p><i class="fa-solid fa-phone"></i> +27 72 614 2430</p>
+        <p><i class="fa-solid fa-envelope"></i> admin@thabzaphenomenal.co.za</p>
+        <p><i class="fa-solid fa-location-dot"></i> South Africa</p>
+      </div>
+    </div>
+
+    <div class="footer-socials">
+      <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="https://wa.me/27726142430" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+    </div>
+
+    <div class="footer-bottom">© 2025 Thabza Phenomenal. All Rights Reserved.</div>
+  </footer>
+
+  <!-- FLOATING WHATSAPP -->
+  <a href="https://wa.me/27726142430" class="whatsapp-float" aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <script>
+    // ===== MOBILE MENU (offcanvas) =====
+    const body = document.body;
+    const navToggle = document.getElementById("navToggle");
+    const overlay = document.getElementById("overlay");
+    const closeMenu = document.getElementById("closeMenu");
+
+    function openMenu(){
+      body.classList.add("nav-open");
+      navToggle.setAttribute("aria-expanded", "true");
+      overlay.setAttribute("aria-hidden", "false");
+      closeMenu.focus();
+    }
+    function closeMenuFn(){
+      body.classList.remove("nav-open");
+      navToggle.setAttribute("aria-expanded", "false");
+      overlay.setAttribute("aria-hidden", "true");
+      navToggle.focus();
+    }
+
+    navToggle.addEventListener("click", () => {
+      body.classList.contains("nav-open") ? closeMenuFn() : openMenu();
+    });
+    overlay.addEventListener("click", closeMenuFn);
+    closeMenu.addEventListener("click", closeMenuFn);
+
+    document.addEventListener("keydown", (e) => {
+      if(e.key === "Escape" && body.classList.contains("nav-open")) closeMenuFn();
+    });
+
+    document.getElementById("mobileMenu").addEventListener("click", (e) => {
+      if(e.target.closest("a")) closeMenuFn();
+    });
+
+    // ===== DESKTOP DROPDOWN =====
+    const desktopDrop = document.getElementById("desktopDrop");
+    const dropdownLi = desktopDrop?.closest(".dropdown");
+    desktopDrop?.addEventListener("click", (e) => {
+      e.preventDefault();
+      dropdownLi.classList.toggle("show");
+      desktopDrop.setAttribute("aria-expanded", dropdownLi.classList.contains("show") ? "true" : "false");
+    });
+    document.addEventListener("click", (e) => {
+      if(!dropdownLi) return;
+      if(!e.target.closest(".dropdown")) {
+        dropdownLi.classList.remove("show");
+        desktopDrop.setAttribute("aria-expanded","false");
+      }
+    });
+
+    // ===== MOBILE DROPDOWN =====
+    const mobileDropBtn = document.getElementById("mobileDropBtn");
+    const mobileDropPanel = document.getElementById("mobileDropPanel");
+    mobileDropBtn.addEventListener("click", () => {
+      const open = mobileDropPanel.style.display === "block";
+      mobileDropPanel.style.display = open ? "none" : "block";
+      mobileDropBtn.setAttribute("aria-expanded", open ? "false" : "true");
+    });
+
+    // ===== SERVICES SEARCH + FILTERS =====
+    const searchInput = document.getElementById("serviceSearch");
+    const cards = Array.from(document.querySelectorAll(".service-card"));
+    const pills = Array.from(document.querySelectorAll(".pill"));
+    const noResults = document.getElementById("noResults");
+
+    let activeFilter = "all";
+
+    function applyFilters(){
+      const q = (searchInput.value || "").trim().toLowerCase();
+      let shown = 0;
+
+      cards.forEach(card => {
+        const category = card.getAttribute("data-category");
+        const text = (card.getAttribute("data-name") || "").toLowerCase() + " " + card.innerText.toLowerCase();
+
+        const matchFilter = (activeFilter === "all") || (category === activeFilter);
+        const matchSearch = !q || text.includes(q);
+
+        const show = matchFilter && matchSearch;
+        card.style.display = show ? "flex" : "none";
+        if(show) shown++;
+      });
+
+      noResults.style.display = shown === 0 ? "block" : "none";
+    }
+
+    pills.forEach(p => {
+      p.addEventListener("click", () => {
+        pills.forEach(x => x.classList.remove("active"));
+        p.classList.add("active");
+        activeFilter = p.getAttribute("data-filter");
+        applyFilters();
+      });
+    });
+
+    searchInput.addEventListener("input", applyFilters);
+  </script>
 </body>
-
 </html>
