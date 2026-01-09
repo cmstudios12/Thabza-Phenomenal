@@ -253,12 +253,14 @@
       font-weight: 900;
       cursor:pointer;
     }
-    .mobile-dropdown .panel{
+
+    /* Renamed from .panel to avoid collision with card panels */
+    .mobile-drop-panel{
       display:none;
       padding: 6px 10px 10px;
       border-top: 1px solid rgba(255,255,255,.08);
     }
-    .mobile-dropdown .panel a{
+    .mobile-drop-panel a{
       display:block;
       padding: 10px 10px;
       border-radius: 10px;
@@ -269,7 +271,7 @@
       background: rgba(0,0,0,.12);
       margin-top: 6px;
     }
-    .mobile-dropdown .panel a:hover{ color: var(--gold); border-color: rgba(212,161,68,.25); }
+    .mobile-drop-panel a:hover{ color: var(--gold); border-color: rgba(212,161,68,.25); }
 
     .nav-open .overlay{ opacity:1; visibility:visible; }
     .nav-open .mobile-panel{ transform: translateX(0); }
@@ -382,6 +384,7 @@
       border-radius: 14px;
       border: 1px solid rgba(255,255,255,.08);
       background: rgba(0,0,0,.15);
+      min-width: 0;
     }
     .badge{
       width: 44px;
@@ -407,6 +410,8 @@
       text-decoration:none;
       font-weight: 650;
       line-height: 1.4;
+      word-break: break-word;
+      overflow-wrap: anywhere;
     }
     .info-item a:hover{ color: var(--gold); }
 
@@ -436,7 +441,7 @@
       padding: 12px 12px;
       border-radius: 12px;
       color: var(--text);
-      font-size: 1rem;
+      font-size: 16px; /* prevents iOS zoom */
       transition: .2s ease;
     }
     textarea{ resize: vertical; min-height: 140px; }
@@ -563,7 +568,7 @@
     }
     .whatsapp-float:hover{ transform: scale(1.06); }
 
-    /* RESPONSIVE */
+    /* RESPONSIVE (original) */
     @media (max-width: 980px){
       nav{ display:none; }
       .nav-toggle{ display:inline-flex; }
@@ -572,11 +577,39 @@
       .contact-grid{ grid-template-columns: 1fr; }
       .row{ grid-template-columns: 1fr; }
       .footer-container{ grid-template-columns: 1fr 1fr; }
+
+      /* Added mobile polish */
+      .section { padding: 30px 14px 70px; }
+      .panel { padding: 18px; }
+      .page-hero { padding: calc(var(--header-h) + 34px) 14px 26px; }
+      .page-hero-inner { align-items: flex-start; }
+      .panel h2{ font-size: 1.22rem; }
+      .panel p{ font-size: .98rem; }
+      .contact-grid{ gap: 14px; }
+    }
+    @media (max-width: 620px){
+      .page-hero-inner > div:last-child{ width: 100%; }
+      .page-hero-inner > div:last-child .btn{
+        width: 100%;
+        justify-content: center;
+      }
     }
     @media (max-width: 560px){
       .footer-container{ grid-template-columns: 1fr; }
       .brand img{ height:44px; }
-      .map{ height: 280px; }
+      .map{ height: 220px; }
+
+      .whatsapp-float{
+        width: 52px;
+        height: 52px;
+        bottom: 16px;
+        right: 16px;
+        font-size: 1.8rem;
+      }
+    }
+    @media (max-width: 520px){
+      .actions{ flex-direction: column; }
+      .actions .btn{ width: 100%; }
     }
   </style>
 </head>
@@ -644,7 +677,7 @@
         <button type="button" id="mobileDropBtn" aria-expanded="false" aria-controls="mobileDropPanel">
           Other Services <i class="fa-solid fa-chevron-down"></i>
         </button>
-        <div class="panel" id="mobileDropPanel">
+        <div class="mobile-drop-panel" id="mobileDropPanel">
           <a href="driving.html">Driving School</a>
           <a href="printing.html">Printing</a>
           <a href="photography.html">Photography</a>
