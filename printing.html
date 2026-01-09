@@ -1,628 +1,878 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thabza Phenomenal | Printing Services</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thabza Phenomenal | Printing Services</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-    <style>
-        /* RESET */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+  <style>
+    /* RESET */
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { background: #0d0d0d; color: #eaeaea; overflow-x: hidden; }
+    a { color: inherit; }
 
-        body {
-            background: #0d0d0d;
-            color: #eaeaea;
-            overflow-x: hidden;
-        }
+    :root {
+      --gold: #d4a144;
+      --gold-light: #f0c674;
+      --card-bg: #111;
+      --border: rgba(255,255,255,0.08);
+      --header-h: 78px;
+      --radius: 18px;
+      --shadow: 0 12px 30px rgba(0,0,0,0.45);
+    }
 
-        :root {
-            --gold: #d4a144;
-            --gold-light: #f0c674;
-            --card-bg: #111;
-        }
+    /* ACCESSIBILITY */
+    .sr-only{
+      position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden;
+      clip:rect(0,0,0,0); white-space:nowrap; border:0;
+    }
+    a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+      border-radius: 14px;
+    }
+    /* Prevent iOS zoom */
+    input, textarea, select, button { font-size: 16px; }
 
-        /* HEADER */
-        header {
-            width: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            padding: 18px 40px;
-            background: rgba(20, 20, 20, 0.85);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 999;
-        }
+    /* HEADER */
+    header {
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: var(--header-h);
+      padding: 16px 34px;
+      background: rgba(20, 20, 20, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 9999;
+    }
 
-        .logo-text {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--gold);
-        }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      min-width: 0;
+    }
+    .brand img { height: 46px; width: auto; display: block; }
+    .brand span {
+      font-weight: 900;
+      letter-spacing: 0.4px;
+      color: var(--gold);
+      font-size: 1.05rem;
+      display: none;
+      white-space: nowrap;
+    }
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 34px;
-            align-items: center;
-        }
+    /* DESKTOP NAV */
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+    nav ul li a {
+      position: relative;
+      text-decoration: none;
+      color: #eaeaea;
+      font-weight: 650;
+      font-size: 1.02rem;
+      padding: 6px 0;
+      transition: 0.25s ease;
+      white-space: nowrap;
+    }
+    nav ul li a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0%;
+      height: 2px;
+      background: var(--gold);
+      transition: 0.25s;
+      border-radius: 50px;
+    }
+    nav ul li a:hover { color: var(--gold); text-shadow: 0 0 12px rgba(212, 161, 68, 0.35); }
+    nav ul li a:hover::after { width: 100%; }
+    nav ul li a.active { color: var(--gold); }
+    nav ul li a.active::after { width: 100%; }
 
-        nav ul li a {
-            position: relative;
-            text-decoration: none;
-            color: #eaeaea;
-            font-weight: 600;
-            font-size: 1.05rem;
-            padding: 6px 0;
-            transition: 0.35s ease;
-        }
+    /* DESKTOP DROPDOWN */
+    .dropdown { position: relative; }
+    .dropdown .dropbtn {
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      user-select:none;
+    }
+    .dropdown-content {
+      position: absolute;
+      top: 44px;
+      left: 0;
+      background: rgba(15, 15, 15, 0.95);
+      backdrop-filter: blur(10px);
+      min-width: 210px;
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+      visibility: hidden;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: 0.25s ease;
+      z-index: 10000;
+    }
+    .dropdown-content li { list-style:none; }
+    .dropdown-content li a {
+      padding: 10px 12px;
+      border-radius: 12px;
+      color: #ddd;
+      font-weight: 650;
+      font-size: 0.98rem;
+    }
+    .dropdown-content li a:hover {
+      background: rgba(212, 161, 68, 0.12);
+      color: var(--gold);
+      text-shadow:none;
+    }
+    .dropdown.show .dropdown-content {
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-        nav ul li a::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: -3px;
-            width: 0%;
-            height: 2px;
-            background: var(--gold);
-            transition: 0.35s;
-            border-radius: 50px;
-        }
+    /* =========================
+       PERFECT MOBILE NAV SYSTEM
+       (overlay + offcanvas + animated hamburger)
+       ========================= */
 
-        nav ul li a:hover {
-            color: var(--gold);
-            text-shadow: 0 0 12px rgba(212, 161, 68, 0.55);
-        }
+    /* Hide desktop nav on mobile */
+    @media (max-width: 900px){
+      nav{ display:none; }
+    }
 
-        nav ul li a:hover::after,
-        nav ul li a.active::after {
-            width: 100%;
-        }
+    .menu-overlay{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.58);
+      opacity: 0;
+      visibility: hidden;
+      transition: .25s ease;
+      z-index: 9997;
+      touch-action: none;
+    }
 
-        nav ul li a.active {
-            color: var(--gold);
-        }
+    .menu-toggle{
+      display:none;
+      width:46px; height:46px;
+      border-radius:14px;
+      border:1px solid rgba(212,161,68,0.35);
+      background:rgba(17,17,17,0.72);
+      color:var(--gold);
+      box-shadow:0 10px 25px rgba(0,0,0,0.25);
+      cursor:pointer;
+      align-items:center; justify-content:center;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .hamburger{
+      width: 22px;
+      height: 14px;
+      position: relative;
+      display:inline-block;
+    }
+    .hamburger span{
+      position:absolute;
+      left:0;
+      width:100%;
+      height:2px;
+      background: var(--gold);
+      border-radius: 999px;
+      transition: .22s ease;
+    }
+    .hamburger span:nth-child(1){ top:0; }
+    .hamburger span:nth-child(2){ top:6px; opacity:1; }
+    .hamburger span:nth-child(3){ bottom:0; }
 
-        .dropdown {
-            position: relative;
-        }
+    body.nav-open .hamburger span:nth-child(1){ transform: translateY(6px) rotate(45deg); }
+    body.nav-open .hamburger span:nth-child(2){ opacity:0; }
+    body.nav-open .hamburger span:nth-child(3){ transform: translateY(-6px) rotate(-45deg); }
 
-        .dropdown .dropbtn {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-        }
+    .mobile-panel{
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: min(88vw, 340px);
+      transform: translateX(102%);
+      transition: .25s ease;
+      z-index: 9998;
+      background: rgba(17,17,17,.96);
+      backdrop-filter: blur(10px);
+      border-left: 1px solid rgba(255,255,255,.10);
+      box-shadow: -10px 0 30px rgba(0,0,0,.35);
+      padding: 16px 14px;
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+      overflow-y:auto;
+      -webkit-overflow-scrolling: touch;
+    }
 
-        .dropdown-content {
-            position: absolute;
-            top: 42px;
-            left: 0;
-            background: rgba(15, 15, 15, 0.95);
-            backdrop-filter: blur(10px);
-            min-width: 190px;
-            display: flex;
-            flex-direction: column;
-            padding: 12px 0;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-            visibility: hidden;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: 0.35s ease;
-        }
+    .mobile-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      padding: 6px 4px 12px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      margin-bottom: 6px;
+    }
+    .mobile-title{ color: var(--gold); font-weight: 900; letter-spacing:.2px; }
+    .close-btn{
+      width: 42px; height: 42px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.25);
+      color: #eaeaea;
+      cursor:pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-        .dropdown-content li a {
-            padding: 10px 18px;
-            color: #ddd;
-            font-weight: 500;
-        }
+    .mobile-links{
+      list-style:none;
+      display:flex;
+      flex-direction:column;
+      gap: 8px;
+      padding: 2px;
+    }
+    .mobile-links a{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      padding: 13px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.14);
+      color: #eaeaea;
+      text-decoration:none;
+      font-weight: 850;
+      transition: .18s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .mobile-links a:hover{ border-color: rgba(212,161,68,.35); color: var(--gold); }
 
-        .dropdown-content li a:hover {
-            background: rgba(212, 161, 68, 0.12);
-            color: var(--gold);
-        }
+    .mobile-links a.active{
+      border-color: rgba(212,161,68,.42);
+      background: rgba(212,161,68,.10);
+      color: var(--gold);
+    }
 
-        .dropdown.show .dropdown-content {
-            visibility: visible;
-            opacity: 1;
-            transform: translateY(0px);
-        }
+    .mobile-dropdown{
+      border-radius: 14px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.10);
+    }
+    .mobile-dropdown button{
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      padding: 13px 12px;
+      border: 0;
+      background: transparent;
+      color: #eaeaea;
+      font-weight: 900;
+      cursor:pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .mobile-drop-panel{
+      display:none;
+      padding: 8px 10px 12px;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .mobile-drop-panel a{
+      display:block;
+      padding: 11px 10px;
+      border-radius: 12px;
+      text-decoration:none;
+      color: #d6d6d6;
+      font-weight: 800;
+      border: 1px solid rgba(255,255,255,.06);
+      background: rgba(0,0,0,.12);
+      margin-top: 8px;
+    }
+    .mobile-drop-panel a:hover{ color: var(--gold); border-color: rgba(212,161,68,.25); }
 
-        .menu-toggle {
-            display: none;
-        }
+    body.nav-open .menu-overlay{ opacity: 1; visibility: visible; }
+    body.nav-open .mobile-panel{ transform: translateX(0); }
 
-        @media(max-width:900px) {
-            .menu-toggle {
-                display: block;
-                position: fixed;
-                top: 20px;
-                right: 25px;
-                color: var(--gold);
-                font-size: 2rem;
-                z-index: 10001;
-                cursor: pointer;
-            }
+    @media (max-width: 900px) {
+      header { padding: 12px 16px; }
+      .menu-toggle { display: inline-flex; }
+      .brand span { display: none; }
+    }
 
-            nav ul {
-                position: fixed;
-                top: 0;
-                right: -300px;
-                flex-direction: column;
-                gap: 20px;
-                background: #111;
-                color: var(--gold);
-                width: 280px;
-                height: 100%;
-                padding: 80px 25px 40px 25px;
-                transition: 0.35s ease;
-                box-shadow: -4px 0 25px rgba(0, 0, 0, 0.25);
-                z-index: 9999;
-                overflow-y: auto;
-            }
+    /* PAGE */
+    .section {
+      padding: calc(var(--header-h) + 42px) 20px 60px;
+      max-width: 1200px;
+      margin: auto;
+    }
 
-            nav ul.show-menu {
-                right: 0;
-            }
+    .section-title {
+      text-align: center;
+      font-size: clamp(2.05rem, 3.5vw, 3rem);
+      font-weight: 900;
+      color: var(--gold);
+      margin-bottom: 50px;
+      letter-spacing: .2px;
+    }
 
-            nav ul li a {
-                font-size: 1.2rem;
-                color: var(--gold);
-            }
+    /* SERVICE CARDS */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 26px;
+    }
+    .service-card {
+      background: var(--card-bg);
+      border-radius: 18px;
+      padding: 28px 22px;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+      text-align: center;
+      transition: 0.25s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55);
+      border-color: rgba(212,161,68,0.28);
+    }
+    .service-card i { font-size: 2.6rem; color: var(--gold); margin-bottom: 14px; }
+    .service-card h3 { font-size: 1.35rem; color: var(--gold); margin-bottom: 10px; font-weight: 900; }
+    .service-card p { font-size: 1rem; color: #ddd; line-height: 1.55; }
 
-            nav ul li a:hover {
-                color: var(--gold-light);
-                text-shadow: 0 0 8px rgba(212, 161, 68, 0.4);
-            }
+    /* PORTFOLIO */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 18px;
+    }
+    .portfolio-item {
+      background: var(--card-bg);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.07);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+      transition: 0.25s ease;
+    }
+    .portfolio-item:hover {
+      transform: translateY(-6px);
+      border-color: rgba(212,161,68,0.28);
+      box-shadow: 0 12px 26px rgba(0,0,0,0.55);
+    }
+    .portfolio-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+      transition: 0.25s ease;
+    }
+    .portfolio-item:hover img { transform: scale(1.04); opacity: 0.95; }
 
-            .dropdown-content {
-                display: none;
-                flex-direction: column;
-                padding-left: 15px;
-                margin-top: 5px;
-            }
+    /* CTA */
+    .cta {
+      background: var(--gold);
+      color: #111;
+      text-align: center;
+      padding: 46px 22px;
+      border-radius: 20px;
+      margin: 60px auto 10px;
+      width: min(900px, 100%);
+      transition: 0.25s ease;
+      border: 1px solid rgba(0,0,0,0.1);
+      overflow:hidden;
+    }
+    .cta:hover { background: var(--gold-light); }
+    .cta h2 { font-size: clamp(1.75rem, 2.6vw, 2.1rem); margin-bottom: 12px; font-weight: 900; }
+    .cta p { margin: 0 auto 22px; font-size: 1.08rem; line-height: 1.55; max-width: 680px; }
 
-            .dropdown.show .dropdown-content {
-                display: flex;
-            }
+    .cta form {
+      display: grid;
+      gap: 14px;
+      width: min(560px, 100%);
+      margin: 0 auto;
+      text-align: left;
+    }
+    .field label {
+      display: block;
+      font-weight: 900;
+      font-size: 0.92rem;
+      margin-bottom: 6px;
+      color: rgba(0,0,0,0.78);
+    }
+    .cta input {
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.18);
+      font-size: 16px;
+      width: 100%;
+      outline: none;
+      background: rgba(255,255,255,0.9);
+    }
+    .cta input:focus { border-color: rgba(0,0,0,0.45); box-shadow: 0 0 0 4px rgba(0,0,0,0.08); }
 
-            .dropdown-content li a {
-                padding: 12px 0;
-                font-size: 1rem;
-                color: var(--gold);
-            }
+    .cta button {
+      background: #111;
+      color: var(--gold);
+      font-weight: 900;
+      padding: 12px 14px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 1.05rem;
+      transition: 0.25s ease;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .cta button:hover { background: #000; color: var(--gold-light); transform: translateY(-1px); }
 
-            .dropdown-content li a:hover {
-                color: var(--gold-light);
-                text-shadow: 0 0 8px rgba(212, 161, 68, 0.4);
-            }
-        }
+    /* FOOTER */
+    .footer {
+      background: #0d0d0d;
+      padding-top: 70px;
+      border-top: 3px solid #d4a144;
+      margin-top: 80px;
+    }
+    .footer-container {
+      max-width: 1200px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 50px;
+      padding: 0 20px 40px;
+    }
+    .footer-section h3, .footer-section h4 {
+      color: #d4a144;
+      font-weight: 900;
+      margin-bottom: 20px;
+      letter-spacing: 0.6px;
+    }
+    .footer-section p {
+      color: #cccccc;
+      line-height: 1.6;
+      margin-bottom: 10px;
+      overflow-wrap:anywhere;
+    }
+    .footer-section a {
+      color: #cccccc;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 12px;
+      font-weight: 650;
+      transition: 0.25s;
+      overflow-wrap:anywhere;
+    }
+    .footer-section a i { margin-right: 8px; color: #d4a144; transition: 0.25s; }
+    .footer-section a:hover { color: #d4a144; padding-left: 6px; }
 
-        /* SECTION */
-        .section {
-            padding: 120px 20px 60px 20px;
-            max-width: 1200px;
-            margin: auto;
-        }
+    .footer-socials {
+      text-align: center;
+      padding: 20px 0 30px;
+    }
+    .footer-socials a {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 48px;
+      height: 48px;
+      border: 2px solid #d4a144;
+      border-radius: 50%;
+      margin: 0 10px;
+      color: #d4a144;
+      font-size: 1.2rem;
+      transition: 0.25s;
+      text-decoration: none;
+    }
+    .footer-socials a:hover { background: #d4a144; color: #111; transform: translateY(-4px); }
 
-        .section-title {
-            text-align: center;
-            font-size: 3rem;
-            font-weight: 900;
-            color: var(--gold);
-            margin-bottom: 50px;
-        }
+    .footer-bottom {
+      text-align: center;
+      padding: 18px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: #999;
+      font-size: 0.95rem;
+    }
 
-        /* SERVICE CARDS */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
+    /* FLOATING WHATSAPP */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: #25d366;
+      color: white;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+      cursor: pointer;
+      transition: 0.25s;
+      z-index: 9996;
+      text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .whatsapp-float:hover { transform: scale(1.08); }
 
-        .service-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
-            text-align: center;
-            transition: 0.3s;
-        }
-
-        .service-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 25px rgba(212, 161, 68, 0.5);
-        }
-
-        .service-card i {
-            font-size: 3rem;
-            color: var(--gold);
-            margin-bottom: 15px;
-        }
-
-        .service-card h3 {
-            font-size: 1.5rem;
-            color: var(--gold);
-            margin-bottom: 12px;
-        }
-
-        .service-card p {
-            font-size: 1rem;
-            color: #ddd;
-            line-height: 1.5;
-        }
-
-        /* PORTFOLIO GRID */
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .portfolio-grid img {
-            width: 100%;
-            border-radius: 15px;
-            transition: 0.3s;
-            cursor: pointer;
-        }
-
-        .portfolio-grid img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(212, 161, 68, 0.5);
-        }
-
-        /* BOOK CTA */
-        .cta {
-            background: var(--gold);
-            color: #111;
-            text-align: center;
-            padding: 50px 20px;
-            border-radius: 20px;
-            margin: 60px auto;
-            /* center vertically with auto top/bottom margins */
-            width: 90%;
-            /* keep it responsive */
-            max-width: 800px;
-            /* max width so it doesn't stretch too much */
-            transition: 0.3s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            /* center all content */
-        }
-
-        .cta:hover {
-            background: var(--gold-light);
-            color: #111;
-        }
-
-        .cta h2 {
-            font-size: 2.2rem;
-            margin-bottom: 25px;
-        }
-
-        .cta p {
-            margin-bottom: 30px;
-            font-size: 1.1rem;
-            line-height: 1.5;
-            max-width: 600px;
-        }
-
-        .cta form {
-            display: grid;
-            gap: 15px;
-            width: 100%;
-        }
-
-        .cta input,
-        .cta select {
-            padding: 12px 15px;
-            border-radius: 10px;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            font-size: 1rem;
-            width: 100%;
-        }
-
-        .cta button {
-            background: #111;
-            color: var(--gold);
-            font-weight: 700;
-            padding: 12px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 1.05rem;
-            transition: 0.3s;
-            width: 100%;
-        }
-
-        .cta button:hover {
-            background: #000;
-            color: var(--gold-light);
-        }
-
-        /* FOOTER */
-        .footer {
-            background: #0d0d0d;
-            padding-top: 70px;
-            border-top: 3px solid #d4a144;
-            margin-top: 80px;
-        }
-
-        .footer-container {
-            max-width: 1200px;
-            margin: auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 50px;
-            padding: 0 20px 40px;
-        }
-
-        .footer-section h3,
-        .footer-section h4 {
-            color: #d4a144;
-            font-weight: 800;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
-        }
-
-        .footer-section p {
-            color: #cccccc;
-            line-height: 1.6;
-            margin-bottom: 10px;
-        }
-
-        .footer-section a {
-            color: #cccccc;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 12px;
-            font-weight: 500;
-            transition: 0.3s;
-        }
-
-        .footer-section a i {
-            margin-right: 8px;
-            color: #d4a144;
-            transition: 0.3s;
-        }
-
-        .footer-section a:hover {
-            color: #d4a144;
-            padding-left: 6px;
-        }
-
-        .footer-socials {
-            text-align: center;
-            padding: 20px 0 30px;
-        }
-
-        .footer-socials a {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            width: 48px;
-            height: 48px;
-            border: 2px solid #d4a144;
-            border-radius: 50%;
-            margin: 0 10px;
-            color: #d4a144;
-            font-size: 1.2rem;
-            transition: 0.3s;
-            text-decoration: none;
-        }
-
-        .footer-socials a:hover {
-            background: #d4a144;
-            color: #111;
-            transform: translateY(-4px);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding: 18px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #999;
-            font-size: 0.95rem;
-        }
-    </style>
+    /* MOBILE POLISH */
+    @media (max-width: 560px){
+      header{ padding: 10px 14px; }
+      .brand img{ height: 44px; }
+      .section{ padding: calc(var(--header-h) + 26px) 14px 52px; }
+      .portfolio-item img{ height: 190px; }
+      .whatsapp-float{
+        width: 52px; height: 52px;
+        bottom: 16px; right: 16px;
+        font-size: 1.8rem;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-    <!-- HEADER -->
-    <header>
-        <div class="logo-text">
-            <a href="index.html">
-                <img src="logo.png" alt="Thabza Phenomenal Logo" style="height:50px;">
-            </a>
+  <!-- Mobile overlay + panel -->
+  <div class="menu-overlay" id="menuOverlay" tabindex="-1" aria-hidden="true"></div>
+
+  <aside class="mobile-panel" id="mobileMenu" aria-label="Mobile menu">
+    <div class="mobile-head">
+      <div class="mobile-title">Menu</div>
+      <button class="close-btn" id="closeMenu" aria-label="Close menu">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <ul class="mobile-links">
+      <li><a href="index.html">Home <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="services.html">Services <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="about.html">About <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="contact.html">Contact <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="portfolio.html">Portfolio <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="pricing.html">Pricing <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="blog.html">Blog <i class="fa-solid fa-arrow-right"></i></a></li>
+
+      <li class="mobile-dropdown">
+        <button type="button" id="mobileDropBtn" aria-expanded="false" aria-controls="mobileDropPanel">
+          Other Services <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="mobile-drop-panel" id="mobileDropPanel">
+          <a href="driving.html">Driving School</a>
+          <a class="active" href="printing.html">Printing</a>
+          <a href="photography.html">Photography</a>
+          <a href="webdesign.html">Web Design</a>
+          <a href="consultation.html">Consultation</a>
         </div>
-        <div class="menu-toggle" onclick="toggleMenu()">
-            <i class="fas fa-bars"></i>
+      </li>
+    </ul>
+  </aside>
+
+  <!-- HEADER -->
+  <header>
+    <a class="brand" href="index.html" aria-label="Go to home">
+      <img src="logo.png" alt="Thabza Phenomenal Logo" />
+      <span>Thabza Phenomenal</span>
+    </a>
+
+    <!-- Perfect animated hamburger (no fontawesome bars) -->
+    <button class="menu-toggle" id="menuBtn" type="button" aria-label="Open menu" aria-controls="mobileMenu" aria-expanded="false">
+      <span class="sr-only">Menu</span>
+      <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
+
+    <!-- Desktop nav (hidden on mobile) -->
+    <nav aria-label="Primary navigation">
+      <ul id="desktopNav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="blog.html">Blog</a></li>
+
+        <li class="dropdown">
+          <a class="dropbtn" href="#" id="desktopDrop" aria-haspopup="true" aria-expanded="false">
+            Other Services <i class="fa-solid fa-chevron-down" style="font-size:0.85em;"></i>
+          </a>
+          <ul class="dropdown-content">
+            <li><a href="driving.html">Driving School</a></li>
+            <li><a class="active" href="printing.html">Printing</a></li>
+            <li><a href="photography.html">Photography</a></li>
+            <li><a href="webdesign.html">Web Design</a></li>
+            <li><a href="consultation.html">Consultation</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- PRINTING SERVICES -->
+  <section class="section">
+    <h2 class="section-title">Printing Services</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <i class="fa-solid fa-id-card"></i>
+        <h3>Business Cards</h3>
+        <p>Premium business cards with clean design and professional finishes.</p>
+      </div>
+
+      <div class="service-card">
+        <i class="fa-solid fa-file-lines"></i>
+        <h3>Flyers & Brochures</h3>
+        <p>High-impact marketing prints for promotions, events, and product launches.</p>
+      </div>
+
+      <div class="service-card">
+        <i class="fa-solid fa-book-open"></i>
+        <h3>Booklets & Catalogues</h3>
+        <p>Beautifully printed booklets and catalogues that tell your brand story.</p>
+      </div>
+
+      <div class="service-card">
+        <i class="fa-solid fa-envelope-open-text"></i>
+        <h3>Letterheads & Stationery</h3>
+        <p>Professional stationery that strengthens your company identity.</p>
+      </div>
+
+      <div class="service-card">
+        <i class="fa-solid fa-car-side"></i>
+        <h3>Vehicle Branding</h3>
+        <p>Clean, durable vehicle branding for business visibility on the road.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section class="section">
+    <h2 class="section-title">Printing Portfolio</h2>
+    <div class="portfolio-grid">
+      <div class="portfolio-item"><img src="images/print1.jpg" alt="Printing sample 1"></div>
+      <div class="portfolio-item"><img src="images/print2.jpg" alt="Printing sample 2"></div>
+      <div class="portfolio-item"><img src="images/print3.jpg" alt="Printing sample 3"></div>
+      <div class="portfolio-item"><img src="images/print4.jpg" alt="Printing sample 4"></div>
+      <div class="portfolio-item"><img src="images/print5.jpg" alt="Printing sample 5"></div>
+      <div class="portfolio-item"><img src="images/print6.jpg" alt="Printing sample 6"></div>
+      <div class="portfolio-item"><img src="images/print7.jpg" alt="Printing sample 7"></div>
+      <div class="portfolio-item"><img src="images/print8.jpg" alt="Printing sample 8"></div>
+      <div class="portfolio-item"><img src="images/print9.jpg" alt="Printing sample 9"></div>
+      <div class="portfolio-item"><img src="images/print10.jpg" alt="Printing sample 10"></div>
+      <div class="portfolio-item"><img src="images/print11.jpg" alt="Printing sample 11"></div>
+      <div class="portfolio-item"><img src="images/print12.jpg" alt="Printing sample 12"></div>
+      <div class="portfolio-item"><img src="images/print13.jpg" alt="Printing sample 13"></div>
+      <div class="portfolio-item"><img src="images/print14.jpg" alt="Printing sample 14"></div>
+      <div class="portfolio-item"><img src="images/print15.jpg" alt="Printing sample 15"></div>
+      <div class="portfolio-item"><img src="images/print16.jpg" alt="Printing sample 16"></div>
+      <div class="portfolio-item"><img src="images/print17.jpg" alt="Printing sample 17"></div>
+      <div class="portfolio-item"><img src="images/print18.jpg" alt="Printing sample 18"></div>
+      <div class="portfolio-item"><img src="images/print19.jpg" alt="Printing sample 19"></div>
+      <div class="portfolio-item"><img src="images/print20.jpg" alt="Printing sample 20"></div>
+    </div>
+  </section>
+
+  <!-- BOOK CTA -->
+  <section class="section">
+    <div class="cta">
+      <h2>Request a Printing Quote</h2>
+      <p>Send your details via WhatsApp and we’ll reply with pricing, turnaround time, and the best print options.</p>
+
+      <form id="printForm" autocomplete="on">
+        <div class="field">
+          <label for="q_name">Full Name</label>
+          <input id="q_name" type="text" name="name" placeholder="e.g. Thabza M." required />
         </div>
 
-        <nav>
-            <ul id="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="portfolio.html">Portfolio</a></li>
-                <li><a href="pricing.html">Pricing</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li class="dropdown">
-                    <a class="dropbtn" onclick="toggleDropdown(event)">Other Services ▼</a>
-                    <ul class="dropdown-content">
-                        <li><a href="driving.html">Driving School</a></li>
-                        <li><a href="printing.html">Printing</a></li>
-                        <li><a href="photography.html">Photography</a></li>
-                        <li><a href="webdesign.html">Web Design</a></li>
-                        <li><a href="consultation.html">Consultation</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-    </header>
-
-    <!-- PRINTING SERVICES -->
-    <section class="section">
-        <h2 class="section-title">Printing Services</h2>
-        <div class="services-grid">
-            <div class="service-card">
-                <i class="fas fa-print"></i>
-                <h3>Business Cards</h3>
-                <p>High-quality custom business cards with professional finishes.</p>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-file-invoice"></i>
-                <h3>Flyers & Brochures</h3>
-                <p>Eye-catching flyers and brochures to boost your marketing efforts.</p>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-book"></i>
-                <h3>Booklets & Catalogues</h3>
-                <p>Custom booklets and catalogues designed and printed to perfection.</p>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-envelope"></i>
-                <h3>Letterheads & Stationery</h3>
-                <p>Professional stationery to strengthen your brand identity.</p>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-car"></i>
-                <h3>Car Branding</h3>
-                <p>Professional car branding for companies & personal.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- PORTFOLIO -->
-    <section class="section">
-        <h2 class="section-title">Our Printing Portfolio</h2>
-        <div class="portfolio-grid">
-            <!-- Replace with your 20 printing images -->
-            <img src="images/print1.jpg" alt="Print Sample 1">
-            <img src="images/print2.jpg" alt="Print Sample 2">
-            <img src="images/print3.jpg" alt="Print Sample 3">
-            <img src="images/print4.jpg" alt="Print Sample 4">
-            <img src="images/print5.jpg" alt="Print Sample 5">
-            <img src="images/print6.jpg" alt="Print Sample 6">
-            <img src="images/print7.jpg" alt="Print Sample 7">
-            <img src="images/print8.jpg" alt="Print Sample 8">
-            <img src="images/print9.jpg" alt="Print Sample 9">
-            <img src="images/print10.jpg" alt="Print Sample 10">
-            <img src="images/print11.jpg" alt="Print Sample 11">
-            <img src="images/print12.jpg" alt="Print Sample 12">
-            <img src="images/print13.jpg" alt="Print Sample 13">
-            <img src="images/print14.jpg" alt="Print Sample 14">
-            <img src="images/print15.jpg" alt="Print Sample 15">
-            <img src="images/print16.jpg" alt="Print Sample 16">
-            <img src="images/print17.jpg" alt="Print Sample 17">
-            <img src="images/print18.jpg" alt="Print Sample 18">
-            <img src="images/print19.jpg" alt="Print Sample 19">
-            <img src="images/print20.jpg" alt="Print Sample 20">
-        </div>
-    </section>
-
-    <!-- BOOK CTA -->
-    <section class="section cta">
-        <h2>Book a Printing Service</h2>
-        <p>Fill out the form below and we’ll get back to you to discuss your printing needs.</p>
-        <form id="printForm">
-            <input type="text" name="name" placeholder="Full Name" required>
-            <input type="email" name="email" placeholder="Email Address" required>
-            <input type="tel" name="phone" placeholder="Phone Number" required>
-            <input type="text" name="service" placeholder="Service Required" required>
-            <button type="submit">Send via WhatsApp</button>
-        </form>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-section">
-                <h3>Thabza Phenomenal</h3>
-                <p>Your trusted partner in branding, printing, PPE and business development.</p>
-            </div>
-
-            <div class="footer-section">
-                <h4>Services</h4>
-                <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> Branding & Printing</a>
-                <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> Graphic Design</a>
-                <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> PPE Supply</a>
-                <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> Catering</a>
-            </div>
-
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <a href="index.html"><i class="fa-solid fa-link"></i> Home</a>
-                <a href="services.html"><i class="fa-solid fa-link"></i> Services</a>
-                <a href="about.html"><i class="fa-solid fa-link"></i> About</a>
-                <a href="contact.html"><i class="fa-solid fa-link"></i> Contact</a>
-            </div>
-
-            <div class="footer-section">
-                <h4>Contact</h4>
-                <p><i class="fa-solid fa-phone"></i> +27 72 614 2430</p>
-                <p><i class="fa-solid fa-envelope"></i> admin@thabzaphenomenal.co.za</p>
-                <p><i class="fa-solid fa-location-dot"></i> South Africa</p>
-            </div>
+        <div class="field">
+          <label for="q_email">Email Address</label>
+          <input id="q_email" type="email" name="email" placeholder="e.g. admin@thabzaphenomenal.co.za" required />
         </div>
 
-        <div class="footer-socials">
-            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+        <div class="field">
+          <label for="q_phone">Phone Number</label>
+          <input id="q_phone" type="tel" name="phone" placeholder="e.g. 072 614 2430" required />
         </div>
 
-        <div class="footer-bottom">
-            © 2025 Thabza Phenomenal. All Rights Reserved.
+        <div class="field">
+          <label for="q_service">What do you want printed?</label>
+          <input id="q_service" type="text" name="service" placeholder="e.g. 500 Flyers A5, full colour" required />
         </div>
-    </footer>
 
-    <script>
-        // Mobile Menu
-        function toggleMenu() {
-            document.getElementById("nav-links").classList.toggle("show-menu");
-        }
+        <button type="submit">
+          <i class="fa-brands fa-whatsapp"></i> Send on WhatsApp
+        </button>
+      </form>
+    </div>
+  </section>
 
-        // Dropdown (if needed)
-        function toggleDropdown(event) {
-            event.stopPropagation();
-            const dropdown = event.target.closest(".dropdown");
-            dropdown.classList.toggle("show");
-        }
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3>Thabza Phenomenal</h3>
+        <p>Your trusted partner in branding, printing, PPE and business development.</p>
+      </div>
 
-        document.addEventListener("click", () => {
-            document.querySelectorAll(".dropdown").forEach(d => d.classList.remove("show"));
-        });
+      <div class="footer-section">
+        <h4>Services</h4>
+        <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> Branding & Printing</a>
+        <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> Graphic Design</a>
+        <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> PPE Supply</a>
+        <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> Catering</a>
+      </div>
 
-        // WhatsApp Form Submission
-        document.getElementById("printForm").addEventListener("submit", function (e) {
-            e.preventDefault();
-            const name = this.name.value;
-            const email = this.email.value;
-            const phone = this.phone.value;
-            const service = this.service.value;
-            const message = `Hello, my name is ${name}.%0AEmail: ${email}%0APhone: ${phone}%0AService: ${service}`;
-            window.open(`https://wa.me/27726142430?text=${message}`, "_blank");
-        });
-    </script>
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <a href="index.html"><i class="fa-solid fa-link"></i> Home</a>
+        <a href="services.html"><i class="fa-solid fa-link"></i> Services</a>
+        <a href="about.html"><i class="fa-solid fa-link"></i> About</a>
+        <a href="contact.html"><i class="fa-solid fa-link"></i> Contact</a>
+      </div>
 
+      <div class="footer-section">
+        <h4>Contact</h4>
+        <p><i class="fa-solid fa-phone"></i> +27 72 614 2430</p>
+        <p><i class="fa-solid fa-envelope"></i> admin@thabzaphenomenal.co.za</p>
+        <p><i class="fa-solid fa-location-dot"></i> South Africa</p>
+      </div>
+    </div>
+
+    <div class="footer-socials">
+      <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="https://wa.me/27726142430" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+    </div>
+
+    <div class="footer-bottom">© 2025 Thabza Phenomenal. All Rights Reserved.</div>
+  </footer>
+
+  <!-- FLOATING WHATSAPP -->
+  <a href="https://wa.me/27726142430" class="whatsapp-float" aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <script>
+    // ===== PERFECT MOBILE MENU =====
+    const body = document.body;
+    const menuBtn = document.getElementById("menuBtn");
+    const overlay = document.getElementById("menuOverlay");
+    const mobileMenu = document.getElementById("mobileMenu");
+    const closeMenu = document.getElementById("closeMenu");
+
+    function openMenu(){
+      body.classList.add("nav-open");
+      menuBtn.setAttribute("aria-expanded","true");
+      overlay.setAttribute("aria-hidden","false");
+      closeMenu.focus();
+    }
+    function closeMenuFn(){
+      body.classList.remove("nav-open");
+      menuBtn.setAttribute("aria-expanded","false");
+      overlay.setAttribute("aria-hidden","true");
+      menuBtn.focus();
+    }
+
+    menuBtn.addEventListener("click", () => {
+      body.classList.contains("nav-open") ? closeMenuFn() : openMenu();
+    });
+    overlay.addEventListener("click", closeMenuFn);
+    closeMenu.addEventListener("click", closeMenuFn);
+
+    // Close on link tap
+    mobileMenu.addEventListener("click", (e) => {
+      if(e.target.closest("a")) closeMenuFn();
+    });
+
+    // ESC closes
+    document.addEventListener("keydown", (e) => {
+      if(e.key === "Escape" && body.classList.contains("nav-open")) closeMenuFn();
+    });
+
+    // Lock background scroll
+    const lockScroll = () => { document.documentElement.style.overflow = "hidden"; };
+    const unlockScroll = () => { document.documentElement.style.overflow = ""; };
+    const obs = new MutationObserver(() => {
+      body.classList.contains("nav-open") ? lockScroll() : unlockScroll();
+    });
+    obs.observe(body, { attributes: true, attributeFilter: ["class"] });
+
+    // Mobile dropdown
+    const mobileDropBtn = document.getElementById("mobileDropBtn");
+    const mobileDropPanel = document.getElementById("mobileDropPanel");
+    mobileDropBtn.addEventListener("click", () => {
+      const open = mobileDropPanel.style.display === "block";
+      mobileDropPanel.style.display = open ? "none" : "block";
+      mobileDropBtn.setAttribute("aria-expanded", open ? "false" : "true");
+    });
+
+    // Desktop dropdown
+    const desktopDrop = document.getElementById("desktopDrop");
+    const dropdownLi = desktopDrop?.closest(".dropdown");
+    desktopDrop?.addEventListener("click", (e) => {
+      e.preventDefault();
+      dropdownLi.classList.toggle("show");
+      desktopDrop.setAttribute("aria-expanded", dropdownLi.classList.contains("show") ? "true" : "false");
+    });
+    document.addEventListener("click", (e) => {
+      if(!dropdownLi) return;
+      if(!e.target.closest(".dropdown")) {
+        dropdownLi.classList.remove("show");
+        desktopDrop.setAttribute("aria-expanded","false");
+      }
+    });
+
+    // WhatsApp Form
+    document.getElementById("printForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const name = this.name.value.trim();
+      const email = this.email.value.trim();
+      const phone = this.phone.value.trim();
+      const service = this.service.value.trim();
+
+      const lines = [
+        "Hello Thabza Phenomenal,",
+        "",
+        "I would like a printing quote.",
+        "",
+        `Name: ${name}`,
+        `Email: ${email}`,
+        `Phone: ${phone}`,
+        `Service: ${service}`,
+        "",
+        "Thank you."
+      ];
+
+      const message = encodeURIComponent(lines.join("\n"));
+      window.open(`https://wa.me/27726142430?text=${message}`, "_blank");
+    });
+  </script>
 </body>
-
 </html>
