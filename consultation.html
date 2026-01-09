@@ -1,552 +1,1055 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thabza Phenomenal | Consultation</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thabza Phenomenal | Consultation</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-    <style>
-        /* RESET */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+  <style>
+    /* =========================
+       RESET / BASE
+       ========================= */
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { background: #0d0d0d; color: #eaeaea; overflow-x: hidden; }
+    a { color: inherit; }
 
-        body {
-            background: #0d0d0d;
-            color: #eaeaea;
-            overflow-x: hidden;
-        }
+    :root {
+      --gold: #d4a144;
+      --gold-light: #f0c674;
+      --panel: #111;
+      --panel2: #0f0f0f;
+      --border: rgba(255,255,255,0.10);
+      --border2: rgba(255,255,255,0.06);
+      --shadow: 0 12px 30px rgba(0,0,0,0.45);
+      --shadow2: 0 18px 45px rgba(0,0,0,0.55);
+      --radius: 18px;
+      --header-h: 78px;
+    }
 
-        :root {
-            --gold: #d4a144;
-            --gold-light: #f0c674;
-            --card-bg: #111;
-        }
+    /* Accessibility */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible{
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+      border-radius: 14px;
+    }
+    /* prevent iOS zoom */
+    input, textarea, select, button { font-size: 16px; }
 
-        /* HEADER */
-        header {
-            width: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            padding: 18px 40px;
-            background: rgba(20, 20, 20, 0.85);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 999;
-        }
+    /* =========================
+       HEADER
+       ========================= */
+    header{
+      width:100%;
+      position:fixed;
+      top:0; left:0;
+      height: var(--header-h);
+      padding: 14px 20px;
+      background: rgba(20,20,20,0.86);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      z-index: 9999;
+    }
 
-        .logo-text {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--gold);
-        }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      text-decoration:none;
+      min-width: 0;
+    }
+    .brand img{ height: 50px; width:auto; display:block; }
+    .brand .brand-text{ display:flex; flex-direction:column; line-height:1.05; min-width:0; }
+    .brand .brand-text strong{
+      color: var(--gold);
+      font-weight: 900;
+      letter-spacing:.2px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      max-width: 44vw;
+    }
+    .brand .brand-text span{
+      color: #bdbdbd;
+      font-size: .85rem;
+      font-weight: 650;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      max-width: 44vw;
+    }
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 34px;
-            align-items: center;
-        }
+    nav ul{
+      list-style:none;
+      display:flex;
+      gap: 26px;
+      align-items:center;
+    }
+    nav a{
+      position:relative;
+      text-decoration:none;
+      color: #eaeaea;
+      font-weight: 650;
+      font-size: 1.02rem;
+      padding: 8px 0;
+      transition: .25s ease;
+      white-space:nowrap;
+    }
+    nav a::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:2px;
+      width:0%;
+      height:2px;
+      background: var(--gold);
+      transition: .25s ease;
+      border-radius: 999px;
+    }
+    nav a:hover{ color: var(--gold); }
+    nav a:hover::after{ width:100%; }
+    nav a.active{ color: var(--gold); }
+    nav a.active::after{ width:100%; }
 
-        nav ul li a {
-            position: relative;
-            text-decoration: none;
-            color: #eaeaea;
-            font-weight: 600;
-            font-size: 1.05rem;
-            padding: 6px 0;
-            transition: 0.35s ease;
-        }
+    /* Desktop dropdown */
+    .dropdown{ position:relative; }
+    .dropbtn{
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      user-select:none;
+    }
+    .dropdown-menu{
+      position:absolute;
+      top: 44px; left: 0;
+      min-width: 220px;
+      background: rgba(15,15,15,.96);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      padding: 10px;
+      display:none;
+      z-index: 10000;
+    }
+    .dropdown-menu a{
+      display:block;
+      padding: 10px 12px;
+      border-radius: 12px;
+      color:#ddd;
+      font-weight: 750;
+      font-size: .98rem;
+      text-decoration:none;
+    }
+    .dropdown-menu a:hover{
+      background: rgba(212,161,68,.12);
+      color: var(--gold);
+    }
+    .dropdown.show .dropdown-menu{ display:block; }
 
-        nav ul li a::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: -3px;
-            width: 0%;
-            height: 2px;
-            background: var(--gold);
-            transition: 0.35s;
-            border-radius: 50px;
-        }
+    /* =========================
+       PERFECT MOBILE NAV
+       ========================= */
+    .nav-toggle{
+      display:none;
+      width:46px;
+      height:46px;
+      border-radius:14px;
+      border:1px solid rgba(212,161,68,.35);
+      background: rgba(17,17,17,.72);
+      color: var(--gold);
+      box-shadow: 0 10px 25px rgba(0,0,0,.25);
+      cursor:pointer;
+      align-items:center;
+      justify-content:center;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .hamburger{ width:22px; height:14px; position:relative; display:inline-block; }
+    .hamburger span{
+      position:absolute; left:0; width:100%; height:2px;
+      background: var(--gold);
+      border-radius:999px;
+      transition:.22s ease;
+    }
+    .hamburger span:nth-child(1){ top:0; }
+    .hamburger span:nth-child(2){ top:6px; opacity:1; }
+    .hamburger span:nth-child(3){ bottom:0; }
+    body.nav-open .hamburger span:nth-child(1){ transform: translateY(6px) rotate(45deg); }
+    body.nav-open .hamburger span:nth-child(2){ opacity:0; }
+    body.nav-open .hamburger span:nth-child(3){ transform: translateY(-6px) rotate(-45deg); }
 
-        nav ul li a:hover {
-            color: var(--gold);
-            text-shadow: 0 0 12px rgba(212, 161, 68, 0.55);
-        }
+    .overlay{
+      position:fixed;
+      inset:0;
+      background: rgba(0,0,0,.58);
+      opacity:0;
+      visibility:hidden;
+      transition: .25s ease;
+      z-index: 9997;
+      touch-action:none;
+    }
+    .mobile-panel{
+      position:fixed;
+      top:0; right:0;
+      height:100%;
+      width: min(88vw, 340px);
+      transform: translateX(102%);
+      transition: .25s ease;
+      z-index: 9998;
+      background: rgba(17,17,17,.96);
+      backdrop-filter: blur(10px);
+      border-left: 1px solid var(--border);
+      box-shadow: -10px 0 30px rgba(0,0,0,.35);
+      padding: 16px 14px;
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+      overflow-y:auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .mobile-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding: 6px 4px 12px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      margin-bottom: 6px;
+    }
+    .mobile-title{ color: var(--gold); font-weight: 900; letter-spacing:.2px; }
+    .close-btn{
+      width:42px; height:42px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.25);
+      color: #eaeaea;
+      cursor:pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-        nav ul li a:hover::after,
-        nav ul li a.active::after {
-            width: 100%;
-        }
+    .mobile-links{
+      list-style:none;
+      display:flex;
+      flex-direction:column;
+      gap: 8px;
+      padding: 2px;
+    }
+    .mobile-links a{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding: 13px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.14);
+      color: #eaeaea;
+      text-decoration:none;
+      font-weight: 850;
+      transition: .18s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .mobile-links a:hover{ border-color: rgba(212,161,68,.35); color: var(--gold); }
+    .mobile-links a.active{
+      border-color: rgba(212,161,68,.42);
+      background: rgba(212,161,68,.10);
+      color: var(--gold);
+    }
 
-        nav ul li a.active {
-            color: var(--gold);
-        }
+    .mobile-dropdown{
+      border-radius: 14px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.10);
+    }
+    .mobile-dropdown button{
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding: 13px 12px;
+      border:0;
+      background: transparent;
+      color: #eaeaea;
+      font-weight: 900;
+      cursor:pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .mobile-drop-panel{
+      display:none;
+      padding: 8px 10px 12px;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .mobile-drop-panel a{
+      display:block;
+      padding: 11px 10px;
+      border-radius: 12px;
+      text-decoration:none;
+      color: #d6d6d6;
+      font-weight: 800;
+      border: 1px solid rgba(255,255,255,.06);
+      background: rgba(0,0,0,.12);
+      margin-top: 8px;
+    }
+    .mobile-drop-panel a:hover{ color: var(--gold); border-color: rgba(212,161,68,.25); }
 
-        .dropdown {
-            position: relative;
-        }
+    body.nav-open .overlay{ opacity:1; visibility:visible; }
+    body.nav-open .mobile-panel{ transform: translateX(0); }
 
-        .dropdown .dropbtn {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-        }
+    @media (max-width: 900px){
+      nav{ display:none; }
+      .nav-toggle{ display:inline-flex; }
+      header{ padding: 12px 16px; }
+      .brand .brand-text span{ display:none; }
+    }
 
-        .dropdown-content {
-            position: absolute;
-            top: 42px;
-            left: 0;
-            background: rgba(15, 15, 15, 0.95);
-            backdrop-filter: blur(10px);
-            min-width: 190px;
-            display: flex;
-            flex-direction: column;
-            padding: 12px 0;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-            visibility: hidden;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: 0.35s ease;
-        }
+    /* =========================
+       HERO
+       ========================= */
+    .hero{
+      padding: calc(var(--header-h) + 52px) 20px 44px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      background:
+        radial-gradient(900px 520px at 12% 15%, rgba(212,161,68,.18), transparent 60%),
+        radial-gradient(700px 520px at 86% 12%, rgba(240,198,116,.14), transparent 55%),
+        linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.82)),
+        url("https://images.unsplash.com/photo-1551836022-4c4c79ecde51?auto=format&fit=crop&w=2000&q=80");
+      background-size: cover;
+      background-position: center;
+    }
+    .hero-inner{
+      max-width: 1200px;
+      margin: 0 auto;
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 22px;
+      align-items:center;
+    }
+    .hero h1{
+      font-size: clamp(2.1rem, 4vw, 3.25rem);
+      font-weight: 900;
+      color: var(--gold);
+      letter-spacing: .2px;
+      text-shadow: 0 14px 40px rgba(0,0,0,.55);
+      margin-bottom: 12px;
+    }
+    .hero p{
+      color:#f1f1f1;
+      opacity:.95;
+      line-height:1.7;
+      font-size: 1.05rem;
+      max-width: 720px;
+      margin-bottom: 18px;
+    }
+    .hero-bullets{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 14px;
+      max-width: 720px;
+      margin: 18px 0 24px;
+    }
+    .pill{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(17,17,17,.55);
+      backdrop-filter: blur(6px);
+      color:#eaeaea;
+      font-weight: 700;
+      font-size: .95rem;
+    }
+    .pill i{ color: var(--gold); }
 
-        .dropdown-content li a {
-            padding: 10px 18px;
-            color: #ddd;
-            font-weight: 500;
-        }
+    .actions{
+      display:flex;
+      gap: 12px;
+      flex-wrap:wrap;
+      margin-top: 4px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 12px 16px;
+      border-radius: 14px;
+      text-decoration:none;
+      font-weight: 900;
+      cursor:pointer;
+      transition: .2s ease;
+      border:none;
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn.primary{
+      background: var(--gold);
+      color:#111;
+      box-shadow: 0 14px 40px rgba(212,161,68,.18);
+    }
+    .btn.primary:hover{ background: var(--gold-light); transform: translateY(-2px); }
+    .btn.secondary{
+      background: rgba(17,17,17,.55);
+      color: var(--gold);
+      border: 1px solid rgba(212,161,68,.45);
+      backdrop-filter: blur(6px);
+    }
+    .btn.secondary:hover{ background: rgba(212,161,68,.14); transform: translateY(-2px); }
 
-        .dropdown-content li a:hover {
-            background: rgba(212, 161, 68, 0.12);
-            color: var(--gold);
-        }
+    .hero-card{
+      background: rgba(17,17,17,.72);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: var(--shadow2);
+      backdrop-filter: blur(10px);
+    }
+    .hero-card h3{
+      color: var(--gold);
+      font-weight: 900;
+      font-size: 1.25rem;
+      margin-bottom: 8px;
+    }
+    .hero-card p{
+      color:#d8d8d8;
+      line-height:1.7;
+      font-size: .96rem;
+      margin-bottom: 14px;
+    }
+    .meta{
+      display:grid;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .meta div{
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+      color:#d6d6d6;
+      font-size:.95rem;
+      line-height:1.5;
+      overflow-wrap:anywhere;
+    }
+    .meta i{ color: var(--gold); margin-top:2px; }
 
-        .dropdown.show .dropdown-content {
-            visibility: visible;
-            opacity: 1;
-            transform: translateY(0px);
-        }
+    @media (max-width: 980px){
+      .hero-inner{ grid-template-columns: 1fr; }
+      .hero-card{ max-width: 640px; }
+      .hero-bullets{ grid-template-columns: 1fr; }
+    }
 
-        .menu-toggle {
-            display: none;
-        }
+    /* =========================
+       SECTIONS
+       ========================= */
+    .section{
+      padding: 74px 20px 10px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-title{
+      text-align:center;
+      font-size: clamp(1.9rem, 3.1vw, 2.8rem);
+      font-weight: 900;
+      color: var(--gold);
+      margin-bottom: 12px;
+      letter-spacing:.2px;
+    }
+    .section-sub{
+      text-align:center;
+      color: #cfcfcf;
+      opacity: .95;
+      max-width: 880px;
+      margin: 0 auto 32px;
+      line-height: 1.7;
+      font-size: 1.02rem;
+    }
 
-        @media(max-width:900px) {
-            .menu-toggle {
-                display: block;
-                position: fixed;
-                top: 20px;
-                right: 25px;
-                color: var(--gold);
-                font-size: 2rem;
-                z-index: 10001;
-                cursor: pointer;
-            }
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .card{
+      background: var(--panel);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      border: 1px solid var(--border2);
+      box-shadow: 0 10px 22px rgba(0,0,0,.35);
+      transition: .25s ease;
+      position: relative;
+      overflow:hidden;
+      text-align: left;
+    }
+    .card:hover{
+      transform: translateY(-8px);
+      box-shadow: 0 18px 38px rgba(0,0,0,.55);
+      border-color: rgba(212,161,68,.16);
+    }
+    .icon{
+      width: 56px; height: 56px;
+      border-radius: 16px;
+      display:flex; align-items:center; justify-content:center;
+      background: rgba(212,161,68,.12);
+      border: 1px solid rgba(212,161,68,.22);
+      margin-bottom: 14px;
+    }
+    .icon i{ font-size: 1.6rem; color: var(--gold); }
+    .card h3{
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .card p{
+      color:#ddd;
+      line-height:1.7;
+      font-size: .98rem;
+      opacity: .98;
+    }
 
-            nav ul {
-                position: fixed;
-                top: 0;
-                right: -300px;
-                flex-direction: column;
-                gap: 20px;
-                background: #111;
-                color: var(--gold);
-                width: 280px;
-                height: 100%;
-                padding: 80px 25px 40px 25px;
-                transition: 0.35s ease;
-                box-shadow: -4px 0 25px rgba(0, 0, 0, 0.25);
-                z-index: 9999;
-                overflow-y: auto;
-            }
+    /* =========================
+       CTA / FORM
+       ========================= */
+    .cta{
+      background: linear-gradient(135deg, rgba(212,161,68,.95), rgba(240,198,116,.92));
+      color:#111;
+      border-radius: 22px;
+      padding: 54px 22px;
+      margin: 60px auto 10px;
+      width: 100%;
+      box-shadow: 0 20px 55px rgba(212,161,68,.12);
+      border: 1px solid rgba(0,0,0,.08);
+      position: relative;
+      overflow:hidden;
+    }
+    .cta h2{
+      text-align:center;
+      font-size: clamp(1.75rem, 2.8vw, 2.35rem);
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+    .cta p{
+      text-align:center;
+      max-width: 820px;
+      margin: 0 auto 22px;
+      line-height: 1.7;
+      font-weight: 750;
+      opacity: .95;
+    }
 
-            nav ul.show-menu {
-                right: 0;
-            }
+    .form{
+      max-width: 820px;
+      margin: 0 auto;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .field{ display:flex; flex-direction:column; gap: 8px; }
+    .field label{
+      font-size: .9rem;
+      font-weight: 900;
+      color: rgba(0,0,0,.78);
+    }
+    .field input, .field select, .field textarea{
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(0,0,0,.16);
+      outline:none;
+      background: rgba(255,255,255,.92);
+    }
+    .field textarea{ min-height: 120px; resize: vertical; }
+    .full{ grid-column: 1 / -1; }
 
-            nav ul li a {
-                font-size: 1.2rem;
-                color: var(--gold);
-            }
+    .submit-row{
+      grid-column: 1 / -1;
+      display:flex;
+      gap: 12px;
+      flex-wrap:wrap;
+      margin-top: 4px;
+    }
+    .submit-row button, .submit-row a{
+      flex: 1;
+      min-width: 220px;
+    }
+    .cta button{
+      background:#111;
+      color: var(--gold);
+      font-weight: 900;
+      padding: 13px 14px;
+      border:none;
+      border-radius: 14px;
+      cursor:pointer;
+      font-size: 1.05rem;
+      transition: .2s ease;
+      box-shadow: 0 14px 40px rgba(0,0,0,.18);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .cta button:hover{ background:#000; color: var(--gold-light); transform: translateY(-1px); }
 
-            nav ul li a:hover {
-                color: var(--gold-light);
-                text-shadow: 0 0 8px rgba(212, 161, 68, 0.4);
-            }
-        }
+    .ghost{
+      text-decoration:none;
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding: 13px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(0,0,0,.28);
+      color:#111;
+      font-weight: 900;
+      background: rgba(255,255,255,.30);
+      transition: .2s ease;
+    }
+    .ghost:hover{ background: rgba(255,255,255,.42); transform: translateY(-1px); }
 
-        /* SECTION */
-        .section {
-            padding: 120px 20px 60px 20px;
-            max-width: 1200px;
-            margin: auto;
-        }
+    @media (max-width: 900px){
+      .form{ grid-template-columns: 1fr; }
+      .submit-row button, .submit-row a{ min-width: 0; }
+    }
 
-        .section-title {
-            text-align: center;
-            font-size: 3rem;
-            font-weight: 900;
-            color: var(--gold);
-            margin-bottom: 50px;
-        }
+    /* =========================
+       FOOTER
+       ========================= */
+    .footer{
+      background:#0d0d0d;
+      padding-top:70px;
+      border-top: 3px solid #d4a144;
+      margin-top:80px;
+    }
+    .footer-container{
+      max-width:1200px;
+      margin:auto;
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap:40px;
+      padding: 0 20px 40px;
+    }
+    .footer-section h3, .footer-section h4{
+      color:#d4a144;
+      font-weight:900;
+      margin-bottom: 18px;
+      letter-spacing:0.6px;
+    }
+    .footer-section p{
+      color:#cccccc;
+      line-height:1.7;
+      margin-bottom:10px;
+      overflow-wrap:anywhere;
+    }
+    .footer-section a{
+      color:#cccccc;
+      text-decoration:none;
+      display:block;
+      margin-bottom:12px;
+      font-weight:650;
+      transition:0.2s ease;
+      overflow-wrap:anywhere;
+    }
+    .footer-section a i{ margin-right:8px; color:#d4a144; }
+    .footer-section a:hover{ color:#d4a144; padding-left:6px; }
 
-        /* CONSULTATION CARDS */
-        .consultation-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
+    .footer-socials{
+      text-align:center;
+      padding: 18px 0 26px;
+    }
+    .footer-socials a{
+      display:inline-flex;
+      justify-content:center;
+      align-items:center;
+      width:48px;
+      height:48px;
+      border:2px solid #d4a144;
+      border-radius:50%;
+      margin: 0 10px;
+      color:#d4a144;
+      font-size:1.2rem;
+      transition:0.2s ease;
+      text-decoration:none;
+    }
+    .footer-socials a:hover{ background:#d4a144; color:#111; transform: translateY(-4px); }
 
-        .consult-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 30px 20px;
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
-            text-align: center;
-            transition: 0.4s;
-            cursor: pointer;
-            overflow: hidden;
-        }
+    .footer-bottom{
+      text-align:center;
+      padding: 18px 0;
+      border-top:1px solid rgba(255,255,255,0.1);
+      color:#999;
+      font-size:0.95rem;
+    }
 
-        .consult-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 25px rgba(212, 161, 68, 0.5);
-        }
+    /* Floating WhatsApp */
+    .whatsapp-float{
+      position:fixed;
+      bottom:22px;
+      right:22px;
+      background:#25d366;
+      color:white;
+      width:58px;
+      height:58px;
+      border-radius:50%;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-size:2rem;
+      box-shadow: var(--shadow);
+      cursor:pointer;
+      transition:0.2s ease;
+      z-index:9996;
+      text-decoration:none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .whatsapp-float:hover{ transform: scale(1.06); }
 
-        .consult-card i {
-            font-size: 3rem;
-            color: var(--gold);
-            margin-bottom: 15px;
-        }
-
-        .consult-card h3 {
-            font-size: 1.5rem;
-            color: var(--gold);
-            margin-bottom: 12px;
-        }
-
-        .consult-card p {
-            font-size: 1rem;
-            color: #ddd;
-            line-height: 1.5;
-        }
-
-        /* BOOK CTA */
-        .cta {
-            background: var(--gold);
-            color: #111;
-            text-align: center;
-            padding: 50px 20px;
-            border-radius: 20px;
-            margin: 60px auto;
-            /* center vertically with auto top/bottom margins */
-            width: 90%;
-            /* keep it responsive */
-            max-width: 800px;
-            /* max width so it doesn't stretch too much */
-            transition: 0.3s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            /* center all content */
-        }
-
-        .cta:hover {
-            background: var(--gold-light);
-            color: #111;
-        }
-
-        .cta h2 {
-            font-size: 2.2rem;
-            margin-bottom: 25px;
-        }
-
-        .cta p {
-            margin-bottom: 30px;
-            font-size: 1.1rem;
-            line-height: 1.5;
-            max-width: 600px;
-        }
-
-        .cta form {
-            display: grid;
-            gap: 15px;
-            width: 100%;
-        }
-
-        .cta input,
-        .cta select {
-            padding: 12px 15px;
-            border-radius: 10px;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            font-size: 1rem;
-            width: 100%;
-        }
-
-        .cta button {
-            background: #111;
-            color: var(--gold);
-            font-weight: 700;
-            padding: 12px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 1.05rem;
-            transition: 0.3s;
-            width: 100%;
-        }
-
-        .cta button:hover {
-            background: #000;
-            color: var(--gold-light);
-        }
-
-        /* FOOTER */
-        .footer {
-            background: #0d0d0d;
-            padding-top: 70px;
-            border-top: 3px solid #d4a144;
-            margin-top: 80px;
-        }
-
-        .footer-container {
-            max-width: 1200px;
-            margin: auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 50px;
-            padding: 0 20px 40px;
-        }
-
-        .footer-section h3,
-        .footer-section h4 {
-            color: #d4a144;
-            font-weight: 800;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
-        }
-
-        .footer-section p {
-            color: #cccccc;
-            line-height: 1.6;
-            margin-bottom: 10px;
-        }
-
-        .footer-section a {
-            color: #cccccc;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 12px;
-            font-weight: 500;
-            transition: 0.3s;
-        }
-
-        .footer-section a i {
-            margin-right: 8px;
-            color: #d4a144;
-            transition: 0.3s;
-        }
-
-        .footer-section a:hover {
-            color: #d4a144;
-            padding-left: 6px;
-        }
-
-        .footer-socials {
-            text-align: center;
-            padding: 20px 0 30px;
-        }
-
-        .footer-socials a {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            width: 48px;
-            height: 48px;
-            border: 2px solid #d4a144;
-            border-radius: 50%;
-            margin: 0 10px;
-            color: #d4a144;
-            font-size: 1.2rem;
-            transition: 0.3s;
-            text-decoration: none;
-        }
-
-        .footer-socials a:hover {
-            background: #d4a144;
-            color: #111;
-            transform: translateY(-4px);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding: 18px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #999;
-            font-size: 0.95rem;
-        }
-    </style>
+    @media (max-width: 560px){
+      .hero{ padding: calc(var(--header-h) + 38px) 14px 34px; }
+      .section{ padding: 62px 14px 10px; }
+      .brand img{ height: 46px; }
+    }
+  </style>
 </head>
 
 <body>
 
-    <!-- HEADER -->
-    <header>
-        <div class="logo-text">
-            <a href="index.html">
-                <img src="logo.png" alt="Thabza Phenomenal Logo" style="height:50px;">
-            </a>
+  <!-- Mobile overlay + panel -->
+  <div class="overlay" id="overlay" tabindex="-1" aria-hidden="true"></div>
+  <aside class="mobile-panel" id="mobileMenu" aria-label="Mobile menu">
+    <div class="mobile-head">
+      <div class="mobile-title">Menu</div>
+      <button class="close-btn" id="closeMenu" aria-label="Close menu">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <ul class="mobile-links">
+      <li><a href="index.html">Home <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="services.html">Services <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="about.html">About <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="contact.html">Contact <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="portfolio.html">Portfolio <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="pricing.html">Pricing <i class="fa-solid fa-arrow-right"></i></a></li>
+      <li><a href="blog.html">Blog <i class="fa-solid fa-arrow-right"></i></a></li>
+
+      <li class="mobile-dropdown">
+        <button type="button" id="mobileDropBtn" aria-expanded="false" aria-controls="mobileDropPanel">
+          Other Services <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="mobile-drop-panel" id="mobileDropPanel">
+          <a href="driving.html">Driving School</a>
+          <a href="printing.html">Printing</a>
+          <a href="photography.html">Photography</a>
+          <a href="webdesign.html">Web Design</a>
+          <a class="active" href="consultation.html">Consultation</a>
         </div>
-        <div class="menu-toggle" onclick="toggleMenu()">
-            <i class="fas fa-bars"></i>
+      </li>
+    </ul>
+  </aside>
+
+  <!-- HEADER -->
+  <header>
+    <a class="brand" href="index.html" aria-label="Go to Home">
+      <img src="logo.png" alt="Thabza Phenomenal Logo" />
+      <div class="brand-text">
+        <strong>Thabza Phenomenal</strong>
+        <span>Consultation</span>
+      </div>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-controls="mobileMenu" aria-expanded="false">
+      <span class="sr-only">Menu</span>
+      <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
+
+    <!-- Desktop nav -->
+    <nav aria-label="Primary navigation">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="blog.html">Blog</a></li>
+
+        <li class="dropdown">
+          <a class="dropbtn active" href="#" id="desktopDrop" aria-haspopup="true" aria-expanded="false">
+            Other Services <i class="fa-solid fa-chevron-down" style="font-size:.85rem; opacity:.85;"></i>
+          </a>
+          <div class="dropdown-menu" role="menu" aria-label="Other services">
+            <a role="menuitem" href="driving.html">Driving School</a>
+            <a role="menuitem" href="printing.html">Printing</a>
+            <a role="menuitem" href="photography.html">Photography</a>
+            <a role="menuitem" href="webdesign.html">Web Design</a>
+            <a role="menuitem" class="active" href="consultation.html">Consultation</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="hero-inner">
+      <div>
+        <h1>Consultation Services That Move Your Business Forward</h1>
+        <p>
+          Get expert guidance with a clear action plan. We help you make better decisions in business strategy,
+          marketing, and technology—so you can grow with confidence.
+        </p>
+
+        <div class="actions">
+          <a class="btn primary" href="#book"><i class="fa-solid fa-calendar-check"></i> Book a Consultation</a>
+          <a class="btn secondary" href="#services"><i class="fa-solid fa-layer-group"></i> View Services</a>
         </div>
-        <nav>
-            <ul id="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="portfolio.html">Portfolio</a></li>
-                <li><a href="pricing.html">Pricing</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li class="dropdown">
-                    <a class="dropbtn" onclick="toggleDropdown(event)">Other Services ▼</a>
-                    <ul class="dropdown-content">
-                        <li><a href="driving.html">Driving School</a></li>
-                        <li><a href="printing.html">Printing</a></li>
-                        <li><a href="photography.html">Photography</a></li>
-                        <li><a href="webdesign.html">Web Design</a></li>
-                        <li><a href="consultation.html">Consultation</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-    </header>
+      </div>
 
-    <!-- CONSULTATION SERVICES -->
-    <section class="section">
-        <h2 class="section-title">Consultation Services</h2>
-        <div class="consultation-grid">
-            <div class="consult-card">
-                <i class="fas fa-lightbulb"></i>
-                <h3>Business Consultation</h3>
-                <p>Strategic planning, business growth advice, and expert guidance tailored for your company.</p>
-            </div>
-            <div class="consult-card">
-                <i class="fas fa-chart-line"></i>
-                <h3>Marketing Consultation</h3>
-                <p>Boost your brand visibility and online presence with professional marketing strategies.</p>
-            </div>
-            <div class="consult-card">
-                <i class="fas fa-laptop-code"></i>
-                <h3>Web & Tech Consultation</h3>
-                <p>Get expert advice on website development, apps, and tech solutions for your business.</p>
-            </div>
+      <aside class="hero-card" aria-label="Quick contact">
+        <h3>Quick Contact</h3>
+        <p>Send your request via WhatsApp and we’ll respond with available times.</p>
+        <div class="meta">
+          <div><i class="fa-solid fa-phone"></i> <span><strong>Phone:</strong> +27 72 614 2430</span></div>
+          <div><i class="fa-solid fa-envelope"></i> <span><strong>Email:</strong> admin@thabzaphenomenal.co.za</span></div>
+          <div><i class="fa-solid fa-location-dot"></i> <span><strong>Location:</strong> South Africa</span></div>
         </div>
-    </section>
+        <a class="btn primary" href="https://wa.me/27726142430" target="_blank" rel="noopener">
+          <i class="fa-brands fa-whatsapp"></i> WhatsApp Now
+        </a>
+      </aside>
+    </div>
+  </section>
 
-    <!-- BOOK CTA -->
-    <section class="section cta">
-        <h2>Book a Consultation</h2>
-        <p>Fill out the form and our experts will contact you to schedule a session.</p>
-        <form id="consultForm">
-            <input type="text" name="name" placeholder="Full Name" required>
-            <input type="email" name="email" placeholder="Email Address" required>
-            <input type="tel" name="phone" placeholder="Phone Number" required>
-            <select name="service" required>
-                <option value="">Select Consultation Type</option>
-                <option value="Business Consultation">Business Consultation</option>
-                <option value="Marketing Consultation">Marketing Consultation</option>
-                <option value="Web & Tech Consultation">Web & Tech Consultation</option>
-            </select>
-            <input type="date" name="date" placeholder="Preferred Date" required>
-            <button type="submit">Send via WhatsApp</button>
-        </form>
-    </section>
+  <!-- SERVICES -->
+  <section class="section" id="services">
+    <h2 class="section-title">Consultation Services</h2>
+    <p class="section-sub">
+      Choose the consultation type you need. If you’re not sure, select “Not sure yet” on the booking form and we’ll guide you.
+    </p>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-section">
-                <h3>Thabza Phenomenal</h3>
-                <p>Your trusted partner in branding, printing, PPE, and business development.</p>
-            </div>
-            <div class="footer-section">
-                <h4>Services</h4>
-                <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> Branding & Printing</a>
-                <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> Graphic Design</a>
-                <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> PPE Supply</a>
-                <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> Web Design</a>
-            </div>
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <a href="index.html"><i class="fa-solid fa-link"></i> Home</a>
-                <a href="services.html"><i class="fa-solid fa-link"></i> Services</a>
-                <a href="about.html"><i class="fa-solid fa-link"></i> About</a>
-                <a href="contact.html"><i class="fa-solid fa-link"></i> Contact</a>
-            </div>
-            <div class="footer-section">
-                <h4>Contact</h4>
-                <p><i class="fa-solid fa-phone"></i> +27 72 614 2430</p>
-                <p><i class="fa-solid fa-envelope"></i> admin@thabzaphenomenal.co.za</p>
-                <p><i class="fa-solid fa-location-dot"></i> South Africa</p>
-            </div>
+    <div class="grid">
+      <div class="card">
+        <div class="icon"><i class="fa-solid fa-lightbulb"></i></div>
+        <h3>Business Consultation</h3>
+        <p>Strategic planning, growth advice, and practical guidance tailored for your company.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon"><i class="fa-solid fa-chart-line"></i></div>
+        <h3>Marketing Consultation</h3>
+        <p>Boost your brand visibility with clear marketing strategies, offers and content direction.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon"><i class="fa-solid fa-laptop-code"></i></div>
+        <h3>Web & Tech Consultation</h3>
+        <p>Expert advice on websites, apps, tools and tech solutions that improve results and save time.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOK CTA -->
+  <section class="section" id="book">
+    <div class="cta">
+      <h2>Book a Consultation</h2>
+      <p>Fill out the form below. WhatsApp will open with a professional booking message—just tap send.</p>
+
+      <form class="form" id="consultForm" autocomplete="on">
+        <div class="field">
+          <label for="name">Full Name</label>
+          <input id="name" type="text" name="name" placeholder="e.g. Thabo Mokoena" required />
         </div>
 
-        <div class="footer-socials">
-            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+        <div class="field">
+          <label for="phone">Phone Number</label>
+          <input id="phone" type="tel" name="phone" placeholder="e.g. 072 000 0000" required />
         </div>
 
-        <div class="footer-bottom">
-            © 2025 Thabza Phenomenal. All Rights Reserved.
+        <div class="field">
+          <label for="email">Email Address</label>
+          <input id="email" type="email" name="email" placeholder="e.g. you@email.com" required />
         </div>
-    </footer>
 
-    <script>
-        function toggleMenu() {
-            document.getElementById("nav-links").classList.toggle("show-menu");
-        }
-        // Dropdown (if needed)
-        function toggleDropdown(event) {
-            event.stopPropagation();
-            const dropdown = event.target.closest(".dropdown");
-            dropdown.classList.toggle("show");
-        }
+        <div class="field">
+          <label for="service">Consultation Type</label>
+          <select id="service" name="service" required>
+            <option value="">Select Consultation Type</option>
+            <option value="Business Consultation">Business Consultation</option>
+            <option value="Marketing Consultation">Marketing Consultation</option>
+            <option value="Web & Tech Consultation">Web & Tech Consultation</option>
+            <option value="Not sure yet">Not sure yet</option>
+          </select>
+        </div>
 
-        document.addEventListener("click", () => {
-            document.querySelectorAll(".dropdown").forEach(d => d.classList.remove("show"));
-        });
+        <div class="field full">
+          <label for="date">Preferred Date</label>
+          <input id="date" type="date" name="date" required />
+        </div>
 
-        // WhatsApp Booking Form
-        document.getElementById("consultForm").addEventListener("submit", function (e) {
-            e.preventDefault();
-            const name = this.name.value;
-            const email = this.email.value;
-            const phone = this.phone.value;
-            const service = this.service.value;
-            const date = this.date.value;
-            const message = `Hello, my name is ${name}.%0AEmail: ${email}%0APhone: ${phone}%0AConsultation: ${service}%0APreferred Date: ${date}`;
-            window.open(`https://wa.me/27726142430?text=${message}`, "_blank");
-        });
-    </script>
+        <div class="field full">
+          <label for="details">Brief details (optional)</label>
+          <textarea id="details" name="details" placeholder="Tell us what you want to improve or your main goal..."></textarea>
+        </div>
 
+        <div class="submit-row">
+          <button type="submit"><i class="fa-brands fa-whatsapp"></i> Send via WhatsApp</button>
+          <a class="ghost" href="tel:+27726142430"><i class="fa-solid fa-phone"></i> Call Now</a>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3>Thabza Phenomenal</h3>
+        <p>Your trusted partner in branding, printing, PPE, and business development.</p>
+      </div>
+
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <a href="index.html"><i class="fa-solid fa-link"></i> Home</a>
+        <a href="services.html"><i class="fa-solid fa-link"></i> Services</a>
+        <a href="about.html"><i class="fa-solid fa-link"></i> About</a>
+        <a href="contact.html"><i class="fa-solid fa-link"></i> Contact</a>
+      </div>
+
+      <div class="footer-section">
+        <h4>Contact</h4>
+        <p><i class="fa-solid fa-phone"></i> +27 72 614 2430</p>
+        <p><i class="fa-solid fa-envelope"></i> admin@thabzaphenomenal.co.za</p>
+        <p><i class="fa-solid fa-location-dot"></i> South Africa</p>
+      </div>
+
+      <div class="footer-section">
+        <h4>Services</h4>
+        <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> Branding & Printing</a>
+        <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> Graphic Design</a>
+        <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> PPE Supply</a>
+        <a href="#"><i class="fa-solid fa-circle-chevron-right"></i> Web Design</a>
+      </div>
+    </div>
+
+    <div class="footer-socials">
+      <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="https://wa.me/27726142430" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+    </div>
+
+    <div class="footer-bottom">© 2025 Thabza Phenomenal. All Rights Reserved.</div>
+  </footer>
+
+  <!-- FLOATING WHATSAPP -->
+  <a href="https://wa.me/27726142430" class="whatsapp-float" aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <script>
+    // ===== MOBILE MENU (overlay + slide panel) =====
+    const body = document.body;
+    const navToggle = document.getElementById("navToggle");
+    const overlay = document.getElementById("overlay");
+    const closeMenuBtn = document.getElementById("closeMenu");
+    const mobileMenu = document.getElementById("mobileMenu");
+
+    function openMenu(){
+      body.classList.add("nav-open");
+      navToggle.setAttribute("aria-expanded", "true");
+      overlay.setAttribute("aria-hidden", "false");
+      document.documentElement.style.overflow = "hidden";
+      closeMenuBtn.focus();
+    }
+    function closeMenu(){
+      body.classList.remove("nav-open");
+      navToggle.setAttribute("aria-expanded", "false");
+      overlay.setAttribute("aria-hidden", "true");
+      document.documentElement.style.overflow = "";
+      navToggle.focus();
+    }
+
+    navToggle.addEventListener("click", () => {
+      body.classList.contains("nav-open") ? closeMenu() : openMenu();
+    });
+    overlay.addEventListener("click", closeMenu);
+    closeMenuBtn.addEventListener("click", closeMenu);
+
+    // Close on link tap
+    mobileMenu.addEventListener("click", (e) => {
+      if (e.target.closest("a")) closeMenu();
+    });
+
+    // ESC closes
+    document.addEventListener("keydown", (e) => {
+      if(e.key === "Escape" && body.classList.contains("nav-open")) closeMenu();
+    });
+
+    // Mobile dropdown
+    const mobileDropBtn = document.getElementById("mobileDropBtn");
+    const mobileDropPanel = document.getElementById("mobileDropPanel");
+    mobileDropBtn.addEventListener("click", () => {
+      const open = mobileDropPanel.style.display === "block";
+      mobileDropPanel.style.display = open ? "none" : "block";
+      mobileDropBtn.setAttribute("aria-expanded", open ? "false" : "true");
+    });
+
+    // Desktop dropdown
+    const desktopDrop = document.getElementById("desktopDrop");
+    const dropdownLi = desktopDrop?.closest(".dropdown");
+    desktopDrop?.addEventListener("click", (e) => {
+      e.preventDefault();
+      dropdownLi.classList.toggle("show");
+      desktopDrop.setAttribute("aria-expanded", dropdownLi.classList.contains("show") ? "true" : "false");
+    });
+    document.addEventListener("click", (e) => {
+      if(!dropdownLi) return;
+      if(!e.target.closest(".dropdown")) {
+        dropdownLi.classList.remove("show");
+        desktopDrop.setAttribute("aria-expanded","false");
+      }
+    });
+
+    // WhatsApp Booking Form (encoded properly)
+    document.getElementById("consultForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = this.name.value.trim();
+      const email = this.email.value.trim();
+      const phone = this.phone.value.trim();
+      const service = this.service.value;
+      const date = this.date.value;
+      const details = (this.details.value || "").trim();
+
+      const lines = [
+        "Hello Thabza Phenomenal,",
+        "",
+        "I would like to book a consultation. Please confirm availability for the details below:",
+        "",
+        `Full Name: ${name}`,
+        `Email: ${email}`,
+        `Phone: ${phone}`,
+        `Consultation Type: ${service}`,
+        `Preferred Date: ${date}`,
+        details ? `Extra Details: ${details}` : null,
+        "",
+        "Thank you."
+      ].filter(Boolean);
+
+      const message = encodeURIComponent(lines.join("\n"));
+      window.open(`https://wa.me/27726142430?text=${message}`, "_blank");
+    });
+  </script>
 </body>
-
 </html>
