@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Thabza Phenomenal</title>
+  <title>Happy New Year 2026 — Thabza Phenomenal</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
   <style>
@@ -22,20 +22,15 @@
       --text:#eaeaea;
       --muted:#bfbfbf;
       --border:rgba(255,255,255,.10);
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-      --radius: 16px;
+      --shadow: 0 12px 34px rgba(0,0,0,.45);
+      --radius: 18px;
       --header-h: 76px;
     }
 
-    /* ACCESSIBILITY HELPERS */
+    /* ACCESSIBILITY */
     .sr-only{
       position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden;
       clip:rect(0,0,0,0); white-space:nowrap; border:0;
-    }
-    a:focus-visible, button:focus-visible{
-      outline: 2px solid var(--gold);
-      outline-offset: 3px;
-      border-radius: 10px;
     }
 
     /* HEADER */
@@ -44,7 +39,7 @@
       position:fixed; top:0; left:0;
       height: var(--header-h);
       padding: 14px 22px;
-      background: rgba(20,20,20,.80);
+      background: rgba(20,20,20,.78);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
       display:flex;
@@ -59,730 +54,336 @@
     .brand img{ height:48px; width:auto; display:block; }
     .logo-text{
       font-size: 1.25rem;
-      font-weight: 800;
+      font-weight: 900;
       color: var(--gold);
       letter-spacing: .3px;
-      display:none;
     }
-
-    /* DESKTOP NAV */
-    nav ul{
-      list-style:none;
-      display:flex;
-      gap: 26px;
-      align-items:center;
-    }
-    nav a{
-      position:relative;
-      text-decoration:none;
-      color: var(--text);
-      font-weight: 600;
-      font-size: 1.02rem;
-      padding: 8px 0;
-      transition: .25s ease;
-      white-space:nowrap;
-    }
-    nav a::after{
-      content:"";
-      position:absolute;
-      left:0;
-      bottom:2px;
-      width:0%;
-      height:2px;
-      background: var(--gold);
-      transition: .25s ease;
-      border-radius: 999px;
-    }
-    nav a:hover{ color: var(--gold); }
-    nav a:hover::after{ width:100%; }
-    nav a.active{ color: var(--gold); }
-    nav a.active::after{ width:100%; }
-
-    /* DROPDOWN (DESKTOP) */
-    .dropdown{ position:relative; }
-    .dropbtn{
-      display:flex; align-items:center; gap:8px;
-      cursor:pointer;
-      user-select:none;
-    }
-    .chev{ font-size:.85rem; opacity:.85; }
-    .dropdown-menu{
-      position:absolute;
-      top: 44px; left: 0;
-      min-width: 210px;
-      background: rgba(15,15,15,.96);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      box-shadow: var(--shadow);
-      padding: 10px;
-      display:none;
-    }
-    .dropdown-menu a{
-      display:block;
-      padding: 10px 12px;
-      border-radius: 10px;
-      color:#ddd;
-      font-weight: 500;
-      font-size: .98rem;
-    }
-    .dropdown-menu a:hover{
-      background: rgba(212,161,68,.12);
-      color: var(--gold);
-    }
-    .dropdown.show .dropdown-menu{ display:block; }
 
     /* HERO */
     .hero{
       min-height: 100vh;
-      padding: calc(var(--header-h) + 40px) 20px 60px;
+      padding: calc(var(--header-h) + 34px) 18px 64px;
       display:flex;
       justify-content:center;
       align-items:center;
       text-align:center;
+      position: relative;
+      isolation: isolate;
       background:
-        linear-gradient(rgba(0,0,0,.72), rgba(0,0,0,.62)),
-        url('https://images.unsplash.com/photo-1522199755839-a2bacb67c546?auto=format&fit=crop&w=1600&q=80');
+        radial-gradient(1200px 700px at 20% 10%, rgba(212,161,68,.16), transparent 60%),
+        radial-gradient(1000px 600px at 90% 20%, rgba(240,198,116,.12), transparent 58%),
+        radial-gradient(900px 500px at 60% 95%, rgba(255,255,255,.06), transparent 62%),
+        linear-gradient(rgba(0,0,0,.78), rgba(0,0,0,.74)),
+        url('https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=1800&q=80');
       background-size: cover;
       background-position: center;
+      overflow: hidden;
     }
-    .hero-inner{ max-width: 880px; }
-    .hero h1{
-      font-size: clamp(2.1rem, 4.8vw, 4rem);
+
+    /* soft glow */
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:-80px;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(212,161,68,.22), transparent 55%),
+        radial-gradient(circle at 70% 80%, rgba(240,198,116,.14), transparent 58%);
+      filter: blur(30px);
+      z-index:-2;
+      opacity:.75;
+    }
+
+    /* confetti */
+    .confetti{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      z-index:-1;
+      background-image:
+        radial-gradient(circle, rgba(212,161,68,.95) 2px, transparent 3px),
+        radial-gradient(circle, rgba(240,198,116,.9) 2px, transparent 3px),
+        radial-gradient(circle, rgba(255,255,255,.75) 2px, transparent 3px),
+        radial-gradient(circle, rgba(212,161,68,.6) 2px, transparent 3px);
+      background-size: 120px 120px, 160px 160px, 190px 190px, 220px 220px;
+      background-position: 0 0, 40px 30px, 90px 60px, 130px 10px;
+      opacity: .18;
+      animation: drift 10s linear infinite;
+    }
+    @keyframes drift{
+      0%{ transform: translateY(-10px); }
+      100%{ transform: translateY(40px); }
+    }
+
+    /* fireworks burst dots */
+    .burst{
+      position:absolute;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, rgba(212,161,68,.55) 2px, transparent 3px),
+        radial-gradient(circle, rgba(240,198,116,.45) 2px, transparent 3px),
+        radial-gradient(circle, rgba(255,255,255,.35) 2px, transparent 3px);
+      background-size: 38px 38px, 52px 52px, 70px 70px;
+      filter: blur(.2px);
+      opacity: .22;
+      z-index:-1;
+      animation: pulse 3.5s ease-in-out infinite;
+    }
+    .burst.b1{ top: -120px; left: -120px; transform: rotate(8deg); }
+    .burst.b2{ bottom: -150px; right: -140px; transform: rotate(-12deg); animation-delay: 1.2s; }
+    @keyframes pulse{
+      0%,100%{ transform: scale(1) rotate(0deg); opacity:.18; }
+      50%{ transform: scale(1.06) rotate(8deg); opacity:.28; }
+    }
+
+    .hero-inner{ max-width: 980px; padding: 0 10px; }
+
+    .top-badge{
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(212,161,68,.12);
+      border: 1px solid rgba(212,161,68,.35);
+      color: var(--gold-light);
+      font-weight: 900;
+      letter-spacing: .3px;
+      box-shadow: 0 12px 28px rgba(0,0,0,.28);
+      margin-bottom: 18px;
+    }
+
+    h1{
+      font-size: clamp(2.2rem, 5vw, 4.3rem);
       font-weight: 900;
       color: var(--gold);
-      margin-bottom: 14px;
-      text-shadow: 0 10px 30px rgba(0,0,0,.55);
+      text-shadow: 0 12px 34px rgba(0,0,0,.55);
+      margin-bottom: 10px;
       letter-spacing: .2px;
     }
-    .hero p{
-      font-size: clamp(1rem, 2.1vw, 1.25rem);
+
+    .sub{
+      font-size: clamp(1.02rem, 2.2vw, 1.25rem);
       color: #f2f2f2;
       opacity: .95;
-      max-width: 720px;
-      margin: 0 auto 26px;
-      line-height: 1.6;
-    }
-    .hero-cta{
-      display:flex;
-      gap: 12px;
-      justify-content:center;
-      flex-wrap: wrap;
-    }
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      padding: 14px 22px;
-      border-radius: 999px;
-      background: var(--gold);
-      color: #111;
-      text-decoration:none;
-      font-weight: 800;
-      font-size: 1.02rem;
-      box-shadow: 0 6px 22px rgba(212,161,68,.25);
-      transition: .2s ease;
-      border: 0;
-      cursor:pointer;
-    }
-    .btn:hover{ background: var(--gold-light); transform: translateY(-2px); }
-    .btn.secondary{
-      background: transparent;
-      color: var(--gold);
-      border: 1px solid rgba(212,161,68,.55);
-      box-shadow: none;
-    }
-    .btn.secondary:hover{
-      background: rgba(212,161,68,.10);
-      transform: translateY(-2px);
+      line-height: 1.75;
+      max-width: 780px;
+      margin: 0 auto 22px;
     }
 
-    /* SECTION */
-    .section{
-      padding: 90px 20px;
-      max-width: 1200px;
-      margin: auto;
-    }
-    .section-title{
-      text-align:center;
-      font-size: clamp(1.9rem, 3.2vw, 3rem);
-      font-weight: 900;
-      color: var(--gold);
-      margin-bottom: 46px;
-    }
-
-    /* FEATURES */
-    .feature-grid{
-      display:grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 22px;
-    }
-    .feature-card{
-      padding: 28px;
-      background: var(--card-bg);
+    /* Countdown Card */
+    .card{
+      margin: 22px auto 0;
+      max-width: 860px;
+      background: rgba(17,17,17,.92);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,.09);
       border-radius: var(--radius);
-      border: 1px solid rgba(255,255,255,.07);
-      box-shadow: 0 8px 22px rgba(0,0,0,.35);
-      text-align: center;
-      transition: .25s ease;
+      box-shadow: var(--shadow);
+      padding: 22px;
+      position: relative;
+      overflow: hidden;
     }
-    .feature-card:hover{
-      transform: translateY(-6px);
-      box-shadow: 0 14px 34px rgba(0,0,0,.55);
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(700px 240px at 20% 0%, rgba(212,161,68,.16), transparent 60%),
+        radial-gradient(700px 240px at 80% 110%, rgba(240,198,116,.12), transparent 60%);
+      z-index:0;
+      opacity:.9;
     }
-    .feature-card i{
-      font-size: 2.2rem;
-      color: var(--gold);
+    .card > *{ position: relative; z-index: 1; }
+
+    .launch-line{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items:center;
+      justify-content:center;
       margin-bottom: 14px;
-    }
-    .feature-card h4{
-      color: var(--gold);
-      font-size: 1.2rem;
-      margin-bottom: 10px;
+      color: #ddd;
       font-weight: 800;
     }
-    .feature-card p{
-      color: var(--muted);
-      line-height: 1.6;
-      font-size: .98rem;
+    .launch-line .date{
+      color: var(--gold-light);
+      font-weight: 900;
     }
 
-    /* FOOTER */
-    .footer{
-      background: #0d0d0d;
-      padding-top: 70px;
-      border-top: 3px solid var(--gold);
-      margin-top: 80px;
-    }
-    .footer-container{
-      max-width:1200px;
-      margin:auto;
+    .timer{
       display:grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 36px;
-      padding: 0 20px 40px;
+      gap: 14px;
+      margin-top: 12px;
     }
-    .footer-section h3, .footer-section h4{
-      color: var(--gold);
-      font-weight: 900;
-      margin-bottom: 18px;
-      letter-spacing: .4px;
-    }
-    .footer-section p{
-      color: #cccccc;
-      line-height: 1.7;
-      margin-bottom: 10px;
-    }
-    .footer-section a{
-      color:#cccccc;
-      text-decoration:none;
-      display:flex;
-      align-items:center;
-      gap:10px;
-      margin-bottom: 12px;
-      font-weight: 600;
-      transition: .2s ease;
-    }
-    .footer-section a i{ color: var(--gold); }
-    .footer-section a:hover{ color: var(--gold); transform: translateX(4px); }
 
-    .footer-socials{
-      text-align:center;
-      padding: 18px 0 26px;
+    .tbox{
+      padding: 16px 12px;
+      border-radius: 14px;
+      background: rgba(0,0,0,.18);
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 12px 24px rgba(0,0,0,.18);
     }
-    .footer-socials a{
-      display:inline-flex;
-      justify-content:center;
-      align-items:center;
-      width: 46px;
-      height: 46px;
-      border: 2px solid var(--gold);
-      border-radius: 50%;
-      margin: 0 8px;
+
+    .tvalue{
+      font-size: clamp(1.9rem, 4vw, 2.7rem);
+      font-weight: 900;
       color: var(--gold);
-      font-size: 1.15rem;
-      transition: .2s ease;
-      text-decoration:none;
+      line-height: 1;
     }
-    .footer-socials a:hover{
-      background: var(--gold);
-      color:#111;
-      transform: translateY(-3px);
+
+    .tlabel{
+      margin-top: 6px;
+      font-size: .95rem;
+      color: var(--muted);
+      font-weight: 800;
+      letter-spacing: .25px;
     }
-    .footer-bottom{
-      text-align:center;
-      padding: 18px 0;
-      border-top: 1px solid rgba(255,255,255,.10);
-      color:#999;
+
+    .status{
+      margin-top: 16px;
+      color: #dcdcdc;
+      opacity: .95;
+      line-height: 1.75;
+      font-weight: 600;
+    }
+
+    .tiny{
+      margin-top: 10px;
+      color: rgba(255,255,255,.65);
       font-size: .95rem;
     }
 
-    /* FLOATING WHATSAPP */
-    .whatsapp-float{
-      position: fixed;
-      bottom: 22px;
-      right: 22px;
-      background: #25d366;
-      color: white;
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      font-size: 2rem;
-      box-shadow: 0 10px 25px rgba(0,0,0,.45);
-      cursor:pointer;
-      transition: .2s ease;
-      z-index: 998;
-      text-decoration:none;
-    }
-    .whatsapp-float:hover{ transform: scale(1.06); }
-
-    /* BACK TO TOP */
-    #topBtn{
-      position: fixed;
-      bottom: 22px;
-      left: 22px;
-      background: var(--gold);
-      color: #111;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      display:none;
-      justify-content:center;
-      align-items:center;
-      cursor:pointer;
-      font-size: 1.25rem;
-      box-shadow: 0 10px 25px rgba(0,0,0,.45);
-      z-index: 998;
-      border: none;
-    }
-
-    /* MOBILE NAV (OFFCANVAS) */
-    .nav-toggle{
-      display:none;
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      border: 1px solid rgba(212,161,68,.35);
-      background: rgba(17,17,17,.7);
-      color: var(--gold);
-      box-shadow: 0 10px 25px rgba(0,0,0,.25);
-      cursor:pointer;
-      align-items:center;
-      justify-content:center;
-    }
-
-    /* Professional hamburger icon (3 lines) */
-    .hamburger{
-      width: 22px;
-      height: 14px;
-      position: relative;
+    /* sparkle */
+    .sparkle{
       display:inline-block;
+      margin-left: 6px;
+      color: var(--gold-light);
+      animation: twinkle 1.6s ease-in-out infinite;
     }
-    .hamburger span{
-      position:absolute;
-      left:0;
-      width:100%;
-      height:2px;
-      background: var(--gold);
-      border-radius: 999px;
-      transition: .2s ease;
-    }
-    .hamburger span:nth-child(1){ top:0; }
-    .hamburger span:nth-child(2){ top:6px; opacity:1; }
-    .hamburger span:nth-child(3){ bottom:0; }
-
-    /* When open -> X */
-    .nav-open .hamburger span:nth-child(1){ transform: translateY(6px) rotate(45deg); }
-    .nav-open .hamburger span:nth-child(2){ opacity:0; }
-    .nav-open .hamburger span:nth-child(3){ transform: translateY(-6px) rotate(-45deg); }
-
-    .overlay{
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.55);
-      opacity:0;
-      visibility:hidden;
-      transition: .25s ease;
-      z-index: 997;
+    @keyframes twinkle{
+      0%,100%{ transform: scale(1); opacity:.85; }
+      50%{ transform: scale(1.25); opacity:1; }
     }
 
-    /* Offcanvas container */
-    .mobile-panel{
-      position: fixed;
-      top: 0;
-      right: 0;
-      height: 100%;
-      width: min(88vw, 340px);
-      transform: translateX(102%);
-      transition: .25s ease;
-      z-index: 998;
-      background: rgba(17,17,17,.96);
-      backdrop-filter: blur(10px);
-      border-left: 1px solid var(--border);
-      box-shadow: -10px 0 30px rgba(0,0,0,.35);
-      padding: 18px 16px 18px;
-      display:flex;
-      flex-direction:column;
-      gap: 12px;
-      overflow-y:auto;
-    }
-
-    .mobile-head{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-      padding: 6px 4px 10px;
-      border-bottom: 1px solid rgba(255,255,255,.08);
-      margin-bottom: 6px;
-    }
-    .mobile-title{
-      color: var(--gold);
-      font-weight: 900;
-      letter-spacing: .2px;
-    }
-    .close-btn{
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.25);
-      color: var(--text);
-      cursor:pointer;
-    }
-
-    .mobile-links{
-      list-style:none;
-      display:flex;
-      flex-direction:column;
-      gap: 6px;
-      padding: 4px;
-    }
-    .mobile-links a{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-      padding: 12px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,.08);
-      background: rgba(0,0,0,.15);
-      color: var(--text);
-      text-decoration:none;
-      font-weight: 700;
-      transition: .2s ease;
-    }
-    .mobile-links a:hover{ border-color: rgba(212,161,68,.35); color: var(--gold); }
-
-    .mobile-dropdown{
-      border-radius: 12px;
-      overflow:hidden;
-      border: 1px solid rgba(255,255,255,.08);
-      background: rgba(0,0,0,.12);
-    }
-    .mobile-dropdown button{
-      width:100%;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-      padding: 12px 12px;
-      border: 0;
-      background: transparent;
-      color: var(--text);
-      font-weight: 800;
-      cursor:pointer;
-    }
-    .mobile-dropdown .panel{
-      display:none;
-      padding: 6px 10px 10px;
-      border-top: 1px solid rgba(255,255,255,.08);
-    }
-    .mobile-dropdown .panel a{
-      display:block;
-      padding: 10px 10px;
-      border-radius: 10px;
-      text-decoration:none;
-      color: #d6d6d6;
-      font-weight: 650;
-      border: 1px solid rgba(255,255,255,.06);
-      background: rgba(0,0,0,.12);
-      margin-top: 6px;
-    }
-    .mobile-dropdown .panel a:hover{ color: var(--gold); border-color: rgba(212,161,68,.25); }
-
-    /* OPEN STATES */
-    .nav-open .overlay{ opacity:1; visibility:visible; }
-    .nav-open .mobile-panel{ transform: translateX(0); }
-
-    /* RESPONSIVE */
-    @media (max-width: 980px){
-      nav{ display:none; }                 /* hide desktop nav */
-      .nav-toggle{ display:inline-flex; } /* show professional hamburger button */
-      .logo-text{ display:block; }        /* optional brand text on smaller screens */
-      header{ padding: 12px 16px; }
-      .feature-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
-      .footer-container{ grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 560px){
-      .feature-grid{ grid-template-columns: 1fr; }
-      .footer-container{ grid-template-columns: 1fr; }
-      .brand img{ height:44px; }
+    @media (max-width: 720px){
+      .timer{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .logo-text{ display:none; }
+      header{ padding: 12px 14px; }
     }
   </style>
 </head>
 
 <body>
-  <!-- HEADER -->
   <header>
-    <a class="brand" href="index.html" aria-label="Go to Home">
+    <a class="brand" href="#" aria-label="Thabza Phenomenal">
       <img src="logo.png" alt="Thabza Phenomenal Logo" />
       <span class="logo-text">Thabza Phenomenal</span>
     </a>
-
-    <!-- Professional hamburger (mobile) -->
-    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-controls="mobileMenu" aria-expanded="false">
-      <span class="sr-only">Menu</span>
-      <span class="hamburger" aria-hidden="true">
-        <span></span><span></span><span></span>
-      </span>
-    </button>
-
-    <!-- Desktop nav -->
-    <nav aria-label="Primary navigation">
-      <ul id="desktopNav">
-        <li><a class="active" href="index.html">Home</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="portfolio.html">Portfolio</a></li>
-        <li><a href="pricing.html">Pricing</a></li>
-        <li><a href="blog.html">Blog</a></li>
-
-        <li class="dropdown">
-          <a class="dropbtn" href="#" id="desktopDrop" aria-haspopup="true" aria-expanded="false">
-            Other Services <i class="fa-solid fa-chevron-down chev"></i>
-          </a>
-          <div class="dropdown-menu" role="menu" aria-label="Other services">
-            <a role="menuitem" href="driving.html">Driving School</a>
-            <a role="menuitem" href="printing.html">Printing</a>
-            <a role="menuitem" href="photography.html">Photography</a>
-            <a role="menuitem" href="webdesign.html">Web Design</a>
-            <a role="menuitem" href="consultation.html">Consultation</a>
-          </div>
-        </li>
-      </ul>
-    </nav>
   </header>
 
-  <!-- Mobile overlay + panel -->
-  <div class="overlay" id="overlay" tabindex="-1" aria-hidden="true"></div>
+  <section class="hero">
+    <div class="confetti" aria-hidden="true"></div>
+    <div class="burst b1" aria-hidden="true"></div>
+    <div class="burst b2" aria-hidden="true"></div>
 
-  <aside class="mobile-panel" id="mobileMenu" aria-label="Mobile menu">
-    <div class="mobile-head">
-      <div class="mobile-title">Menu</div>
-      <button class="close-btn" id="closeMenu" aria-label="Close menu">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-    </div>
-
-    <ul class="mobile-links">
-      <li><a href="index.html">Home <i class="fa-solid fa-arrow-right"></i></a></li>
-      <li><a href="services.html">Services <i class="fa-solid fa-arrow-right"></i></a></li>
-      <li><a href="about.html">About <i class="fa-solid fa-arrow-right"></i></a></li>
-      <li><a href="contact.html">Contact <i class="fa-solid fa-arrow-right"></i></a></li>
-      <li><a href="portfolio.html">Portfolio <i class="fa-solid fa-arrow-right"></i></a></li>
-      <li><a href="pricing.html">Pricing <i class="fa-solid fa-arrow-right"></i></a></li>
-      <li><a href="blog.html">Blog <i class="fa-solid fa-arrow-right"></i></a></li>
-
-      <li class="mobile-dropdown">
-        <button type="button" id="mobileDropBtn" aria-expanded="false" aria-controls="mobileDropPanel">
-          Other Services
-          <i class="fa-solid fa-chevron-down"></i>
-        </button>
-        <div class="panel" id="mobileDropPanel">
-          <a href="driving.html">Driving School</a>
-          <a href="printing.html">Printing</a>
-          <a href="photography.html">Photography</a>
-          <a href="webdesign.html">Web Design</a>
-          <a href="consultation.html">Consultation</a>
-        </div>
-      </li>
-    </ul>
-  </aside>
-
-  <!-- HERO -->
-  <section class="hero" id="home">
     <div class="hero-inner">
-      <h1>Premium. Professional. Phenomenal.</h1>
-      <p>Your trusted partner for branding, printing, PPE, company solutions and creative services.</p>
+      <div class="top-badge">
+        <i class="fa-solid fa-champagne-glasses"></i>
+        Happy New Year <span style="color:var(--gold); font-weight:900;">2026</span>
+        <span class="sparkle"><i class="fa-solid fa-sparkles"></i></span>
+      </div>
 
-      <div class="hero-cta">
-        <a href="contact.html" class="btn"><i class="fa-solid fa-paper-plane"></i> Request a Quote</a>
-        <a href="#features" class="btn secondary"><i class="fa-solid fa-circle-info"></i> Why Choose Us</a>
+      <h1>New Year. New Website.</h1>
+      <p class="sub">
+        We’re excited to officially launch our website this coming <b>Wednesday</b>
+      </p>
+
+      <div class="card" role="region" aria-label="Launch countdown">
+        <div class="launch-line">
+          <span><i class="fa-solid fa-rocket"></i> Launch:</span>
+          <span class="date" id="launchText">Wednesday, 14 January 2026 • 10:00 (SAST)</span>
+        </div>
+
+        <div class="timer" aria-live="polite">
+          <div class="tbox">
+            <div class="tvalue" id="days">00</div>
+            <div class="tlabel">Days</div>
+          </div>
+          <div class="tbox">
+            <div class="tvalue" id="hours">00</div>
+            <div class="tlabel">Hours</div>
+          </div>
+          <div class="tbox">
+            <div class="tvalue" id="minutes">00</div>
+            <div class="tlabel">Minutes</div>
+          </div>
+          <div class="tbox">
+            <div class="tvalue" id="seconds">00</div>
+            <div class="tlabel">Seconds</div>
+          </div>
+        </div>
+
+        <p class="status" id="statusMsg">
+          <i class="fa-solid fa-bell"></i>
+          Thank you for your support, we’ll see you on Wednesday for the official launch 🎉
+        </p>
+
+        <p class="tiny">
+          <i class="fa-regular fa-clock"></i>
+          Countdown uses your device time (SAST set in the launch date).
+        </p>
       </div>
     </div>
   </section>
-
-  <!-- FEATURES -->
-  <section class="section" id="features">
-    <h2 class="section-title">Why Choose Us</h2>
-
-    <div class="feature-grid">
-      <div class="feature-card">
-        <i class="fa-solid fa-ranking-star"></i>
-        <h4>Premium Quality</h4>
-        <p>High-standard workmanship that strengthens your brand and helps you stand out.</p>
-      </div>
-
-      <div class="feature-card">
-        <i class="fa-solid fa-users"></i>
-        <h4>Professional Team</h4>
-        <p>Experienced specialists focused on clear communication and consistent results.</p>
-      </div>
-
-      <div class="feature-card">
-        <i class="fa-solid fa-stopwatch"></i>
-        <h4>Fast Turnaround</h4>
-        <p>Reliable delivery timelines without compromising quality or attention to detail.</p>
-      </div>
-
-      <div class="feature-card">
-        <i class="fa-solid fa-handshake-angle"></i>
-        <h4>Reliable Partner</h4>
-        <p>A collaborative approach—from quote to delivery—for a smooth experience.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="footer-container">
-      <div class="footer-section">
-        <h3>Thabza Phenomenal</h3>
-        <p>Your trusted partner in branding, printing, PPE and business development.</p>
-      </div>
-
-      <div class="footer-section">
-        <h4>Services</h4>
-        <a href="brand.html"><i class="fa-solid fa-circle-chevron-right"></i> Branding & Printing</a>
-        <a href="graphic.html"><i class="fa-solid fa-circle-chevron-right"></i> Graphic Design</a>
-        <a href="PPE.html"><i class="fa-solid fa-circle-chevron-right"></i> PPE Supply</a>
-        <a href="catering.html"><i class="fa-solid fa-circle-chevron-right"></i> Catering</a>
-      </div>
-
-      <div class="footer-section">
-        <h4>Quick Links</h4>
-        <a href="index.html"><i class="fa-solid fa-link"></i> Home</a>
-        <a href="#features"><i class="fa-solid fa-link"></i> Why Us</a>
-        <a href="contact.html"><i class="fa-solid fa-link"></i> Contact</a>
-      </div>
-
-      <div class="footer-section">
-        <h4>Contact</h4>
-        <p><i class="fa-solid fa-phone"></i> +27 72 614 2430</p>
-        <p><i class="fa-solid fa-envelope"></i> admin@thabzaphenomenal.co.za</p>
-        <p><i class="fa-solid fa-location-dot"></i> South Africa</p>
-      </div>
-    </div>
-
-    <div class="footer-socials">
-      <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-      <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-      <a href="https://wa.me/27726142430" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-    </div>
-
-    <div class="footer-bottom">© 2025 Thabza Phenomenal. All Rights Reserved.</div>
-  </footer>
-
-  <!-- FLOATING WHATSAPP -->
-  <a href="https://wa.me/27726142430" class="whatsapp-float" aria-label="Chat on WhatsApp">
-    <i class="fab fa-whatsapp"></i>
-  </a>
-
-  <!-- BACK TO TOP -->
-  <button id="topBtn" aria-label="Back to top">
-    <i class="fas fa-arrow-up"></i>
-  </button>
 
   <script>
-    // ===== MOBILE MENU (professional offcanvas) =====
-    const body = document.body;
-    const navToggle = document.getElementById("navToggle");
-    const overlay = document.getElementById("overlay");
-    const closeMenu = document.getElementById("closeMenu");
+    /**
+     * Set launch date/time here.
+     * Current setup: Wednesday 14 Jan 2026 at 10:00 SAST (UTC+2)
+     * If you want midnight instead, change to:
+     * new Date("2026-01-14T00:00:00+02:00")
+     */
+    const launchDate = new Date("2026-01-14T10:00:00+02:00");
 
-    function openMenu(){
-      body.classList.add("nav-open");
-      navToggle.setAttribute("aria-expanded", "true");
-      overlay.setAttribute("aria-hidden", "false");
-      // trap-like UX: focus close button
-      closeMenu.focus();
-    }
+    const elDays = document.getElementById("days");
+    const elHours = document.getElementById("hours");
+    const elMinutes = document.getElementById("minutes");
+    const elSeconds = document.getElementById("seconds");
+    const statusMsg = document.getElementById("statusMsg");
 
-    function closeMenuFn(){
-      body.classList.remove("nav-open");
-      navToggle.setAttribute("aria-expanded", "false");
-      overlay.setAttribute("aria-hidden", "true");
-      navToggle.focus();
-    }
+    function pad(n){ return String(n).padStart(2, "0"); }
 
-    navToggle.addEventListener("click", () => {
-      body.classList.contains("nav-open") ? closeMenuFn() : openMenu();
-    });
-    overlay.addEventListener("click", closeMenuFn);
-    closeMenu.addEventListener("click", closeMenuFn);
+    function updateCountdown(){
+      const now = new Date();
+      let diff = launchDate - now;
 
-    // Close menu on ESC
-    document.addEventListener("keydown", (e) => {
-      if(e.key === "Escape" && body.classList.contains("nav-open")) closeMenuFn();
-    });
-
-    // Close menu when clicking a link inside the panel
-    document.getElementById("mobileMenu").addEventListener("click", (e) => {
-      if(e.target.closest("a")) closeMenuFn();
-    });
-
-    // ===== DESKTOP DROPDOWN =====
-    const desktopDrop = document.getElementById("desktopDrop");
-    const dropdownLi = desktopDrop?.closest(".dropdown");
-
-    desktopDrop?.addEventListener("click", (e) => {
-      e.preventDefault();
-      dropdownLi.classList.toggle("show");
-      desktopDrop.setAttribute("aria-expanded", dropdownLi.classList.contains("show") ? "true" : "false");
-    });
-
-    document.addEventListener("click", (e) => {
-      if(!dropdownLi) return;
-      if(!e.target.closest(".dropdown")) {
-        dropdownLi.classList.remove("show");
-        desktopDrop.setAttribute("aria-expanded","false");
+      if(diff <= 0){
+        elDays.textContent = "00";
+        elHours.textContent = "00";
+        elMinutes.textContent = "00";
+        elSeconds.textContent = "00";
+        statusMsg.innerHTML = '<i class="fa-solid fa-circle-check"></i> We are live! Happy New Year 2026 🎆';
+        clearInterval(timer);
+        return;
       }
-    });
 
-    // ===== MOBILE DROPDOWN =====
-    const mobileDropBtn = document.getElementById("mobileDropBtn");
-    const mobileDropPanel = document.getElementById("mobileDropPanel");
+      const totalSeconds = Math.floor(diff / 1000);
+      const days = Math.floor(totalSeconds / (3600 * 24));
+      const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
 
-    mobileDropBtn.addEventListener("click", () => {
-      const open = mobileDropPanel.style.display === "block";
-      mobileDropPanel.style.display = open ? "none" : "block";
-      mobileDropBtn.setAttribute("aria-expanded", open ? "false" : "true");
-    });
+      elDays.textContent = pad(days);
+      elHours.textContent = pad(hours);
+      elMinutes.textContent = pad(minutes);
+      elSeconds.textContent = pad(seconds);
+    }
 
-    // ===== BACK TO TOP =====
-    const topBtn = document.getElementById("topBtn");
-    window.addEventListener("scroll", () => {
-      topBtn.style.display = document.documentElement.scrollTop > 200 ? "flex" : "none";
-    });
-    topBtn.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
+    updateCountdown();
+    const timer = setInterval(updateCountdown, 1000);
   </script>
 </body>
 </html>
